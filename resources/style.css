@@ -1,0 +1,38 @@
+/* Стили для кнопки Telegram */
+.telegram-animated {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    animation: telegramPulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.telegram-animated:hover {
+    transform: scale(1.11) rotate(-6deg);
+    border-radius: 50%;
+}
+
+@keyframes telegramPulse {
+    0% {
+        box-shadow: none;
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+    60% {
+        box-shadow: none;
+        opacity: 1;
+        transform: scale(1.1) rotate(-6deg);
+    }
+    100% {
+        box-shadow: none;
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* Панель навигации — прозрачность */
+.w-96.h-12.rounded-full.flex.items-center.justify-between.px-5 {
+  background: rgba(255, 255, 255, 0.6) !important;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+}
