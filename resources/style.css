@@ -1,6 +1,10 @@
 /* Общие цвета для страниц */
 :root {
   --color-custom-hover: #00000010;
+  --color-background-top: #f7cac9;
+  --color-background-middle: #92a8d1;
+  --color-background-bottom: #b5ead7;
+  --color-background-current: var(--color-background-top);
 }
 
 /* Стили для кнопки Telegram */
@@ -40,5 +44,24 @@
   background: rgba(255, 255, 255, 0.6) !important;
   backdrop-filter: blur(8px);
   box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+}
+
+.slide-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: start;
+}
+
+html, body {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+body {
+  background: var(--bg-dynamic, var(--color-background-top));
+  transition: background 0.7s cubic-bezier(0.4,0,0.2,1);
 }
 
