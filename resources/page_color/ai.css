@@ -1,0 +1,15 @@
+:root {
+  /* Градиент фона */
+  --color-background-top: #FFEDF5;
+
+  /* Навигационная панель */
+  --color-hover-current-page: #38001B;
+  --color-text-current-page: #FD589E;
+
+  /* Значок Telegram */
+  --color-telegram-icon: #FD589E;
+}
+
+body {
+  color: #340017; /* Цвет текста */
+}
