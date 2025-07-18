@@ -13,8 +13,33 @@
 <!-- Модальное окно -->
 <div id="modalOverlay" class="fixed inset-0 z-[999] flex items-center justify-center bg-transparent hidden">
   <!-- Только волна с анимированным градиентом, без отдельного фонового блока -->
-  <div id="modalCircle" class="absolute rounded-full" style="width:80px; height:80px; right:32px; top:24px; transform:scale(0); background: linear-gradient(135deg, #a5b4fc, #fca5a5, #fcd34d, #6ee7b7); opacity:0.8;"></div>
-  <!-- Карточка без тени -->
+  <div id="modalCircle" class="absolute rounded-full right-6 top-6 md:top-6 md:right-8 z-50" style="width:80px; height:80px; transform:scale(0); background: var(--color-modal-background);"></div>
+  <!-- Контейнер для всех карточек -->
+  <div id="modalContent" class="absolute z-50 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center space-y-4" style="opacity:0; transform:scale(0); transition:opacity 0.5s, transform 0.5s;">
+    <!-- Центральная карточка (vCard) -->
+    <a href="tel:+79310037539" target="_blank" rel="noopener noreferrer">
+    <div id="modalCard" class="bg-white rounded-3xl p-6 w-72 flex flex-col items-center">
+      <img src="https://genqrcode.com/embedded?style=15&inner_eye_style=2&outer_eye_style=2&logo=null&color=%23000000FF&background_color=%23FFFFFFFF&inner_eye_color=%23000000&outer_eye_color=%23000000&imageformat=svg&language=en&frame_style=0&frame_text=SCAN%20ME&frame_text_icon_color=%23000000&frame_text_icon=null&frame_color=%23000000&frame_background_color=%23FFFFFF&frame_text_color=%23FFFFFF&invert_colors=false&gradient_style=0&gradient_color_start=%23FF0000&gradient_color_end=%237F007F&gradient_start_offset=5&gradient_end_offset=95&stl_type=1&logo_remove_background=false&stl_size=100&stl_qr_height=1.5&stl_base_height=2&stl_include_stands=false&stl_qr_magnet_type=3&stl_qr_magnet_count=0&type=6&vc_first_name=%D0%90%D0%BD%D0%B0%D1%81%D1%82%D0%B0%D1%81%D0%B8%D1%8F&vc_last_name=%D0%9C%D0%B5%D1%80%D0%BA%D0%BE%D0%B5%D0%B2%D0%B0&vc_mobile=%2B79310037539&vc_phone=&vc_fax=&vc_email=mail%40method-a.ru&vc_company=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%E2%80%94%D0%90&vc_job=CEO&vc_street=&vc_city=&vc_zip=&vc_state=&vc_country=&vc_website=&vc_note=&width=500&height=500&bordersize=2" alt="QR Code" class="w-full h-auto rounded-lg mb-4" />
+      <div class="text-lg font-semibold text-gray-800">vCard</div>
+    </div></a>
+    
+    <!-- Нижние карточки -->
+    <div class="flex space-x-4">
+      <!-- WhatsApp карточка -->
+      <a href="https://wa.me/79310037539" target="_blank" rel="noopener noreferrer">
+      <div id="whatsappCard" class="bg-white rounded-3xl p-4 w-32 flex flex-col items-center md:bg-white" style="background: var(--color-messenger1);">
+        <img src="https://genqrcode.com/embedded?style=15&inner_eye_style=2&outer_eye_style=2&logo=null&color=%23000000FF&background_color=%23FFFFFFFF&inner_eye_color=%23000000&outer_eye_color=%23000000&imageformat=svg&language=en&frame_style=0&frame_text=SCAN%20ME&frame_text_icon_color=%23000000&frame_text_icon=null&frame_color=%23000000&frame_background_color=%23FFFFFF&frame_text_color=%23FFFFFF&invert_colors=false&gradient_style=0&gradient_color_start=%23FF0000&gradient_color_end=%237F007F&gradient_start_offset=5&gradient_end_offset=95&stl_type=1&logo_remove_background=false&stl_size=100&stl_qr_height=1.5&stl_base_height=2&stl_include_stands=false&stl_qr_magnet_type=3&stl_qr_magnet_count=0&type=3&url=https%3A%2F%2Fwa.me%2F79310037539&width=300&height=300&bordersize=2" alt="WhatsApp QR" class="w-full h-auto rounded-lg mb-2 hidden md:block" />
+        <div class="text-sm font-semibold text-gray-800">WhatsApp</div>
+      </div></a>
+      
+      <!-- Telegram карточка -->
+      <a href="https://t.me/method-a" target="_blank" rel="noopener noreferrer">
+      <div id="telegramCard" class="bg-white rounded-3xl p-4 w-32 flex flex-col items-center md:bg-white" style="background: var(--color-messenger2);">
+        <img src="https://genqrcode.com/embedded?style=15&inner_eye_style=2&outer_eye_style=2&logo=null&color=%23000000FF&background_color=%23FFFFFFFF&inner_eye_color=%23000000&outer_eye_color=%23000000&imageformat=svg&language=en&frame_style=0&frame_text=SCAN%20ME&frame_text_icon_color=%23000000&frame_text_icon=null&frame_color=%23000000&frame_background_color=%23FFFFFF&frame_text_color=%23FFFFFF&invert_colors=false&gradient_style=0&gradient_color_start=%23FF0000&gradient_color_end=%237F007F&gradient_start_offset=5&gradient_end_offset=95&stl_type=1&logo_remove_background=false&stl_size=100&stl_qr_height=1.5&stl_base_height=2&stl_include_stands=false&stl_qr_magnet_type=3&stl_qr_magnet_count=0&type=3&url=https%3A%2F%2Ft.me%2Fanasya_method&width=300&height=300&bordersize=2" alt="Telegram QR" class="w-full h-auto rounded-lg mb-2 hidden md:block" />
+        <div class="text-sm font-semibold text-gray-800">Telegram</div>
+      </div></a>
+    </div>
+  </div>
 
   <!-- SVG крестик для закрытия -->
   <div class="rounded-full flex items-center justify-between absolute right-6 top-6 md:top-6 md:right-8 z-50">

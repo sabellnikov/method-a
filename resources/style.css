@@ -2,6 +2,9 @@
 :root {
   --color-custom-hover: #00000010;
   --color-background-current: var(--color-background-top);
+  --color-modal-background: #DCF5F2;
+  --color-messenger1: #25D366;
+  --color-messenger2: #2AABEE;
 }
 
 .slide-section {

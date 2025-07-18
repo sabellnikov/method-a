@@ -22,46 +22,66 @@ document.addEventListener('DOMContentLoaded', updateBackground);
 document.addEventListener('DOMContentLoaded', function() {
   const methodIcon = document.getElementById('methodIcon');
   const modalOverlay = document.getElementById('modalOverlay');
-  const modalCircle = document.getElementById('modalCircle');
   const closeModalIcon = document.getElementById('closeModalIcon');
 
   function openModal() {
     modalOverlay.classList.remove('hidden');
-    // Получаем координаты центра иконки
-    const iconRect = methodIcon.getBoundingClientRect();
-    const circle = modalCircle;
-    // Устанавливаем круг и крестик в верхний правый угол
-    const right = (window.innerWidth - iconRect.right + iconRect.width/2);
-    const top = (iconRect.top + iconRect.height/2 - 40);
-    circle.style.right = right + 'px';
-    circle.style.top = top + 'px';
-    closeModalIcon.style.right = right + 'px';
-    closeModalIcon.style.top = top + 'px';
+    
+    // Запрещаем скролл основного контента
+    document.body.style.overflow = 'hidden';
+    
+    // Устанавливаем анимированный фон
+    modalOverlay.style.background = 'var(--color-modal-background)';
     closeModalIcon.style.display = 'block';
-    // Вычисляем максимальный радиус для покрытия экрана
+    
+    // Показываем контейнер с карточками (убираем скрывающие стили)
+    const content = document.getElementById('modalContent');
+    content.style.opacity = '1';
+    content.style.transform = 'scale(1)';
+    
+    // Получаем центр иконки для волны
+    const iconRect = methodIcon.getBoundingClientRect();
+    const centerX = iconRect.left + iconRect.width / 2;
+    const centerY = iconRect.top + iconRect.height / 2;
     const maxRadius = Math.sqrt(window.innerWidth**2 + window.innerHeight**2);
-    // Анимация круга
-    gsap.fromTo(circle, {
-      scale: 0,
-      opacity: 1
-    }, {
-      scale: maxRadius/40,
-      duration: 0.6,
-      ease: 'power2.out'
-    });
+    
+    // GSAP анимация волны
+    gsap.fromTo(modalOverlay, 
+      { clipPath: `circle(0px at ${centerX}px ${centerY}px)` },
+      { 
+        clipPath: `circle(${maxRadius}px at ${centerX}px ${centerY}px)`,
+        duration: 0.6,
+        ease: 'power2.out'
+      }
+    );
   }
+
   function closeModal() {
-    gsap.to(modalCircle, {
-      scale: 0,
-      opacity: 0.8,
+    const iconRect = methodIcon.getBoundingClientRect();
+    const centerX = iconRect.left + iconRect.width / 2;
+    const centerY = iconRect.top + iconRect.height / 2;
+    
+    gsap.to(modalOverlay, {
+      clipPath: `circle(0px at ${centerX}px ${centerY}px)`,
       duration: 0.5,
       ease: 'power2.in',
       onComplete: () => {
         modalOverlay.classList.add('hidden');
         closeModalIcon.style.display = 'none';
+        modalOverlay.style.clipPath = 'none';
+        modalOverlay.style.background = 'transparent';
+        
+        // Возвращаем скролл основного контента
+        document.body.style.overflow = 'auto';
+        
+        // Сбрасываем стили контейнера
+        const content = document.getElementById('modalContent');
+        content.style.opacity = '0';
+        content.style.transform = 'scale(0)';
       }
     });
   }
+
   methodIcon.addEventListener('click', openModal);
   closeModalIcon.addEventListener('click', closeModal);
   document.addEventListener('keydown', (e) => {
