@@ -1,11 +1,13 @@
-// Смена фона body при скролле по слайдам с плавной анимацией через CSS-переменную
+// Плавная смена фона body при скролле с помощью requestAnimationFrame
 const slides = document.querySelectorAll('.slide-section');
+let lastIndex = -1;
+let ticking = false;
 
 function setBodyBg(color) {
   document.documentElement.style.setProperty('--bg-dynamic', color);
 }
 
-function onScroll() {
+function updateBg() {
   let current = 0;
   slides.forEach((slide, idx) => {
     const rect = slide.getBoundingClientRect();
@@ -13,9 +15,20 @@ function onScroll() {
       current = idx;
     }
   });
-  const color = slides[current].getAttribute('data-bg');
-  setBodyBg(color);
+  if (current !== lastIndex) {
+    const color = slides[current].getAttribute('data-bg');
+    setBodyBg(color);
+    lastIndex = current;
+  }
+  ticking = false;
+}
+
+function onScroll() {
+  if (!ticking) {
+    window.requestAnimationFrame(updateBg);
+    ticking = true;
+  }
 }
 
 window.addEventListener('scroll', onScroll);
-window.addEventListener('DOMContentLoaded', onScroll);
+window.addEventListener('DOMContentLoaded', updateBg);
