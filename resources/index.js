@@ -1,41 +1,21 @@
-// Плавная смена фона body при скролле с помощью requestAnimationFrame
-// Гарантированная последовательная прокрутка слайдов на мобильных устройствах
-const slides = document.querySelectorAll('.slide-section');
-let lastIndex = -1;
-let ticking = false;
-let scrollTimeout;
+// Для работы скрипта подключите GSAP:
 
-function setBodyBg(color) {
-  document.documentElement.style.setProperty('--bg-dynamic', color);
-}
+const sections = document.querySelectorAll('.slide-section');
+const root = document.documentElement;
 
-function updateBgAndSnap() {
-  let current = 0;
-  slides.forEach((slide, idx) => {
-    const rect = slide.getBoundingClientRect();
-    if (rect.top <= window.innerHeight/2 && rect.bottom >= window.innerHeight/2) {
-      current = idx;
+function updateBackground() {
+  let found = false;
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (!found && rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+      const bg = section.getAttribute('data-bg');
+      gsap.to(root, { duration: 0.7, '--color-background-current': bg });
+      found = true;
     }
   });
-  if (current !== lastIndex) {
-    const color = slides[current].getAttribute('data-bg');
-    setBodyBg(color);
-    lastIndex = current;
-  }
-  // Принудительно скроллим к ближайшему слайду после свайпа
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => {
-    slides[current].scrollIntoView({behavior: 'smooth'});
-  }, 80);
-  ticking = false;
 }
 
-function onScroll() {
-  if (!ticking) {
-    window.requestAnimationFrame(updateBgAndSnap);
-    ticking = true;
-  }
-}
+window.addEventListener('scroll', updateBackground);
+window.addEventListener('resize', updateBackground);
+document.addEventListener('DOMContentLoaded', updateBackground);
 
-window.addEventListener('scroll', onScroll);
-window.addEventListener('DOMContentLoaded', updateBgAndSnap);

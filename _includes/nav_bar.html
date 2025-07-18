@@ -1,15 +1,15 @@
 <!-- Навигационная панель -->
 
 {% assign hover_link = '
-      class="font-bold rounded-full px-3 py-1 text-center whitespace-nowrap text-base"
+      class="font-semibold rounded-full px-3 py-1 text-center whitespace-nowrap text-base"
       style="background:var(--color-hover-current-page); color:var(--color-text-current-page)"
 ' %}
 
 {% assign usual_link = '
-      class="font-bold rounded-full hover:bg-[var(--color-custom-hover)] px-1.5 py-1 text-center whitespace-nowrap text-base"
+      class="font-semibold rounded-full hover:bg-[var(--color-custom-hover)] px-1.5 py-1 text-center whitespace-nowrap text-base"
 ' %}
 
-<div class="inline-flex h-12 rounded-full items-center justify-between px-5 fixed left-1/2 -translate-x-1/2 bottom-4 z-50 bg-white/30 backdrop-blur sm:top-4 sm:bottom-auto">
+<div class="inline-flex h-12 rounded-full items-center justify-between px-5 fixed left-1/2 -translate-x-1/2 bottom-4 z-50 bg-white/30 backdrop-blur-md sm:top-4 sm:bottom-auto">
   <a href="/"
     {% if page.url == "/" or page.url == "/index.html" %}
       {{ hover_link }}
@@ -24,18 +24,18 @@
       {{ usual_link }}
     {% endif %}
   >Проекты</a>
-  <a href="/ai"
-    {% if page.url == "/ai" or page.url == "/ai.html" %}
+  <a href="/journal"
+    {% if page.url == "/journal" or page.url == "/journal.html" %}
       {{ hover_link }}
     {% else %}
       {{ usual_link }}
     {% endif %}
-  >Нейро</a>
+  >Журнал</a>
   <a href="/work"
     {% if page.url == "/work" or page.url == "/work.html" %}
       {{ hover_link }}
     {% else %}
       {{ usual_link }}
     {% endif %}
-  >Работа</a>
+  >Команда</a>
 </div>
