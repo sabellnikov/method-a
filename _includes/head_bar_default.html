@@ -1,0 +1,9 @@
+    {% if page.url == "/" or page.url == "/index.html" %}
+      <link rel="stylesheet" href="/resources/page_color/index.css">
+    {% elsif page.url == "/pro" or page.url == "/pro.html" %}
+      <link rel="stylesheet" href="/resources/page_color/pro.css">
+    {% elsif page.url == "/journal" or page.url == "/journal.html" %}
+      <link rel="stylesheet" href="/resources/page_color/journal.css">
+    {% elsif page.url == "/work" or page.url == "/work.html" %}
+      <link rel="stylesheet" href="/resources/page_color/work.css">
+    {% endif %}

@@ -4,7 +4,12 @@ layout: default
 
 <div>
   <div class="slide-section" data-bg="var(--color-background-top)">
-    <p class="mt-2">Scroll Down for next slide</p>
+     <p class="mt-2">
+      <!-- site.categories.CATEGORY отображение определенной категории -->
+        {% for post in site.categories.post %}
+          <a href="{{ post.url }}">{{ post.title }}</a>
+        {% endfor %}
+    </p>
   </div>
   <div class="slide-section" data-bg="var(--color-background-middle)">
     <p class="mt-2">Scroll Down for next slide</p>

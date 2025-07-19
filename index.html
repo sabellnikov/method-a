@@ -4,7 +4,15 @@ layout: default
 
 <div>
   <div class="slide-section" data-bg="var(--color-background-top)">
-     <p class="mt-2">Scroll Down for next </p>
+     <p class="mt-2">
+      <!-- site.categories.CATEGORY отображение определенной категории -->
+      {% for post in site.categories.case %}
+        <div class="card" style="display: flex; align-items: center; margin-bottom: 1rem; padding: 1rem; background: #fff; border-radius: 8px; border: 1px solid #eee;">
+          <img src="/resources/case_icons/{{ post.tags }}.png" class="featured-image-post" style="width:48px; height:48px; margin-right: 1rem; object-fit: contain;"/>
+          <a href="{{ post.url }}" style="font-size: 1.1rem; font-weight: 500;">{{ post.title }}</a>
+        </div>
+      {% endfor %}
+
   </div>
   <div class="slide-section" data-bg="var(--color-background-middle)">
     <p class="mt-2">Scroll Down for next </p>

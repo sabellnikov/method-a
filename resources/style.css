@@ -7,6 +7,12 @@
   --color-messenger2: #2AABEE;
 }
 
+.featured-image-post {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+}
+
 .slide-section {
   min-height: 100vh;
   width: 100vw;
