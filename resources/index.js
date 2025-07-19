@@ -89,3 +89,15 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// Navbar scroll progress functionality
+window.addEventListener('scroll', function() {
+  const navbar = document.getElementById('nav-bar');
+  if (navbar) {
+    const scrollPercent = Math.min(window.scrollY / (document.body.scrollHeight - window.innerHeight), 1);
+
+    // Заливка слева направо цветом из переменных
+    const fillPercent = scrollPercent * 100;
+    navbar.style.background = `linear-gradient(to right, var(--color-nav-fill) ${fillPercent}%, var(--color-nav-bg) ${fillPercent}%)`;
+  }
+});
+
