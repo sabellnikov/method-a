@@ -29,9 +29,13 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "method-a.ru" # the base hostname & protocol for your site, e.g. http://example.com
 
-# Build settings
-plugins:
-  - jekyll-feed
+# SASS settings
+#sass:
+#  sass_dir: _sass
+#  style: compressed
+
+#plugins:
+#  - jekyll-feed
 
 # Exclude from processing.
 # The following items will not be processed, by default.

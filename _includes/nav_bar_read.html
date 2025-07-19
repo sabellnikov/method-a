@@ -8,7 +8,7 @@
 ' %}
 
 <div class="fixed left-0 right-0 bottom-4 z-50 flex justify-center sm:top-4 sm:bottom-auto sm:left-1/2 sm:right-auto sm:-translate-x-1/2">
-  <div class="inline-flex h-10 sm:h-12 rounded-full items-center justify-between px-5 bg-white/40 backdrop-blur-md w-full max-w-xs sm:w-auto sm:max-w-none">
+  <div id="nav-bar" class="inline-flex h-10 sm:h-12 rounded-full items-center justify-between px-5 backdrop-blur-md w-full max-w-2xs sm:w-auto sm:max-w-none transition-colors duration-300" style="background-color: var(--color-nav-bg);">
     <button
       onclick="window.history.back()"
       {{ usual_link }}  >
@@ -23,5 +23,25 @@
         Обсудить
       {% endif %}
     </a>
+
+    <a href=""
+      {{ usual_link }}  >
+      {% if page.categories contains "case" %}
+        Заказ
+      {% else %}
+        Обсудить
+      {% endif %}
+    </a>
   </div>
 </div>
+
+<script>
+window.addEventListener('scroll', function() {
+  const navbar = document.getElementById('nav-bar');
+  const scrollPercent = Math.min(window.scrollY / (document.body.scrollHeight - window.innerHeight), 1);
+
+  // Заливка слева направо цветом из переменных
+  const fillPercent = scrollPercent * 100;
+  navbar.style.background = `linear-gradient(to right, var(--color-nav-fill) ${fillPercent}%, var(--color-nav-bg) ${fillPercent}%)`;
+});
+</script>

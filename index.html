@@ -2,10 +2,8 @@
 layout: default
 ---
 
-<link rel="stylesheet" href="/resources/page_color/index.css">
-
 <div>
-  <div class="slide-section" data-bg="var(--color-background-top)">
+  <div class="slide-section" data-bg="var(--color-background-top)" style="display: flex; flex-direction: column; align-items: center;">
       <!-- site.categories.CATEGORY отображение определенной категории -->
       {% for post in site.categories.case %}
         <a href="{{ post.url }}" style="text-decoration: none; color: inherit;">
