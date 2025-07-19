@@ -7,6 +7,7 @@
   --color-messenger2: #2AABEE;
 }
 
+/* Размер картинки для case  */
 .featured-image-post {
   width: 30px;
   height: 30px;
@@ -20,7 +21,7 @@
   align-items: center;
   justify-content: center;
   background: var(--color-background-current);
-  transition: background 0.7s;
+  transition: background 0.3s ease-out; /* Shorter transition as fallback */
 }
 
 body {

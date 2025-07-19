@@ -5,11 +5,11 @@
   --color-background-bottom: #FFFFFF;
 
   /* Навигационная панель */
-  --color-hover-current-page: #0f1d07;
-  --color-text-current-page: #90f188;
+  --color-hover-current-page: #0F1D07;
+  --color-text-current-page: #90F188;
 
   /* Значок Telegram */
-  --color-telegram-icon: #229ED9;
+  --color-logo: #0F1D07;
 }
 
 body {
