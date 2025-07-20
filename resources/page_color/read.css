@@ -1,9 +1,9 @@
 :root {
   /* Навигационная панель */
   --color-hover-current-page: #565656;
-  --color-text-current-page: #ff1212;
-  --color-nav-fill: #ffea0073;
-  --color-nav-bg: #00000010;
+  --color-text-current-page: #0F1D07;
+  --color-nav-fill: #ffea00af;
+  --color-nav-bg: #00000049;
 }
 
 body {

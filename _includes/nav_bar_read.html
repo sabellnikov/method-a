@@ -8,21 +8,72 @@
 ' %}
 
 <div class="fixed left-0 right-0 bottom-4 z-50 flex justify-center sm:top-4 sm:bottom-auto sm:left-1/2 sm:right-auto sm:-translate-x-1/2">
-  <div id="nav-bar" class="inline-flex h-10 sm:h-12 rounded-full items-center justify-between px-5 backdrop-blur-md w-full max-w-2xs sm:w-auto sm:max-w-none transition-colors duration-300" style="background-color: var(--color-nav-bg);">
+  <div id="nav-bar" class="inline-flex h-10 sm:h-12 rounded-full items-center justify-between px-5 backdrop-blur-md w-full max-w-48 sm:w-auto sm:max-w-4xl transition-colors duration-300" style="background-color: var(--color-nav-bg);">
     <button
-      onclick="window.history.back()"
+      onclick="goToPreviousPage()"
       {{ usual_link }}  >
-      ← Назад
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+        <path d="M19 12H5M5 12l7 7M5 12l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </button>
 
-    <a href=""
-      {{ usual_link }}  >
-      {% if page.categories contains "case" %}
-        Заказ
+    <div class="flex items-center space-x-2">
+      {% comment %}Debug: Check if content exists{% endcomment %}
+      {% if content %}
+        {% assign headings = content | split: '<h' %}
+        {% assign heading_count = 0 %}
+        {% assign all_headings = '' %}
+        
+        {% for heading in headings %}
+          {% if forloop.first == false %}
+            {% assign heading_parts = heading | split: '>' %}
+            {% if heading_parts.size > 1 %}
+              {% assign heading_level = heading_parts[0] | slice: 0, 1 %}
+              {% assign heading_rest = heading_parts[1] %}
+              {% assign heading_content = heading_rest | split: '</h' | first | strip_html | strip %}
+              
+              {% if heading_content != '' %}
+                {% assign heading_id = heading_content | slugify %}
+                {% assign truncated_text = heading_content | truncate: 15 %}
+                
+                {% if heading_count < 4 %}
+                  <a href="#{{ heading_id }}" {{ usual_link }}>
+                    {{ truncated_text }}
+                  </a>
+                {% endif %}
+                
+                {% assign heading_count = heading_count | plus: 1 %}
+                
+                <!-- Store all headings for dropdown -->
+                {% capture heading_link %}<a href="#{{ heading_id }}" class="block px-3 py-2 text-sm hover:bg-[var(--color-custom-hover)] rounded">{{ heading_content }}</a>{% endcapture %}
+                {% assign all_headings = all_headings | append: heading_link %}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        
+        {% if heading_count > 4 %}
+          <div class="relative">
+            <button 
+              id="menu-toggle"
+              onclick="toggleHeadingsMenu()"
+              {{ usual_link }}>
+              ···
+            </button>
+            
+            <div 
+              id="headings-dropdown" 
+              class="absolute top-full mt-2 right-0 bg-[var(--color-nav-bg)] backdrop-blur-md rounded-lg shadow-lg py-2 min-w-48 z-50 opacity-0 pointer-events-none transition-opacity duration-200"
+              style="transform: translateY(-10px);">
+              {{ all_headings }}
+            </div>
+          </div>
+        {% endif %}
       {% else %}
-        Обсудить
+        <!-- Fallback if content is not available -->
+        <span class="text-sm opacity-60">No headings</span>
       {% endif %}
-    </a>
+    </div>
 
     <a href=""
       {{ usual_link }}  >
@@ -32,5 +83,126 @@
         Обсудить
       {% endif %}
     </a>
+
+{% include firebase-likes.html %}
+
+
   </div>
 </div>
+
+<!-- Кнопка "Наверх" -->
+<button id="scrollToTopBtn"
+  style="opacity:0;pointer-events:none;right:20vw;left:auto;transform:none;"
+  class="fixed bottom-6 z-[100] bg-[var(--color-nav-bg)] rounded-full px-4 py-2 font-semibold"
+  onclick="scrollToTopSmooth()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 28 28">
+    <path d="M14 21V7M14 7L7 14M14 7l7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<script>
+  // Track navigation to skip hash-only changes
+  let lastNonHashUrl = document.referrer || '/';
+  
+  // Update last non-hash URL when navigating
+  window.addEventListener('beforeunload', function() {
+    if (!window.location.hash) {
+      sessionStorage.setItem('lastPage', window.location.href);
+    }
+  });
+  
+  // Initialize last page from session storage or referrer
+  document.addEventListener('DOMContentLoaded', function() {
+    const storedLastPage = sessionStorage.getItem('lastPage');
+    if (storedLastPage && storedLastPage !== window.location.href.split('#')[0]) {
+      lastNonHashUrl = storedLastPage;
+    }
+  });
+
+  function goToPreviousPage() {
+    // Check if we have a proper referrer that's not the current page
+    const currentPageBase = window.location.href.split('#')[0];
+    
+    if (document.referrer && document.referrer !== currentPageBase && !document.referrer.startsWith(currentPageBase + '#')) {
+      window.location.href = document.referrer;
+    } else if (lastNonHashUrl && lastNonHashUrl !== currentPageBase) {
+      window.location.href = lastNonHashUrl;
+    } else {
+      // Fallback to home page
+      window.location.href = '/';
+    }
+  }
+
+  window.addEventListener('scroll', function() {
+    var btn = document.getElementById('scrollToTopBtn');
+    var scrolled = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (docHeight > 0 && scrolled / docHeight > 0.3) {
+      if (!btn.classList.contains('gsap-visible')) {
+        btn.classList.add('gsap-visible');
+        gsap.to(btn, {opacity: 1, duration: 0.3, pointerEvents: 'auto'});
+      }
+    } else {
+      if (btn.classList.contains('gsap-visible')) {
+        btn.classList.remove('gsap-visible');
+        gsap.to(btn, {opacity: 0, duration: 0.3, pointerEvents: 'none'});
+      }
+    }
+  });
+
+  function scrollToTopSmooth() {
+    // программный плавный скролл наверх
+    const scrollStep = () => {
+      const c = document.documentElement.scrollTop || document.body.scrollTop;
+      if (c > 0) {
+        window.scrollBy(0, -Math.max(10, c / 8));
+        window.requestAnimationFrame(scrollStep);
+      }
+    };
+    scrollStep();
+  }
+
+  function toggleHeadingsMenu() {
+    const dropdown = document.getElementById('headings-dropdown');
+    const isVisible = dropdown.classList.contains('menu-visible');
+    
+    if (isVisible) {
+      dropdown.classList.remove('menu-visible');
+      gsap.to(dropdown, {
+        opacity: 0, 
+        y: -10, 
+        duration: 0.2, 
+        pointerEvents: 'none',
+        ease: 'power2.out'
+      });
+    } else {
+      dropdown.classList.add('menu-visible');
+      gsap.to(dropdown, {
+        opacity: 1, 
+        y: 0, 
+        duration: 0.2, 
+        pointerEvents: 'auto',
+        ease: 'power2.out'
+      });
+    }
+  }
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('headings-dropdown');
+    const toggle = document.getElementById('menu-toggle');
+    
+    if (dropdown && toggle && !dropdown.contains(event.target) && !toggle.contains(event.target)) {
+      if (dropdown.classList.contains('menu-visible')) {
+        dropdown.classList.remove('menu-visible');
+        gsap.to(dropdown, {
+          opacity: 0, 
+          y: -10, 
+          duration: 0.2, 
+          pointerEvents: 'none',
+          ease: 'power2.out'
+        });
+      }
+    }
+  });
+</script>

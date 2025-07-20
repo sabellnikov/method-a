@@ -89,15 +89,48 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Navbar scroll progress functionality
-window.addEventListener('scroll', function() {
-  const navbar = document.getElementById('nav-bar');
-  if (navbar) {
-    const scrollPercent = Math.min(window.scrollY / (document.body.scrollHeight - window.innerHeight), 1);
+// Navbar scroll progress functionality with smooth animation
+let currentProgress = 0;
+let targetProgress = 0;
+let isAnimating = false;
 
-    // Заливка слева направо цветом из переменных
-    const fillPercent = scrollPercent * 100;
+function updateProgressBar() {
+  const navbar = document.getElementById('nav-bar');
+  if (!navbar) return;
+  
+  const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
+  targetProgress = Math.max(0, Math.min(1, window.scrollY / maxScroll));
+  
+  // If there's a significant jump (more than 10%), animate it
+  const progressDiff = Math.abs(targetProgress - currentProgress);
+  
+  if (progressDiff > 0.1 && !isAnimating) {
+    // Animate the progress bar
+    isAnimating = true;
+    gsap.to({ progress: currentProgress }, {
+      progress: targetProgress,
+      duration: 0.8,
+      ease: 'power2.out',
+      onUpdate: function() {
+        currentProgress = this.targets()[0].progress;
+        const fillPercent = currentProgress * 100;
+        navbar.style.background = `linear-gradient(to right, var(--color-nav-fill) ${fillPercent}%, var(--color-nav-bg) ${fillPercent}%)`;
+      },
+      onComplete: function() {
+        isAnimating = false;
+      }
+    });
+  } else if (progressDiff <= 0.1) {
+    // Small changes update immediately
+    currentProgress = targetProgress;
+    const fillPercent = currentProgress * 100;
     navbar.style.background = `linear-gradient(to right, var(--color-nav-fill) ${fillPercent}%, var(--color-nav-bg) ${fillPercent}%)`;
   }
-});
+}
 
+window.addEventListener('scroll', updateProgressBar);
+
+// Initialize progress on page load
+document.addEventListener('DOMContentLoaded', function() {
+  updateProgressBar();
+});
