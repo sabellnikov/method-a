@@ -1,13 +1,13 @@
 :root {
   /* Навигационная панель */
-  --color-nav-bg: #000000cd;
-  --color-nav-text: #ffffff;
-  --color-nav-fill: #ffea00af;
+  --color-nav-bg: #F6F6F6;
+  --color-nav-text: #0F0F0F;
+  --color-nav-fill: #e5e5e5;
 }
 
 /* Базовые стили */
 body {
-  color: #0F1D07; /* Цвет текста */
+  color: #0F0F0F; /* Цвет текста */
 }
 
 /* Навигационная панель */
