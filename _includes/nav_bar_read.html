@@ -7,8 +7,6 @@
       class="font-semibold rounded-full hover:bg-[var(--color-custom-hover)] py-1 text-center whitespace-nowrap text-sm px-2 sm:text-base sm:px-2"
 ' %}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="/resourse/js/heart-modal.js"></script>
 
 <div class="fixed left-0 right-0 bottom-4 z-50 flex justify-center sm:top-4 sm:bottom-auto sm:left-1/2 sm:right-auto sm:-translate-x-1/2">
   <div id="nav-bar" class="inline-flex h-10 sm:h-12 rounded-full items-center justify-between px-5 bg-white/40 backdrop-blur-md w-full max-w-xs sm:w-auto sm:max-w-none">
@@ -25,12 +23,18 @@
       {% if content %}
         <button
           id="toc-btn"
-          class="font-semibold rounded-full hover:bg-[var(--color-custom-hover)] py-1 text-center whitespace-nowrap text-sm px-2 sm:text-base sm:px-2 focus:outline-none peer">
+          class="font-semibold rounded-full hover:bg-[var(--color-custom-hover)] py-1 text-center whitespace-nowrap text-sm px-2 sm:text-base sm:px-2 focus:outline-none"
+          type="button"
+          aria-expanded="false"
+          aria-controls="toc-dropdown">
           ОГЛАВЛЕНИЕ
         </button>
-        
+
         <!-- TOC dropdown menu -->
-        <div id="toc-dropdown" class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 sm:top-full sm:bottom-auto sm:mt-2 sm:mb-0 w-full max-w-xs sm:w-96 backdrop-blur-md rounded-lg opacity-0 invisible scale-95 transition-all duration-300 ease-out origin-bottom sm:origin-top z-50 peer-focus:opacity-100 peer-focus:visible peer-focus:scale-100 sm:group-hover:opacity-100 sm:group-hover:visible sm:group-hover:scale-100 sm:group-focus-within:opacity-100 sm:group-focus-within:visible sm:group-focus-within:scale-100" style="background-color: var(--color-nav-bg);" tabindex="-1">
+        <div id="toc-dropdown"
+          class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 sm:top-full sm:bottom-auto sm:mt-2 sm:mb-0 w-full max-w-xs sm:w-96 backdrop-blur-md rounded-lg opacity-0 invisible scale-95 transition-all duration-300 ease-out origin-bottom sm:origin-top z-50"
+          style="background-color: var(--color-nav-bg);"
+          tabindex="-1">
           <div class="p-1">
             {% assign headings = content | split: '<h' %}
             {% for heading in headings %}
@@ -79,9 +83,3 @@
     </button>
   </div>
 </div>
-
-<script>
-  // Remove TOC menu functions - now handled by CSS
-  
-  // Keep only heart modal functions if they exist
-</script>

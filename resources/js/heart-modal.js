@@ -1,7 +1,12 @@
+let isHeartAnimating = false;
+
 function toggleHeart(button) {
+  if (isHeartAnimating) return; // Предотвращаем спам кликов
+  
   const isLiked = button.classList.contains('liked');
     
   if (!isLiked) {
+    isHeartAnimating = true;
     // Add liked class
     button.classList.add('liked');
     // Force red color directly
@@ -23,8 +28,10 @@ function toggleHeart(button) {
     // Show modal after delay
     setTimeout(() => {
       showModal();
+      isHeartAnimating = false; // Разблокируем после завершения
     }, 300);
   } else {
+    isHeartAnimating = true;
     // Remove liked class
     button.classList.remove('liked');
     // Reset to CSS variable
@@ -38,6 +45,11 @@ function toggleHeart(button) {
       yoyo: true,
       repeat: 1
     });
+    
+    // Разблокируем сразу для unllike
+    setTimeout(() => {
+      isHeartAnimating = false;
+    }, 200);
   }
 }
 
