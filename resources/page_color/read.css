@@ -52,11 +52,12 @@ body {
 
 /* Анимация конфетти */
 .confetti-particle {
-  position: absolute;
+  position: fixed;
   width: 4px;
   height: 4px;
   pointer-events: none;
-  z-index: 1000;
+  z-index: 9999;
+  will-change: transform, opacity;
 }
 
 /* Модальное окно */

@@ -84,6 +84,10 @@ function createConfetti(button) {
   const centerX = buttonRect.left + buttonRect.width / 2;
   const centerY = buttonRect.top + buttonRect.height / 2;
   
+  // Get viewport dimensions
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  
   // Create multiple confetti particles
   for (let i = 0; i < 12; i++) {
     const particle = document.createElement('div');
@@ -92,25 +96,40 @@ function createConfetti(button) {
     particle.style.left = centerX + 'px';
     particle.style.top = centerY + 'px';
     particle.style.borderRadius = '50%';
+    particle.style.position = 'fixed'; // Use fixed instead of absolute
+    particle.style.pointerEvents = 'none';
+    particle.style.zIndex = '9999';
     document.body.appendChild(particle);
     
-    // Random direction and distance
+    // Random direction and distance with viewport constraints
     const angle = (Math.PI * 2 * i) / 12;
-    const distance = 50 + Math.random() * 50;
+    const maxDistance = Math.min(50, 
+      centerX - 20, // Distance from left edge
+      viewportWidth - centerX - 20, // Distance from right edge
+      centerY - 20, // Distance from top edge
+      viewportHeight - centerY - 20 // Distance from bottom edge
+    );
+    const distance = 20 + Math.random() * maxDistance;
     const endX = centerX + Math.cos(angle) * distance;
     const endY = centerY + Math.sin(angle) * distance;
     
+    // Ensure particles stay within viewport
+    const clampedEndX = Math.max(10, Math.min(viewportWidth - 10, endX));
+    const clampedEndY = Math.max(10, Math.min(viewportHeight - 10, endY));
+    
     // Animate particle
     gsap.to(particle, {
-      x: endX - centerX,
-      y: endY - centerY + Math.random() * 100,
+      x: clampedEndX - centerX,
+      y: clampedEndY - centerY + Math.random() * 50,
       rotation: Math.random() * 360,
       opacity: 0,
       scale: 0,
       duration: 0.8 + Math.random() * 0.4,
       ease: "power2.out",
       onComplete: () => {
-        document.body.removeChild(particle);
+        if (document.body.contains(particle)) {
+          document.body.removeChild(particle);
+        }
       }
     });
   }
