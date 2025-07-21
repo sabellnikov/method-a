@@ -1,0 +1,117 @@
+function toggleHeart(button) {
+  const isLiked = button.classList.contains('liked');
+    
+  if (!isLiked) {
+    // Add liked class
+    button.classList.add('liked');
+    // Force red color directly
+    button.style.color = '#ef4444';
+    console.log('Added liked class and forced red color');
+    
+    // Heart bounce animation
+    gsap.to(button, {
+      scale: 1.3,
+      duration: 0.15,
+      ease: "back.out(1.7)",
+      yoyo: true,
+      repeat: 1
+    });
+    
+    // Create confetti effect
+    createConfetti(button);
+    
+    // Show modal after delay
+    setTimeout(() => {
+      showModal();
+    }, 300);
+  } else {
+    // Remove liked class
+    button.classList.remove('liked');
+    // Reset to CSS variable
+    button.style.color = '';
+    console.log('Removed liked class and reset color');
+    
+    // Simple scale animation
+    gsap.to(button, {
+      scale: 0.9,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1
+    });
+  }
+}
+
+function showModal() {
+  const modal = document.getElementById('heartModal');
+  const modalTitle = document.getElementById('modal-title');
+  const modalText = document.getElementById('modal-text');
+  
+  // Check if current page is a case page by looking for data attribute or class
+  const isCase = document.body.classList.contains('case-page') || 
+                 document.querySelector('[data-page-type="case"]');
+  
+  if (isCase) {
+    modalTitle.textContent = 'Спасибо за интерес к проекту!';
+    modalText.textContent = 'Мы свяжемся с вами для обсуждения деталей заказа';
+  } else {
+    modalTitle.textContent = 'Спасибо за лайк!';
+    modalText.textContent = 'Ваша поддержка очень важна для нас';
+  }
+  
+  modal.style.visibility = 'visible';
+  
+  gsap.fromTo(modal, 
+    { opacity: 0 },
+    { opacity: 1, duration: 0.3 }
+  );
+}
+
+function closeModal() {
+  const modal = document.getElementById('heartModal');
+  
+  gsap.to(modal, {
+    opacity: 0,
+    duration: 0.2,
+    onComplete: () => {
+      modal.style.visibility = 'hidden';
+    }
+  });
+}
+
+function createConfetti(button) {
+  const colors = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#a855f7'];
+  const buttonRect = button.getBoundingClientRect();
+  const centerX = buttonRect.left + buttonRect.width / 2;
+  const centerY = buttonRect.top + buttonRect.height / 2;
+  
+  // Create multiple confetti particles
+  for (let i = 0; i < 12; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'confetti-particle';
+    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+    particle.style.left = centerX + 'px';
+    particle.style.top = centerY + 'px';
+    particle.style.borderRadius = '50%';
+    document.body.appendChild(particle);
+    
+    // Random direction and distance
+    const angle = (Math.PI * 2 * i) / 12;
+    const distance = 50 + Math.random() * 50;
+    const endX = centerX + Math.cos(angle) * distance;
+    const endY = centerY + Math.sin(angle) * distance;
+    
+    // Animate particle
+    gsap.to(particle, {
+      x: endX - centerX,
+      y: endY - centerY + Math.random() * 100,
+      rotation: Math.random() * 360,
+      opacity: 0,
+      scale: 0,
+      duration: 0.8 + Math.random() * 0.4,
+      ease: "power2.out",
+      onComplete: () => {
+        document.body.removeChild(particle);
+      }
+    });
+  }
+}

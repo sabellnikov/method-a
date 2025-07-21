@@ -1,11 +1,87 @@
 :root {
   /* Навигационная панель */
-  --color-hover-current-page: #565656;
-  --color-text-current-page: #0F1D07;
+  --color-nav-bg: #000000cd;
+  --color-nav-text: #ffffff;
   --color-nav-fill: #ffea00af;
-  --color-nav-bg: #00000049;
 }
 
+/* Базовые стили */
 body {
   color: #0F1D07; /* Цвет текста */
+}
+
+/* Навигационная панель */
+#nav-bar {
+  color: var(--color-nav-text);
+}
+
+#nav-bar button {
+  color: var(--color-nav-text);
+}
+
+#nav-bar svg {
+  color: var(--color-nav-text);
+}
+
+/* Выпадающая панель оглавления */
+#nav-bar .group div a {
+  color: var(--color-nav-text);
+}
+
+/* Кнопка сердечка */
+.heart-btn {
+  color: var(--color-nav-text);
+  transition: color 0.2s ease;
+  position: relative;
+  overflow: visible;
+}
+
+/* Кнопка сердечка - максимальная специфичность */
+#nav-bar .heart-btn.liked,
+#heart-btn.liked,
+.heart-btn.liked {
+  color: #ef4444 !important;
+}
+
+/* SVG внутри кнопки сердечка */
+#nav-bar .heart-btn.liked svg,
+#heart-btn.liked svg,
+.heart-btn.liked svg {
+  color: #ef4444 !important;
+}
+
+/* Анимация конфетти */
+.confetti-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Модальное окно */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  z-index: 50000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  transform: scale(0.8);
 }
