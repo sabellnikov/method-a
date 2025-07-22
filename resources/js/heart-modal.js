@@ -55,20 +55,6 @@ function toggleHeart(button) {
 
 function showModal() {
   const modal = document.getElementById('heartModal');
-  const modalTitle = document.getElementById('modal-title');
-  const modalText = document.getElementById('modal-text');
-  
-  // Check if current page is a case page by looking for data attribute or class
-  const isCase = document.body.classList.contains('case-page') || 
-                 document.querySelector('[data-page-type="case"]');
-  
-  if (isCase) {
-    modalTitle.textContent = 'Спасибо за интерес к проекту!';
-    modalText.textContent = 'Мы свяжемся с вами для обсуждения деталей заказа';
-  } else {
-    modalTitle.textContent = 'Спасибо за лайк!';
-    modalText.textContent = 'Ваша поддержка очень важна для нас';
-  }
   
   modal.style.visibility = 'visible';
   
@@ -115,13 +101,13 @@ function createConfetti(button) {
     
     // Random direction and distance with viewport constraints
     const angle = (Math.PI * 2 * i) / 12;
-    const maxDistance = Math.min(50, 
+    const maxDistance = Math.min(120, 
       centerX - 20, // Distance from left edge
       viewportWidth - centerX - 20, // Distance from right edge
       centerY - 20, // Distance from top edge
       viewportHeight - centerY - 20 // Distance from bottom edge
     );
-    const distance = 20 + Math.random() * maxDistance;
+    const distance = 60 + Math.random() * maxDistance;
     const endX = centerX + Math.cos(angle) * distance;
     const endY = centerY + Math.sin(angle) * distance;
     
@@ -132,11 +118,11 @@ function createConfetti(button) {
     // Animate particle
     gsap.to(particle, {
       x: clampedEndX - centerX,
-      y: clampedEndY - centerY + Math.random() * 50,
+      y: clampedEndY - centerY,
       rotation: Math.random() * 360,
       opacity: 0,
       scale: 0,
-      duration: 0.8 + Math.random() * 0.4,
+      duration: 1.0 + Math.random() * 0.6,
       ease: "power2.out",
       onComplete: () => {
         if (document.body.contains(particle)) {

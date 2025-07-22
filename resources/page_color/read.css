@@ -1,18 +1,20 @@
 :root {
   /* Навигационная панель */
   --color-nav-bg: #F6F6F6;
-  --color-nav-text: #0F0F0F;
+  --color-nav-text: #23232C;
   --color-nav-fill: #e5e5e5;
 }
 
 /* Базовые стили */
 body {
-  color: #0F0F0F; /* Цвет текста */
+  color: #23232C; /* Цвет текста лого и  */
+  background: #FFFFFF; /* Изменить цвет фона всей страницы */
 }
 
 /* Навигационная панель */
 #nav-bar {
   color: var(--color-nav-text);
+  background: var(--color-nav-bg);
 }
 
 #nav-bar button {
@@ -40,14 +42,20 @@ body {
 #nav-bar .heart-btn.liked,
 #heart-btn.liked,
 .heart-btn.liked {
-  color: #ef4444 !important;
+  color: #ef4444;
 }
 
-/* SVG внутри кнопки сердечка */
+/* SVG внутри кнопки сердечка - наследует от родителя */
+#nav-bar .heart-btn svg,
+#heart-btn svg,
+.heart-btn svg {
+  color: inherit;
+}
+
 #nav-bar .heart-btn.liked svg,
 #heart-btn.liked svg,
 .heart-btn.liked svg {
-  color: #ef4444 !important;
+  color: inherit;
 }
 
 /* Анимация конфетти */
