@@ -94,3 +94,22 @@ body {
   text-align: center;
   transform: scale(0.8);
 }
+
+/* Fade-in и fade-out анимации для выпадающей панели */
+.dropdown-fade-in {
+  animation: fadeIn 0.2s forwards;
+}
+
+.dropdown-fade-out {
+  animation: fadeOut 0.2s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}

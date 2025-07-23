@@ -1,71 +1,83 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const btn = document.getElementById('toc-btn');
-  const dropdown = document.getElementById('toc-dropdown');
-  if (!btn || !dropdown) return;
-
-  function showDropdown() {
-    dropdown.classList.remove('opacity-0', 'invisible', 'scale-95');
-    dropdown.classList.add('opacity-100', 'visible', 'scale-100');
-    btn.setAttribute('aria-expanded', 'true');
-  }
-  function hideDropdown() {
-    dropdown.classList.add('opacity-0', 'invisible', 'scale-95');
-    dropdown.classList.remove('opacity-100', 'visible', 'scale-100');
-    btn.setAttribute('aria-expanded', 'false');
-  }
-  function isDesktop() {
+function isDesktop() {
     return window.matchMedia('(min-width: 640px)').matches;
-  }
+}
 
-  // Desktop: open on hover, close on mouseleave
-  function setupDesktop() {
-    btn.removeEventListener('click', mobileClickHandler);
-    btn.addEventListener('mouseenter', showDropdown);
-    btn.addEventListener('mouseleave', hideDropdown);
-    dropdown.addEventListener('mouseenter', showDropdown);
-    dropdown.addEventListener('mouseleave', hideDropdown);
-    document.removeEventListener('click', mobileDocClickHandler);
-    document.removeEventListener('keydown', mobileEscHandler);
-  }
+const dropdownButton = document.getElementById('dropdownButton');
+const dropdownPanel = document.getElementById('dropdownPanel');
+let closeTimeout = null;
 
-  // Mobile: open/close on click
-  function setupMobile() {
-    btn.removeEventListener('mouseenter', showDropdown);
-    btn.removeEventListener('mouseleave', hideDropdown);
-    dropdown.removeEventListener('mouseenter', showDropdown);
-    dropdown.removeEventListener('mouseleave', hideDropdown);
-    btn.addEventListener('click', mobileClickHandler);
-    document.addEventListener('click', mobileDocClickHandler);
-    document.addEventListener('keydown', mobileEscHandler);
-  }
+function showDropdownPanel() {
+    dropdownPanel.classList.remove('hidden');
+    dropdownPanel.classList.remove('dropdown-fade-out');
+    // trigger reflow to restart animation if needed
+    void dropdownPanel.offsetWidth;
+    dropdownPanel.classList.add('dropdown-fade-in');
+}
 
-  function mobileClickHandler(e) {
-    e.stopPropagation();
-    if (dropdown.classList.contains('visible')) {
-      hideDropdown();
+function hideDropdownPanel() {
+    dropdownPanel.classList.remove('dropdown-fade-in');
+    dropdownPanel.classList.add('dropdown-fade-out');
+    setTimeout(() => {
+        dropdownPanel.classList.add('hidden');
+    }, 200); // Длительность анимации должна совпадать с CSS
+}
+
+function toggleDropdownPanel() {
+    if (dropdownPanel.classList.contains('hidden')) {
+        showDropdownPanel();
     } else {
-      showDropdown();
+        hideDropdownPanel();
     }
-  }
-  function mobileDocClickHandler(e) {
-    if (!dropdown.contains(e.target) && e.target !== btn) {
-      hideDropdown();
-    }
-  }
-  function mobileEscHandler(e) {
-    if (e.key === 'Escape') hideDropdown();
-  }
+}
 
-  // Initial setup
-  function updateMode() {
-    hideDropdown();
-    if (isDesktop()) {
-      setupDesktop();
+function clearCloseTimeout() {
+    if (closeTimeout) {
+        clearTimeout(closeTimeout);
+        closeTimeout = null;
+    }
+}
+
+// Клик по кнопке: переключение панели
+dropdownButton.addEventListener('click', toggleDropdownPanel);
+
+// Наведение на десктопе: открытие
+[dropdownButton, dropdownPanel].forEach(el =>
+    el.addEventListener('mouseenter', () => {
+      if (isDesktop()) {
+        clearCloseTimeout();
+        showDropdownPanel();
+      }
+    })
+  );
+
+// Уход мыши с панели/кнопки: закрытие с задержкой (только для десктопа)
+document.addEventListener('mousemove', event => {
+    if (!isDesktop()) return;
+    const over = dropdownPanel.contains(event.target) || dropdownButton.contains(event.target);
+    if (!over && !dropdownPanel.classList.contains('hidden')) {
+      if (!closeTimeout) {
+        closeTimeout = setTimeout(hideDropdownPanel, 200);
+      }
     } else {
-      setupMobile();
+      clearCloseTimeout();
     }
-  }
+  });
 
-  updateMode();
-  window.addEventListener('resize', updateMode);
-});
+// Уход мыши с body: закрытие панели
+document.body.addEventListener('mouseleave', () => {
+    if (!isDesktop()) return;
+    hideDropdownPanel();
+    clearCloseTimeout();
+  });
+
+// Клик вне панели: закрытие панели
+document.addEventListener('click', event => {
+    if (!dropdownButton.contains(event.target) && !dropdownPanel.contains(event.target)) {
+      hideDropdownPanel();
+    }
+  });
+
+// Остановка всплытия mousedown на кнопке и панели
+[dropdownButton, dropdownPanel].forEach(el =>
+    el.addEventListener('mousedown', e => e.stopPropagation())
+  );
