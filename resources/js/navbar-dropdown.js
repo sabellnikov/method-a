@@ -6,12 +6,23 @@ const dropdownButton = document.getElementById('dropdownButton');
 const dropdownPanel = document.getElementById('dropdownPanel');
 let closeTimeout = null;
 
+function updateDropdownButtonHover(opened) {
+    if (opened) {
+        dropdownButton.classList.add('bg-[var(--color-custom-hover)]');
+        dropdownButton.classList.remove('hover:bg-[var(--color-custom-hover)]');
+    } else {
+        dropdownButton.classList.remove('bg-[var(--color-custom-hover)]');
+        dropdownButton.classList.add('hover:bg-[var(--color-custom-hover)]');
+    }
+}
+
 function showDropdownPanel() {
     dropdownPanel.classList.remove('hidden');
     dropdownPanel.classList.remove('dropdown-fade-out');
     // trigger reflow to restart animation if needed
     void dropdownPanel.offsetWidth;
     dropdownPanel.classList.add('dropdown-fade-in');
+    updateDropdownButtonHover(true);
 }
 
 function hideDropdownPanel() {
@@ -19,6 +30,7 @@ function hideDropdownPanel() {
     dropdownPanel.classList.add('dropdown-fade-out');
     setTimeout(() => {
         dropdownPanel.classList.add('hidden');
+        updateDropdownButtonHover(false);
     }, 200); // Длительность анимации должна совпадать с CSS
 }
 
@@ -81,3 +93,6 @@ document.addEventListener('click', event => {
 [dropdownButton, dropdownPanel].forEach(el =>
     el.addEventListener('mousedown', e => e.stopPropagation())
   );
+
+// Инициализация состояния кнопки при загрузке
+updateDropdownButtonHover(dropdownPanel && !dropdownPanel.classList.contains('hidden'));

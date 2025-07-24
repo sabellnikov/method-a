@@ -113,3 +113,8 @@ body {
   from { opacity: 1; }
   to   { opacity: 0; }
 }
+
+/* Универсальный класс для плавного перехода фона */
+.bg-fade {
+  transition: background-color 0.25s;
+}
