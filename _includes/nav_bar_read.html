@@ -5,6 +5,7 @@
 
 <div class="fixed left-1/2 -translate-x-1/2 bottom-4 z-50 sm:top-4 sm:bottom-auto w-full max-w-4xl w-sm sm:w-full px-10 sm:px-40">
   <div id="nav-bar" class="flex h-10 sm:h-12 rounded-full items-center justify-between px-5 w-full z-50 shadow-xs bg-[var(--color-nav-bg)]">
+    
     <!-- Кнопка "назад" -->
     <button onclick="goToPreviousPage()" {{ class-link }}>
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
@@ -15,14 +16,12 @@
     <!-- Кнопка "Содержание" -->
     {% if content contains '<h' %}
       <div class="flex-1 flex justify-center">
-        <button id="dropdownButton" type="button"
-          {{ class-link }}
-        >
-          Содержание
+        <button id="dropdownButton" type="button" {{ class-link }} >
+          СОДЕРЖАНИЕ
         </button>
       </div>
     {% else %}
-      <span class="flex-1 flex justify-center text-sm opacity-60">Содержания нет</span>
+      <span class="flex-1 flex justify-center text-sm opacity-60">СОДЕРЖАНИЯ НЕТ</span>
     {% endif %}
 
     <!-- Блок действий справа -->
