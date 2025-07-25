@@ -29,7 +29,7 @@ function toggleHeart(button) {
     setTimeout(() => {
       showModal();
       isHeartAnimating = false; // Разблокируем после завершения
-    }, 300);
+    }, 400);
   } else {
     isHeartAnimating = true;
     // Remove liked class

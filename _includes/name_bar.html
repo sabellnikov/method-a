@@ -19,10 +19,12 @@
     <!-- Карточки в одной строке на десктопе -->
     <div class="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0 items-center justify-center">
       
+      
+      <!-- QR сделаны насайте https://genqrcode.com/ -->
       <!-- vCard карточка -->
-      <a href="tel:{{ site.phone }}" target="_blank" rel="noopener noreferrer">
+      <a href="tel:+{{ site.phone }}" target="_blank" rel="noopener noreferrer">
         <div id="modalCard" class="bg-white rounded-3xl p-6 w-72 flex flex-col items-center transition-all duration-300 hover:shadow-md md:hover:shadow-xl hover:scale-105" style="width: 220px;">
-          <img src="https://genqrcode.com/embedded?style=15&inner_eye_style=2&outer_eye_style=2&logo=null&color=%23000000FF&background_color=%23FFFFFFFF&inner_eye_color=%23000000&outer_eye_color=%23000000&imageformat=svg&language=en&frame_style=0&frame_text=SCAN%20ME&frame_text_icon_color=%23000000&frame_text_icon=null&frame_color=%23000000&frame_background_color=%23FFFFFF&frame_text_color=%23FFFFFF&invert_colors=false&gradient_style=0&gradient_color_start=%23FF0000&gradient_color_end=%237F007F&gradient_start_offset=5&gradient_end_offset=95&stl_type=1&logo_remove_background=false&stl_size=100&stl_qr_height=1.5&stl_base_height=2&stl_include_stands=false&stl_qr_magnet_type=3&stl_qr_magnet_count=0&type=6&vc_first_name=%D0%90%D0%BD%D0%B0%D1%81%D1%82%D0%B0%D1%81%D0%B8%D1%8F&vc_last_name=%D0%9C%D0%B5%D1%80%D0%BA%D0%BE%D0%B5%D0%B2%D0%B0&vc_mobile=%2B79310037539&vc_phone=&vc_fax=&vc_email=mail%40method-a.ru&vc_company=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%E2%80%94%D0%90&vc_job=CEO&vc_street=&vc_city=&vc_zip=&vc_state=&vc_country=&vc_website=&vc_note=&width=500&height=500&bordersize=2" alt="QR Code" class="w-full h-auto rounded-lg mb-4" />
+          <img src="/resources/qr/vcard.png" alt="QR Code" class="w-full h-auto rounded-lg mb-4" />
           <div class="text-lg font-semibold text-gray-800">vCard</div>
         </div>
       </a>
@@ -30,7 +32,7 @@
       <!-- WhatsApp карточка -->
       <a href="https://wa.me/{{ site.whatsapp }}" target="_blank" rel="noopener noreferrer">
         <div id="whatsappCard" class="bg-white rounded-3xl p-6 w-72 flex flex-col items-center transition-all duration-300 hover:shadow-md md:hover:shadow-xl hover:scale-105" style="background: var(--color-messenger1); width: 220px;">
-          <img src="https://genqrcode.com/embedded?style=15&inner_eye_style=2&outer_eye_style=2&logo=null&color=%23000000FF&background_color=%23FFFFFFFF&inner_eye_color=%23000000&outer_eye_color=%23000000&imageformat=svg&language=en&frame_style=0&frame_text=SCAN%20ME&frame_text_icon_color=%23000000&frame_text_icon=null&frame_color=%23000000&frame_background_color=%23FFFFFF&frame_text_color=%23FFFFFF&invert_colors=false&gradient_style=0&gradient_color_start=%23FF0000&gradient_color_end=%237F007F&gradient_start_offset=5&gradient_end_offset=95&stl_type=1&logo_remove_background=false&stl_size=100&stl_qr_height=1.5&stl_base_height=2&stl_include_stands=false&stl_qr_magnet_type=3&stl_qr_magnet_count=0&type=3&url=https%3A%2F%2Fwa.me%2F79310037539&width=300&height=300&bordersize=2" alt="WhatsApp QR" class="w-full h-auto rounded-lg mb-4 hidden md:block" />
+          <img src="/resources/qr/whatsapp.png" alt="WhatsApp QR" class="w-full h-auto rounded-lg mb-4 hidden md:block" />
           <div class="text-lg font-semibold text-gray-800">WhatsApp</div>
         </div>
       </a>
@@ -38,7 +40,7 @@
       <!-- Telegram карточка -->
       <a href="https://t.me/{{ site.telegram }}" target="_blank" rel="noopener noreferrer">
         <div id="telegramCard" class="bg-white rounded-3xl p-6 w-72 flex flex-col items-center transition-all duration-300 hover:shadow-md md:hover:shadow-xl hover:scale-105" style="background: var(--color-messenger2); width: 220px;">
-          <img src="https://genqrcode.com/embedded?style=15&inner_eye_style=2&outer_eye_style=2&logo=null&color=%23000000FF&background_color=%23FFFFFFFF&inner_eye_color=%23000000&outer_eye_color=%23000000&imageformat=svg&language=en&frame_style=0&frame_text=SCAN%20ME&frame_text_icon_color=%23000000&frame_text_icon=null&frame_color=%23000000&frame_background_color=%23FFFFFF&frame_text_color=%23FFFFFF&invert_colors=false&gradient_style=0&gradient_color_start=%23FF0000&gradient_color_end=%237F007F&gradient_start_offset=5&gradient_end_offset=95&stl_type=1&logo_remove_background=false&stl_size=100&stl_qr_height=1.5&stl_base_height=2&stl_include_stands=false&stl_qr_magnet_type=3&stl_qr_magnet_count=0&type=3&url=https%3A%2F%2Ft.me%2Fanasya_method&width=300&height=300&bordersize=2" alt="Telegram QR" class="w-full h-auto rounded-lg mb-4 hidden md:block" />
+          <img src="/resources/qr/telegram_channel.png" alt="Telegram QR" class="w-full h-auto rounded-lg mb-4 hidden md:block" />
           <div class="text-lg font-semibold text-gray-800">Telegram</div>
         </div>
       </a>

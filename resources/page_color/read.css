@@ -118,3 +118,5 @@ body {
 .bg-fade {
   transition: background-color 0.25s;
 }
+
+.group:hover svg { color: #2AABEE !important; }

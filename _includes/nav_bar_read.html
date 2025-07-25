@@ -37,25 +37,58 @@
         </button>
       </div>
     {% else %}
-      <!-- для реад -->
-      gg
+      <a href="https://t.me/{{ site.telegram }}" class="flex items-center gap-1 font-semibold rounded-full hover:bg-[var(--color-custom-hover)] py-1 px-2 text-sm sm:text-base transition-colors bg-fade no-underline group">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" class="transition-colors duration-250" style="color:inherit;">
+          <path d="M7 17.013V21l4-4h6a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     {% endif %}
   </div>
 </div>
 
 {% if page.category == "case" %}
   <div id="heartModal" class="modal-overlay" onclick="closeModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <div style="font-size: 3rem; margin-bottom: 1rem;">❤️</div>
-      <h3 style="margin-bottom: 1rem; color: #333;">Спасибо за лайк!</h3>
-      <p style="color: #666; margin-bottom: 1.5rem;">Ваша очень важна для нас</p>
-      <button onclick="closeModal()" style="background: #ef4444; color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 8px; cursor: pointer;">
+    <div
+      class="modal-content w-full max-w-md sm:max-w-xl p-8 sm:p-12 rounded-2xl bg-white shadow-2xl flex flex-col items-center"
+      onclick="event.stopPropagation()"
+    >
+      <!-- QR-код -->
+      <div class="w-32 h-32 mb-6 flex items-center justify-center bg-gray-100 rounded-xl border border-gray-200 shadow-inner hidden sm:flex">
+        <!-- Вставьте сюда ваш QR-код -->
+        <img src="/resources/qr/telegram_channel.png"
+          alt="QR Telegram"
+          class="w-28 h-28 object-contain"
+        />
+      </div>
+
+      <!-- Привлекательная надпись -->
+      <h3 class="mb-2 text-gray-900 text-3xl font-extrabold text-center leading-tight tracking-tight">
+        Присоединяйтесь к нашему Telegram!
+      </h3>
+      <p class="mb-6 text-gray-700 text-center text-lg sm:text-xl font-medium leading-relaxed">
+        Получайте быстрые ответы, делитесь идеями и находите решения вместе с экспертами.<br>
+        <span class="font-semibold text-gray-900">Ваш успех — наша миссия!</span>
+      </p>
+
+      <!-- Кнопка Telegram -->
+      <a href="https://t.me/{{ site.telegram }}" target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-2 bg-[#2AABEE] hover:bg-[#229fdc] text-white font-semibold px-6 py-3 rounded-full text-lg shadow transition mb-4"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M9.04 12.34l-0.31 4.37c0.45 0 0.65-0.19 0.89-0.42l2.14-2.04 4.44 3.24c0.81 0.45 1.39 0.21 1.6-0.75l2.9-13.36c0.26-1.18-0.43-1.64-1.21-1.36l-17.02 6.56c-1.16 0.45-1.15 1.1-0.2 1.39l4.36 1.36 10.13-6.38c0.48-0.3 0.92-0.13 0.56 0.17l-8.2 7.41z" fill="currentColor"/>
+        </svg>
+        Перейти в Telegram
+      </a>
+
+      <!-- Кнопка закрытия -->
+      <button
+        onclick="closeModal()"
+        class="mt-2 bg-gray-200 hover:bg-gray-300 text-gray-700 border-none py-2 px-6 rounded-lg cursor-pointer text-base font-semibold transition"
+      >
         Закрыть
       </button>
     </div>
   </div>
-{% else %}
-  <!-- для реад -->
 {% endif %}
 
 <!-- Выпадающая панель вне навбара -->
