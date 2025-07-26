@@ -1,6 +1,8 @@
 :root {
   /* Градиент фона */
   --color-background-top: #FFEDF5;
+  --color-background-middle: #B488F1;
+  --color-background-bottom: #FFFFFF;
 
   /* Навигационная панель */
   --color-hover-current-page: #38001B;
@@ -8,8 +10,39 @@
 
   /* Значок Telegram */
   --color-logo: #38001B;
+
+  /* Цвет карточек СМИ */
+  --color-card-media: #ffffff23;
 }
 
 body {
   color: #38001B; /* Цвет текста */
+}
+
+.team-image-container {
+  padding-left: 4vw;
+  padding-right: 4vw;
+}
+
+.tilt-card {
+  perspective: 700px;
+  will-change: transform;
+}
+
+.tilt-gloss {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(255,255,255,0.18) 20%, rgba(255,255,255,0.04) 80%);
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 2;
+}
+
+.tilt-card.tilted .tilt-gloss {
+  opacity: 1;
 }
