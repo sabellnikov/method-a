@@ -20,6 +20,13 @@ body {
   scroll-behavior: smooth
 }
 
+
+@media (min-width: 640px) {
+  .video-center-row {
+    margin-top: 16vh;
+  }
+}
+
 @media (max-width: 640px) {
   .video-fullscreen-mobile {
     position: fixed !important;
@@ -60,11 +67,6 @@ body {
     display: block;
   }
 }
-
-
-
-
-
 
 .team-image-container {
   padding-left: 4vw;

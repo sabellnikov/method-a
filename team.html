@@ -18,25 +18,22 @@ layout: default
   </div>
 
   <div class="flex justify-center items-center mt-[8vh] sm:mt-[16vh]">
-    
-    
-    
-    
-    <div id="videoContainer" class="relative w-[80vw] h-[80vw] max-w-full box-border sm:w-[80vw] sm:h-auto sm:aspect-[16/9] sm:max-h-none">
-      <video id="teamVideo" class="object-cover w-full h-full rounded-3xl" preload="metadata">
-        <source src="/resources/team/about.mp4" type="video/mp4">
-        Ваш браузер не поддерживает видео.
-      </video>
-      <button id="playBtn" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center transition rounded-2xl"
-        style="border:none;outline:none;">
-        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-          <circle cx="40" cy="40" r="40" fill="#FD589E" fill-opacity="0.95"/>
-          <polygon points="32,25 60,40 32,55" fill="#38001B"/>
-        </svg>
-      </button>
+    <!-- Внешняя обёртка для pin -->
+    <div id="videoPinWrapper" class="w-full flex justify-center">
+      <div id="videoContainer" class="relative w-[80vw] h-[80vw] max-w-full box-border sm:w-[80vw] sm:h-auto sm:aspect-[16/9] sm:max-h-none">
+        <video id="teamVideo" class="object-cover w-full h-full rounded-3xl" preload="metadata">
+          <source src="/resources/team/about.mp4" type="video/mp4">
+          Ваш браузер не поддерживает видео.
+        </video>
+        <button id="playBtn" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center transition rounded-2xl"
+          style="border:none;outline:none;">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="40" fill="#FD589E" fill-opacity="0.95"/>
+            <polygon points="32,25 60,40 32,55" fill="#38001B"/>
+          </svg>
+        </button>
+      </div>
     </div>
-
-    
     <div id="videoPlaceholder" style="width:0;height:0;"></div>
   </div>
 
@@ -109,42 +106,75 @@ layout: default
   });
 
   video.addEventListener('click', function() {
-    if (video.paused) {
-      setTimeout(() => {
-        video.play();
-      }, 100);
+    if (isMobile()) {
+      if (!video.paused) {
+        video.pause();
+      } else {
+        setTimeout(() => {
+          video.play();
+        }, 100);
+      }
     } else {
-      video.pause();
+      if (video.paused) {
+        setTimeout(() => {
+          video.play();
+        }, 100);
+      } else {
+        video.pause();
+      }
     }
   });
+
+  // На мобильных устройствах: клик по любому месту контейнера — пауза
+  if (isMobile()) {
+    videoContainer.addEventListener('click', function(e) {
+      // Если клик был не по кнопке play и не по самому видео
+      if (e.target !== video && e.target !== playBtn) {
+        if (!video.paused) {
+          video.pause();
+        }
+      }
+    });
+  }
 
   // GSAP video expand on scroll
   document.addEventListener('DOMContentLoaded', function() {
     if (window.gsap && window.ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: "#videoContainer",
-          start: "top center",
-          end: () => {
-            // Конец — когда низ контейнера проходит 50% окна
-            const container = document.getElementById('videoContainer');
-            return `bottom+=${window.innerHeight * 0.4} center`;
-          },
-          scrub: true,
-        }
-      });
+      if (!isMobile()) {
+        // Pin-анимация на внешней обёртке
+        ScrollTrigger.create({
+            trigger: "#videoPinWrapper",
+            start: "center center",
+            end: () => `+=${window.innerHeight * 1.5}`,
+            pin: true,
+            pinSpacing: true,
+            markers: true,
+            scrub: false
+        });
 
-      tl.to("#videoContainer", {
-        width: "90vw",
-        maxWidth: "95vw",
-        borderRadius: "0.5rem",
-        ease: "power1.inOut",
-        duration: 1,
-        yoyo: true,
-        repeat: 1
-      });
+        // Анимация ширины только на внутреннем контейнере
+        gsap.to("#videoContainer", {
+          scrollTrigger: {
+            trigger: "#videoPinWrapper",
+            start: "top center",
+            end: () => {
+              const container = document.getElementById('videoPinWrapper');
+              return `bottom+=${window.innerHeight * 0.4} center`;
+            },
+            scrub: true,
+            markers: true
+          },
+          width: "97.5vw",
+          maxWidth: "97.5vw",
+          borderRadius: "0.5rem",
+          ease: "expoScale(1,2,power2.inOut)",
+          duration: 1,
+          yoyo: true,
+          repeat: 1
+        });
+      }
     }
 
     // Fade-in animation for main content
