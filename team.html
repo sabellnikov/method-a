@@ -18,7 +18,11 @@ layout: default
   </div>
 
   <div class="flex justify-center items-center mt-[8vh] sm:mt-[16vh]">
-    <div class="relative w-[90vw] h-[90vw] max-w-full max-h-[100vw] box-border p-[4vw] sm:w-[90vw] sm:h-auto sm:aspect-[16/9]">
+    
+    
+    
+    
+    <div id="videoContainer" class="relative w-[80vw] h-[80vw] max-w-full box-border sm:w-[80vw] sm:h-auto sm:aspect-[16/9] sm:max-h-none">
       <video id="teamVideo" class="object-cover w-full h-full rounded-3xl" preload="metadata">
         <source src="/resources/team/about.mp4" type="video/mp4">
         Ваш браузер не поддерживает видео.
@@ -31,10 +35,13 @@ layout: default
         </svg>
       </button>
     </div>
+
+    
+    <div id="videoPlaceholder" style="width:0;height:0;"></div>
   </div>
 
   <div id="about" class="relative md:px-32">
-    <h1 class="text-4xl md:text-7xl font-medium mt-[14vh]" style="color: #0F1D07;">Наша история</h1>
+    <h1 class="text-4xl md:text-7xl font-medium mt-[140vh]" style="color: #0F1D07;">Наша история</h1>
 
 
     <!-- GSAP CDN -->
@@ -43,24 +50,104 @@ layout: default
     <!-- <script src="/resources/js/markers.js"></script> -->
   </div>
 </div>
+
+
+
+
+
 <script>
   const video = document.getElementById('teamVideo');
   const playBtn = document.getElementById('playBtn');
+  const videoContainer = document.getElementById('videoContainer');
+  const videoPlaceholder = document.getElementById('videoPlaceholder');
+
+  function isMobile() {
+    return window.matchMedia('(max-width: 640px)').matches;
+  }
+
+  function setPlaceholderHeight() {
+    if (isMobile()) {
+      const rect = videoContainer.getBoundingClientRect();
+      videoPlaceholder.style.height = rect.height + "px";
+      videoPlaceholder.style.width = rect.width + "px";
+    }
+  }
+
+  function resetPlaceholderHeight() {
+    videoPlaceholder.style.height = "0";
+    videoPlaceholder.style.width = "0";
+  }
+
   playBtn.addEventListener('click', function() {
-    video.play();
+    setTimeout(() => {
+      video.play();
+    }, 100);
     playBtn.style.display = 'none';
   });
+
   video.addEventListener('pause', function() {
     playBtn.style.display = '';
+    if (isMobile()) {
+      videoContainer.classList.remove('video-fullscreen-mobile');
+      resetPlaceholderHeight();
+    }
   });
+
   video.addEventListener('play', function() {
+    if (isMobile()) {
+      setPlaceholderHeight();
+      videoContainer.classList.add('video-fullscreen-mobile');
+    }
     playBtn.style.display = 'none';
   });
+
+  video.addEventListener('ended', function() {
+    if (isMobile()) {
+      videoContainer.classList.remove('video-fullscreen-mobile');
+      resetPlaceholderHeight();
+    }
+  });
+
   video.addEventListener('click', function() {
     if (video.paused) {
-      video.play();
+      setTimeout(() => {
+        video.play();
+      }, 100);
     } else {
       video.pause();
     }
+  });
+
+  // GSAP video expand on scroll
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#videoContainer",
+          start: "top center",
+          end: () => {
+            // Конец — когда низ контейнера проходит 50% окна
+            const container = document.getElementById('videoContainer');
+            return `bottom+=${window.innerHeight * 0.5} center`;
+          },
+          scrub: true,
+        }
+      });
+
+      tl.to("#videoContainer", {
+        width: "90vw",
+        maxWidth: "95vw",
+        borderRadius: "0.5rem",
+        ease: "power1.inOut",
+        duration: 1,
+        yoyo: true,
+        repeat: 1
+      });
+    }
+
+    // Fade-in animation for main content
+    document.querySelector('.slide-section').classList.add('fade-in');
   });
 </script>
