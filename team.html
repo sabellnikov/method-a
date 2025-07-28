@@ -24,7 +24,7 @@ layout: default
   <div class="flex justify-center items-center mt-[8vh] sm:mt-[16vh]">
     <div id="videoPinWrapper" class="w-full flex justify-center">
       <div id="videoContainer" class="relative w-[80vw] h-[80vw] max-w-full box-border sm:w-[85vw] sm:h-auto sm:aspect-[16/9] sm:max-h-none">
-        <video id="teamVideo" class="object-cover w-full h-full rounded-3xl" preload="metadata">
+        <video id="teamVideo" class="object-cover w-full h-full rounded-3xl" preload="metadata" playsinline controls>
           <source src="/resources/team/about.mp4" type="video/mp4">
           Ваш браузер не поддерживает видео.
         </video>
@@ -41,8 +41,6 @@ layout: default
   </div>
   <div id="about" class="relative px-10 sm:px-14 md:px-28">
     <h1 class="font-medium mt-[8vh] sm:mt-[12vh] max-w-full text-3xl sm:text-5xl md:text-7xl">История успеха</h1>
-    
-    
     <div id="tabs" class="flex mt-4 sm:mt-6 md:mt-8 gap-2 sm:gap-4">
       <button class="{{ tasb_link }}" data-tab="2025">2025</button>
       <button class="{{ tasb_link }}" data-tab="2024">2024</button>
@@ -53,39 +51,34 @@ layout: default
     <div class="tab-content mt-8">
       <div class="tab-panel" data-tab="2025">
         <div class="w-full flex flex-col sm:flex-row items-center gap-8">
-          <div class="flex-1 flex justify-start w-full sm:w-auto relative">
-            <div class="aspect-[16/9] w-[80vw] sm:w-[80vw] sm:aspect-auto overflow-hidden relative">
-              <img src="/resources/team/years/2025.jpg" class="w-full h-full object-cover rounded-3xl" />
-              <!-- Мобильный текст поверх картинки -->
-              <div class="absolute inset-0 flex items-end sm:hidden pointer-events-none h-full min-h-0">
-                <div class="bg-white/80 rounded-b-3xl w-full p-4 h-[30%] min-h-0 overflow-auto">
-                  <h2 class="text-l font-base">В различии — единая тяга к росту</h2>
-                  <p class="text-xs mt-2">Понял! Вы хотите что-то более абстрактное, вдохновляющее и философское, в духе: "Объединяем разных в равной любви к обучению". Вот такие слоганы подойдут: ...</p>
-                </div>
-                <!-- Чекбокс для управления модалкой -->
-                <input type="checkbox" id="modal-toggle" class="hidden peer" />
-                <!-- Кнопка открытия модалки -->
-                <label for="modal-toggle" class="absolute bottom-6 right-6 bg-[#FD589E] text-[#38001B] rounded-full px-4 py-2 font-semibold text-xs pointer-events-auto cursor-pointer">Подробнее</label>
-                <!-- Модалка и backdrop -->
-                <div class="fixed inset-0 z-50 hidden peer-checked:flex items-center justify-center">
-                  <label for="modal-toggle" class="absolute inset-0 bg-black/40 cursor-pointer"></label>
-                  <div class="relative bg-white rounded-lg shadow-lg w-[90vw] max-w-[400px] p-6 z-10">
-                    <div class="flex justify-between items-center mb-4">
-                      <h2 class="text-xl font-bold">Modal Title</h2>
-                      <label for="modal-toggle" class="text-gray-600 hover:text-gray-900 text-2xl cursor-pointer">&times;</label>
-                    </div>
-                    <div>
-                      Lorem Ipsum is simply dummy text of the printing and typeset ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was populari
-                    </div>
-                  </div>
-                </div>
+          <div class="flex-1 flex justify-center md:justify-start w-full sm:w-auto relative">
+            <div class="aspect-[16/9] w-[80vw] sm:w-160 sm:aspect-auto overflow-hidden relative" id="openTabBtn">
+              <!-- Мобильный текст и кнопка в единой белой полоске снизу, только до md -->
+              <div class="md:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-2 text-base mt-0 z-10 flex items-center justify-between box-border">
+                <span class="whitespace-nowrap text-center flex-1 min-w-0 overflow-hidden text-ellipsis font-medium">Это Мобильный интересный 2025</span>
+                <button class="ml-2 flex items-center justify-center w-12 h-12 rounded-full bg-transparent shadow-none z-20 flex-shrink-0" tabindex="-1">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M10 8l4 4-4 4" stroke="#38001B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
               </div>
+              <img src="/resources/team/years/2025.jpg" class="w-full h-full object-cover rounded-3xl" />
+
+
+<!-- Вкладка, выезжающая снизу -->
+<div id="bottomTab" style="position: fixed; left: 0; right: 0; bottom: -300px; height: 300px; background: #fff; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; border-top-left-radius: 24px; border-top-right-radius: 24px;">
+    <div>
+        <!-- Контент вкладки -->
+        <p>Это выезжающая вкладка снизу.</p>
+    </div>
+</div>
+              
             </div>
           </div>
           <!-- ПК текст сбоку -->
           <div class="flex-1 justify-end text-left max-w-lg mt-4 sm:mt-0 w-full sm:w-auto hidden sm:block">
-            <h2 class="text-3xl font-semibold">В различии — единая тяга к росту</h2>
-            <p class="text-base mt-8">Понял! Вы хотите что-то более абстрактное, вдохновляющее и философское, в духе: "Объединяем разных в равной любви к обучению". Вот такие слоганы подойдут: Понял! Вы хотите что-то более абстрактное, вдохновляющее и философское, в духе: "Объединяем разных в равной любви к обучению". Вот такие слоганы подойдутПонял! Вы хотите что-то более абстрактное, вдохновляющее и философское, в духе: "Объединяем разных в равной любви к обучению". Вот такие слоганы подойдут</p>
+            <h2 class="text-3xl font-semibold">Это пк интересный 2025</h2>
+            <p class="text-base mt-8">wwwwwwwwwwwww</p>
           </div>
         </div>
       </div>
@@ -109,7 +102,7 @@ layout: default
       <div class="tab-panel" data-tab="2023">
         <div class="w-full flex items-center gap-8">
           <div class="flex-1 flex justify-start">
-            <img src="/resources/team/years/2024.jpg" class="w-160 h-90 object-cover rounded-3xl" />
+            <img src="/resources/team/years/2023.jpg" class="w-160 h-90 object-cover rounded-3xl" />
           </div>
           <div class="flex-1 justify-end text-left max-w-lg">
             <h2 class="text-3xl font-semibold">2024</h2>
@@ -126,6 +119,10 @@ layout: default
     <h1 class="text-4xl md:text-7xl font-medium mt-[140vh] max-w-4xl">О нас не только говорят, но и пишут</h1>
   </div>
 </div>
+
+<!-- Полупрозрачный фон -->
+<div id="overlayBg" style="position:fixed; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); opacity:0; pointer-events:none; z-index:999;"></div>
+
 
 
     <!-- GSAP CDN -->
@@ -148,4 +145,32 @@ layout: default
           }
         });
       });
-    </script
+
+
+
+        const openBtn = document.getElementById('openTabBtn');
+const tab = document.getElementById('bottomTab');
+const overlay = document.getElementById('overlayBg');
+
+openBtn.addEventListener('click', (e) => {
+  // Только для мобильной версии (до md)
+  if (window.innerWidth >= 768) return;
+  gsap.to(tab, { y: '-300px', duration: 0.5, ease: "power2.out" });
+  gsap.to(overlay, { opacity: 1, duration: 0.5, pointerEvents: "auto", onStart: () => {
+      overlay.style.pointerEvents = "auto";
+  }});
+});
+
+// Клик по оверлею закрывает вкладку
+overlay.addEventListener('click', () => {
+        gsap.to(tab, { y: '0px', duration: 0.5, ease: "power2.in" });
+        gsap.to(overlay, { opacity: 0, duration: 0.5, onComplete: () => {
+            overlay.style.pointerEvents = "none";
+        }});
+    });
+
+    // Сброс позиции вкладки и оверлея при загрузке
+    gsap.set(tab, { y: '0px' });
+    gsap.set(overlay, { opacity: 0 });
+    overlay.style.pointerEvents = "none";
+    </script>
