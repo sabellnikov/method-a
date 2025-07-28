@@ -80,17 +80,6 @@ body {
   display: block;
 }
 
-
-
-
-
-
-
-.team-image-container {
-  padding-left: 4vw;
-  padding-right: 4vw;
-}
-
 .tilt-card {
   perspective: 700px;
   will-change: transform;
