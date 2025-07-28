@@ -1,133 +1,156 @@
-  const video = document.getElementById('teamVideo');
-  const playBtn = document.getElementById('playBtn');
-  const videoContainer = document.getElementById('videoContainer');
-  const videoPlaceholder = document.getElementById('videoPlaceholder');
+// --- Utility functions ---
+function isMobile() {
+  return window.matchMedia('(max-width: 640px)').matches;
+}
 
-  function isMobile() {
-    return window.matchMedia('(max-width: 640px)').matches;
+function setPlaceholderHeight() {
+  if (isMobile()) {
+    const rect = videoContainer.getBoundingClientRect();
+    videoPlaceholder.style.height = rect.height + "px";
+    videoPlaceholder.style.width = rect.width + "px";
   }
+}
 
-  function setPlaceholderHeight() {
-    if (isMobile()) {
-      const rect = videoContainer.getBoundingClientRect();
-      videoPlaceholder.style.height = rect.height + "px";
-      videoPlaceholder.style.width = rect.width + "px";
+function resetPlaceholderHeight() {
+  videoPlaceholder.style.height = "0";
+  videoPlaceholder.style.width = "0";
+}
+
+// --- Video logic ---
+const video = document.getElementById('teamVideo');
+const playBtn = document.getElementById('playBtn');
+const videoContainer = document.getElementById('videoContainer');
+const videoPlaceholder = document.getElementById('videoPlaceholder');
+
+playBtn.addEventListener('click', function() {
+  setTimeout(() => {
+    video.play();
+  }, 100);
+  playBtn.style.display = 'none';
+});
+
+video.addEventListener('pause', function() {
+  playBtn.style.display = '';
+  if (isMobile()) {
+    videoContainer.classList.remove('video-fullscreen-mobile');
+    resetPlaceholderHeight();
+  }
+});
+
+video.addEventListener('play', function() {
+  if (isMobile()) {
+    setPlaceholderHeight();
+    videoContainer.classList.add('video-fullscreen-mobile');
+  }
+  playBtn.style.display = 'none';
+});
+
+video.addEventListener('ended', function() {
+  if (isMobile()) {
+    videoContainer.classList.remove('video-fullscreen-mobile');
+    resetPlaceholderHeight();
+  }
+});
+
+video.addEventListener('click', function() {
+  if (isMobile()) {
+    if (!video.paused) {
+      video.pause();
+    } else {
+      setTimeout(() => {
+        video.play();
+      }, 100);
+    }
+  } else {
+    if (video.paused) {
+      setTimeout(() => {
+        video.play();
+      }, 100);
+    } else {
+      video.pause();
     }
   }
+});
 
-  function resetPlaceholderHeight() {
-    videoPlaceholder.style.height = "0";
-    videoPlaceholder.style.width = "0";
-  }
-
-  playBtn.addEventListener('click', function() {
-    setTimeout(() => {
-      video.play();
-    }, 100);
-    playBtn.style.display = 'none';
-  });
-
-  video.addEventListener('pause', function() {
-    playBtn.style.display = '';
-    if (isMobile()) {
-      videoContainer.classList.remove('video-fullscreen-mobile');
-      resetPlaceholderHeight();
-    }
-  });
-
-  video.addEventListener('play', function() {
-    if (isMobile()) {
-      setPlaceholderHeight();
-      videoContainer.classList.add('video-fullscreen-mobile');
-    }
-    playBtn.style.display = 'none';
-  });
-
-  video.addEventListener('ended', function() {
-    if (isMobile()) {
-      videoContainer.classList.remove('video-fullscreen-mobile');
-      resetPlaceholderHeight();
-    }
-  });
-
-  video.addEventListener('click', function() {
-    if (isMobile()) {
+// На мобильных устройствах: клик по любому месту контейнера — пауза
+if (isMobile()) {
+  videoContainer.addEventListener('click', function(e) {
+    if (e.target !== video && e.target !== playBtn) {
       if (!video.paused) {
         video.pause();
-      } else {
-        setTimeout(() => {
-          video.play();
-        }, 100);
-      }
-    } else {
-      if (video.paused) {
-        setTimeout(() => {
-          video.play();
-        }, 100);
-      } else {
-        video.pause();
       }
     }
   });
+}
 
-  // На мобильных устройствах: клик по любому месту контейнера — пауза
-  if (isMobile()) {
-    videoContainer.addEventListener('click', function(e) {
-      // Если клик был не по кнопке play и не по самому видео
-      if (e.target !== video && e.target !== playBtn) {
-        if (!video.paused) {
-          video.pause();
-        }
-      }
-    });
+// --- Smooth scroll ---
+function smoothScrollTo(y, d = 200) {
+  const s = window.pageYOffset, c = y - s;
+  let t;
+  function scrollStep(ts) {
+    if (t === undefined) t = ts;
+    const p = Math.min(1, (ts - t) / d);
+    window.scrollTo(0, s + c * (0.5 - 0.5 * Math.cos(Math.PI * p)));
+    if (p < 1) requestAnimationFrame(scrollStep);
+  }
+  requestAnimationFrame(scrollStep);
+}
+document.querySelectorAll('a[href^="#"]').forEach(link =>
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (href.length > 1 && document.querySelector(href)) {
+      e.preventDefault();
+      const y = document.querySelector(href).getBoundingClientRect().top + window.pageYOffset;
+      smoothScrollTo(y, 200);
+    }
+  })
+);
+
+// --- Main initialization ---
+document.addEventListener('DOMContentLoaded', function() {
+  // GSAP video expand on scroll
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    if (!isMobile()) {
+      // Pin-анимация на внешней обёртке
+      ScrollTrigger.create({
+        trigger: "#videoPinWrapper",
+        start: "center center",
+        end: () => `+=${window.innerHeight * 1.3}`,
+        pin: true,
+        pinSpacing: true,
+        markers: false,
+        scrub: false
+      });
+
+      // Анимация ширины только на внутреннем контейнере
+      gsap.to("#videoContainer", {
+        scrollTrigger: {
+          trigger: "#videoPinWrapper",
+          start: "top center",
+          end: () => {
+            const container = document.getElementById('videoPinWrapper');
+            return `bottom+=${window.innerHeight * 0.4} center`;
+          },
+          scrub: true,
+          markers: false
+        },
+        width: "97.5vw",
+        maxWidth: "97.5vw",
+        borderRadius: "0.5rem",
+        ease: "expoScale(1,2,power2.inOut)",
+        duration: 1,
+        yoyo: true,
+        repeat: 1
+      });
+    }
   }
 
-  // GSAP video expand on scroll
-  document.addEventListener('DOMContentLoaded', function() {
-    if (window.gsap && window.ScrollTrigger) {
-      gsap.registerPlugin(ScrollTrigger);
+  // Fade-in animation for main content
+  document.querySelector('.slide-section').classList.add('fade-in');
 
-      if (!isMobile()) {
-        // Pin-анимация на внешней обёртке
-        ScrollTrigger.create({
-            trigger: "#videoPinWrapper",
-            start: "center center",
-            end: () => `+=${window.innerHeight * 1.3}`,
-            pin: true,
-            pinSpacing: true,
-            markers: false,
-            scrub: false
-        });
-
-        // Анимация ширины только на внутреннем контейнере
-        gsap.to("#videoContainer", {
-          scrollTrigger: {
-            trigger: "#videoPinWrapper",
-            start: "top center",
-            end: () => {
-              const container = document.getElementById('videoPinWrapper');
-              return `bottom+=${window.innerHeight * 0.4} center`;
-            },
-            scrub: true,
-            markers: false
-          },
-          width: "97.5vw",
-          maxWidth: "97.5vw",
-          borderRadius: "0.5rem",
-          ease: "expoScale(1,2,power2.inOut)",
-          duration: 1,
-          yoyo: true,
-          repeat: 1
-        });
-      }
-    }
-
-    // Fade-in animation for main content
-    document.querySelector('.slide-section').classList.add('fade-in');
-  });
-
-        // Simplified tab switching logic
-      document.addEventListener('DOMContentLoaded', function () {
+  // --- Tabs logic ---
   const tabButtons = document.querySelectorAll('#tabs button[data-tab]');
   const tabPanels = document.querySelectorAll('.tab-panel');
   let autoTabInterval = null;
@@ -187,7 +210,6 @@
     }, delay);
   }
 
-  // Функция для паузы автопереключения на userDelay
   function pauseAutoTabSwitch() {
     clearInterval(autoTabInterval);
     clearTimeout(autoTabTimeout);
@@ -200,9 +222,6 @@
       startAutoTabSwitch(0);
     }
   }
-
-  // Автоматическое переключение вкладок
-  // startAutoTabSwitch(0); // УБРАТЬ/ЗАКОММЕНТИРОВАТЬ эту строку
 
   // GSAP ScrollTrigger для запуска автолистания, когда заголовок "История успеха" проедет 50% экрана
   gsap.registerPlugin(ScrollTrigger);
@@ -225,10 +244,9 @@
       if (window.innerWidth >= 640) {
         clearInterval(autoTabInterval);
         clearTimeout(autoTabTimeout);
-        startAutoTabSwitch(0); // продолжить сразу без задержки
+        startAutoTabSwitch(0);
       }
     });
-    // Для мобильных ничего не делаем
   });
 
   document.getElementById('tabs').addEventListener('click', function (e) {
@@ -236,7 +254,6 @@
       const tab = e.target.getAttribute('data-tab');
       activateTab(tab);
       bindTabOpeners();
-      // Сбросить автослайдшоу и увеличить задержку
       clearInterval(autoTabInterval);
       clearTimeout(autoTabTimeout);
       startAutoTabSwitch(userDelay);
@@ -249,12 +266,10 @@
   let bottomTab = null;
 
   function bindTabOpeners() {
-    // Сначала снять старые обработчики, если были
     document.querySelectorAll('[id^="openTabBtn-"]').forEach(btn => {
       btn.onclick = null;
     });
 
-    // Для активной вкладки назначить обработчик
     const activePanel = document.querySelector('.tab-panel.active');
     if (!activePanel) return;
     const tab = activePanel.getAttribute('data-tab');
@@ -263,21 +278,18 @@
 
     if (openTabBtn && bottomTab) {
       openTabBtn.onclick = function(e) {
-        // Только для мобильной версии (до sm)
         if (window.innerWidth >= 640) return;
-        // Сбросить автослайдшоу и увеличить задержку при открытии мобильной вкладки
         clearInterval(autoTabInterval);
         clearTimeout(autoTabTimeout);
         startAutoTabSwitch(userDelay);
         gsap.to(bottomTab, { y: '-300px', duration: 0.5, ease: "power2.out" });
         gsap.to(overlay, { opacity: 1, duration: 0.5, pointerEvents: "auto", onStart: () => {
-            overlay.style.pointerEvents = "auto";
+          overlay.style.pointerEvents = "auto";
         }});
       };
     }
   }
 
-  // Клик по оверлею закрывает вкладку
   overlay.addEventListener('click', () => {
     if (bottomTab) {
       gsap.to(bottomTab, { y: '0px', duration: 0.5, ease: "power2.in" });
@@ -287,7 +299,6 @@
     }});
   });
 
-  // Сброс позиции вкладки и оверлея при загрузке
   function resetAllBottomTabs() {
     document.querySelectorAll('[id^="bottomTab-"]').forEach(tab => {
       gsap.set(tab, { y: '0px' });
@@ -297,19 +308,14 @@
   }
   resetAllBottomTabs();
 
-  // Переназначать обработчики при переключении табов
   document.getElementById('tabs').addEventListener('click', function () {
     setTimeout(bindTabOpeners, 0);
   });
-  // Назначить при загрузке
   bindTabOpeners();
 
-  // Перезапуск автолистания при изменении размера окна (смена режима)
   window.addEventListener('resize', function() {
     clearInterval(autoTabInterval);
     clearTimeout(autoTabTimeout);
     startAutoTabSwitch(getAutoTabDelay());
   });
 });
-
-

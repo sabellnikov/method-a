@@ -58,7 +58,7 @@ layout: default
         <div class="w-full flex flex-col sm:flex-row items-center gap-8">
           <div class="flex-1 basis-1/2 min-h-0 flex justify-center w-full sm:w-auto relative">
             <div class="aspect-[16/9] w-full h-full max-w-full overflow-hidden relative" id="openTabBtn-2025">
-              <div class="sm:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-2 text-base mt-0 z-10 flex items-center justify-between box-border">
+              <div class="sm:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-1 text-base mt-0 z-10 flex items-center justify-between box-border">
                 <span class="whitespace-nowrap text-center flex-1 min-w-0 overflow-hidden text-ellipsis font-medium">{{ 2025_head }}</span>
                 <button class="ml-2 flex items-center justify-center w-12 h-12 rounded-full bg-transparent shadow-none z-20 flex-shrink-0" tabindex="-1">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
@@ -91,7 +91,7 @@ layout: default
         <div class="w-full flex flex-col sm:flex-row items-center gap-8">
           <div class="flex-1 basis-1/2 min-h-0 flex justify-center w-full sm:w-auto relative">
             <div class="aspect-[16/9] w-full h-full max-w-full overflow-hidden relative" id="openTabBtn-2024">
-              <div class="sm:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-2 text-base mt-0 z-10 flex items-center justify-between box-border">
+              <div class="sm:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-1 text-base mt-0 z-10 flex items-center justify-between box-border">
                 <span class="whitespace-nowrap text-center flex-1 min-w-0 overflow-hidden text-ellipsis font-medium">{{ 2024_head }}</span>
                 <button class="ml-2 flex items-center justify-center w-12 h-12 rounded-full bg-transparent shadow-none z-20 flex-shrink-0" tabindex="-1">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
@@ -124,7 +124,7 @@ layout: default
         <div class="w-full flex flex-col sm:flex-row items-center gap-8">
           <div class="flex-1 basis-1/2 min-h-0 flex justify-center w-full sm:w-auto relative">
             <div class="aspect-[16/9] w-full h-full max-w-full overflow-hidden relative" id="openTabBtn-2023">
-              <div class="sm:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-2 text-base mt-0 z-10 flex items-center justify-between box-border">
+              <div class="sm:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-1 text-base mt-0 z-10 flex items-center justify-between box-border">
                 <span class="whitespace-nowrap text-center flex-1 min-w-0 overflow-hidden text-ellipsis font-medium">{{ 2023_head }}</span>
                 <button class="ml-2 flex items-center justify-center w-12 h-12 rounded-full bg-transparent shadow-none z-20 flex-shrink-0" tabindex="-1">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
@@ -166,27 +166,6 @@ layout: default
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="/resources/js/team.js"></script>
     <script>
-      // Короткий кастомный плавный скролл (совместимо с Safari)
-      function smoothScrollTo(y, d = 200) {
-        const s = window.pageYOffset, c = y - s;
-        let t;
-        function scrollStep(ts) {
-          if (t === undefined) t = ts;
-          const p = Math.min(1, (ts - t) / d);
-          window.scrollTo(0, s + c * (0.5 - 0.5 * Math.cos(Math.PI * p)));
-          if (p < 1) requestAnimationFrame(scrollStep);
-        }
-        requestAnimationFrame(scrollStep);
-      }
-      document.querySelectorAll('a[href^="#"]').forEach(link =>
-        link.addEventListener('click', e => {
-          const href = link.getAttribute('href');
-          if (href.length > 1 && document.querySelector(href)) {
-            e.preventDefault();
-            const y = document.querySelector(href).getBoundingClientRect().top + window.pageYOffset;
-            smoothScrollTo(y, 200);
-          }
-        })
-      );
+
     </script>
 
