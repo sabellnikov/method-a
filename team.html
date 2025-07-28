@@ -11,7 +11,7 @@ layout: default
 ' %}
 
 
-<div class="slide-section flex-col" data-bg="var(--color-background-top)">
+<div class="slide-section flex flex-col min-h-screen" data-bg="var(--color-background-top)">
   <div class="relative px-4 sm:px-8 md:px-10">
     <div class="flex flex-wrap gap-2 sm:gap-4 mt-28 sm:mt-34 md:mt-40 items-stretch gap-y-2 sm:gap-y-2">
       <a href="#about" class="{{ fast_link }}">О бюро</a>
@@ -39,28 +39,26 @@ layout: default
     </div>
     <div id="videoPlaceholder" style="width:0;height:0;"></div>
   </div>
-  <div id="about" class="relative px-8 sm:px-14 md:px-28">
+  <div id="about" class="relative px-8 sm:px-14 md:px-28 flex flex-col flex-1">
     <h1 class="font-medium mt-[8vh] sm:mt-[12vh] max-w-full text-4xl sm:text-5xl md:text-7xl">История успеха</h1>
     <div id="tabs" class="flex mt-4 sm:mt-6 md:mt-8 gap-2 sm:gap-4">
       <button class="{{ tasb_link }}" data-tab="2025">2025</button>
       <button class="{{ tasb_link }}" data-tab="2024">2024</button>
       <button class="{{ tasb_link }}" data-tab="2023">2023</button>
     </div>
+    <div class="tab-content mt-8 flex-1 flex flex-col">
 
-    
     {% assign 2025_head = '
-      Год осознанности и человеческого смысла в мире перемен    ' %}
+      Год осознанности и человеческого смысла в мире перемен
+    ' %}
     {% assign 2025_text = '
       2025 год — это время осознанности, стремления к балансу между технологиями и человеческими ценностями. Мир меняется быстро, но в центре внимания остаётся человек: с его стремлением учиться, адаптироваться и находить смысл в сложном, взаимосвязанном мире.
     ' %}
-
-    
-    <div class="tab-content mt-8">
-      <div class="tab-panel" data-tab="2025">
+      <div class="tab-panel flex-1 flex flex-col" data-tab="2025">
         <div class="w-full flex flex-col sm:flex-row items-center gap-8">
-          <div class="flex-1 flex justify-center md:justify-start w-full sm:w-auto relative">
-            <div class="aspect-[16/9] w-[85vw] sm:w-160 sm:aspect-auto overflow-hidden relative" id="openTabBtn">
-              <div class="md:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-2 text-base mt-0 z-10 flex items-center justify-between box-border">
+          <div class="flex-1 basis-1/2 min-h-0 flex justify-center w-full sm:w-auto relative">
+            <div class="aspect-[16/9] w-full h-full max-w-full overflow-hidden relative" id="openTabBtn-2025">
+              <div class="sm:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-2 text-base mt-0 z-10 flex items-center justify-between box-border">
                 <span class="whitespace-nowrap text-center flex-1 min-w-0 overflow-hidden text-ellipsis font-medium">{{ 2025_head }}</span>
                 <button class="ml-2 flex items-center justify-center w-12 h-12 rounded-full bg-transparent shadow-none z-20 flex-shrink-0" tabindex="-1">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
@@ -68,50 +66,83 @@ layout: default
                   </svg>
                 </button>
               </div>
-                <div id="bottomTab" class="fixed left-0 right-0 bottom-[-300px] h-[300px] bg-white z-[1000] flex flex-col items-center justify-center rounded-t-3xl">
+                <div id="bottomTab-2025" class="fixed left-0 right-0 bottom-[-300px] h-[300px] bg-white z-[1000] flex flex-col items-center justify-center rounded-t-3xl">
                   <div class="text-lg mx-[5%]">
                     {{ 2025_text }}
                   </div>
                 </div>
               <img src="/resources/team/years/2025.jpg" class="w-full h-full object-cover rounded-3xl" />
-
-
-
-              
             </div>
           </div>
-          <!-- ПК текст сбоку -->
-          <div class="flex-1 justify-end text-left max-w-lg mt-4 sm:mt-0 w-full sm:w-auto hidden sm:block">
-            <h2 class="text-3xl font-semibold">Это пк интересный 2025</h2>
-            <p class="text-base mt-8">wwwwwwwwwwwww</p>
+          <div class="hidden sm:flex flex-1 basis-1/2 min-h-0 flex-col justify-center text-left w-full sm:w-1/2 mt-4 sm:mt-0 gap-2">
+            <h2 class="sm:text-sm md:text-lg font-semibold">{{ 2025_head }}</h2>
+            <p class="sm:text-xs md:text-base">{{ 2025_text }}</p>
           </div>
         </div>
       </div>
-    </div>
 
-    
-    <div class="tab-content mt-8">
-      <div class="tab-panel" data-tab="2024">
-        <div class="w-full flex items-center gap-8">
-          <div class="flex-1 flex justify-start">
-            <img src="/resources/team/years/2024.jpg" class="w-160 h-90 object-cover rounded-3xl" />
+    {% assign 2024_head = '
+      Год осознанности в мире перемен
+    ' %}
+    {% assign 2024_text = '
+      2024 год — это время осознанности, стремления к балансу между технологиями и человеческими ценностями. Мир меняется быстро, но в центре внимания остаётся человек: с его стремлением учиться, адаптироваться и находить смысл в сложном, взаимосвязанном мире.
+    ' %}
+      <div class="tab-panel flex-1 flex flex-col" data-tab="2024">
+        <div class="w-full flex flex-col sm:flex-row items-center gap-8">
+          <div class="flex-1 basis-1/2 min-h-0 flex justify-center w-full sm:w-auto relative">
+            <div class="aspect-[16/9] w-full h-full max-w-full overflow-hidden relative" id="openTabBtn-2024">
+              <div class="sm:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-2 text-base mt-0 z-10 flex items-center justify-between box-border">
+                <span class="whitespace-nowrap text-center flex-1 min-w-0 overflow-hidden text-ellipsis font-medium">{{ 2024_head }}</span>
+                <button class="ml-2 flex items-center justify-center w-12 h-12 rounded-full bg-transparent shadow-none z-20 flex-shrink-0" tabindex="-1">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M10 8l4 4-4 4" stroke="#38001B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+                <div id="bottomTab-2024" class="fixed left-0 right-0 bottom-[-300px] h-[300px] bg-white z-[1000] flex flex-col items-center justify-center rounded-t-3xl">
+                  <div class="text-lg mx-[5%]">
+                    {{ 2024_text }}
+                  </div>
+                </div>
+              <img src="/resources/team/years/2024.jpg" class="w-full h-full object-cover rounded-3xl" />
+            </div>
           </div>
-          <div class="flex-1 justify-end text-left max-w-lg">
-            <h2 class="text-3xl font-semibold">2024</h2>
-            <p class="text-base mt-8">aaaaaaaaaaaaaaaaa</p>
+          <div class="hidden sm:flex flex-1 basis-1/2 min-h-0 flex-col justify-center text-left w-full sm:w-1/2 mt-4 sm:mt-0 gap-2">
+            <h2 class="sm:text-sm md:text-lg font-semibold">{{ 2024_head }}</h2>
+            <p class="sm:text-xs md:text-base">{{ 2024_text }}</p>
           </div>
         </div>
       </div>
-    </div>
-    <div class="tab-content mt-8">
-      <div class="tab-panel" data-tab="2023">
-        <div class="w-full flex items-center gap-8">
-          <div class="flex-1 flex justify-start">
-            <img src="/resources/team/years/2023.jpg" class="w-160 h-90 object-cover rounded-3xl" />
+
+    {% assign 2023_head = '
+      Год осознанности и человеческого смысла в мире перемен
+    ' %}
+    {% assign 2023_text = '
+      2023 год — это время осознанности, стремления к балансу между технологиями и человеческими ценностями. Мир меняется быстро, но в центре внимания остаётся человек: с его стремлением учиться, адаптироваться и находить смысл в сложном, взаимосвязанном мире.
+    ' %}
+      <div class="tab-panel flex-1 flex flex-col" data-tab="2023">
+        <div class="w-full flex flex-col sm:flex-row items-center gap-8">
+          <div class="flex-1 basis-1/2 min-h-0 flex justify-center w-full sm:w-auto relative">
+            <div class="aspect-[16/9] w-full h-full max-w-full overflow-hidden relative" id="openTabBtn-2023">
+              <div class="sm:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-2 text-base mt-0 z-10 flex items-center justify-between box-border">
+                <span class="whitespace-nowrap text-center flex-1 min-w-0 overflow-hidden text-ellipsis font-medium">{{ 2023_head }}</span>
+                <button class="ml-2 flex items-center justify-center w-12 h-12 rounded-full bg-transparent shadow-none z-20 flex-shrink-0" tabindex="-1">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M10 8l4 4-4 4" stroke="#38001B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+                <div id="bottomTab-2023" class="fixed left-0 right-0 bottom-[-300px] h-[300px] bg-white z-[1000] flex flex-col items-center justify-center rounded-t-3xl">
+                  <div class="text-lg mx-[5%]">
+                    {{ 2023_text }}
+                  </div>
+                </div>
+              <img src="/resources/team/years/2023.jpg" class="w-full h-full object-cover rounded-3xl" />
+            </div>
           </div>
-          <div class="flex-1 justify-end text-left max-w-lg">
-            <h2 class="text-3xl font-semibold">2024</h2>
-            <p class="text-base mt-8">aaaaaaaaaaaaaaaaa</p>
+          <div class="hidden sm:flex flex-1 basis-1/2 min-h-0 flex-col justify-center text-left w-full sm:w-1/2 mt-4 sm:mt-0 gap-2">
+            <h2 class="sm:text-sm md:text-lg font-semibold">{{ 2023_head }}</h2>
+            <p class="sm:text-xs md:text-base">{{ 2023_text }}</p>
           </div>
         </div>
       </div>
@@ -137,45 +168,74 @@ layout: default
     <script>
       // Simplified tab switching logic
       document.addEventListener('DOMContentLoaded', function () {
-        const tabButtons = document.querySelectorAll('#tabs button[data-tab]');
-        const tabPanels = document.querySelectorAll('.tab-panel');
-        // Set initial active
-        tabButtons[0].classList.add('active');
-        tabPanels[0].classList.add('active');
-        document.getElementById('tabs').addEventListener('click', function (e) {
-          if (e.target.matches('button[data-tab]')) {
-            const tab = e.target.getAttribute('data-tab');
-            tabButtons.forEach(btn => btn.classList.toggle('active', btn === e.target));
-            tabPanels.forEach(panel => panel.classList.toggle('active', panel.getAttribute('data-tab') === tab));
-          }
-        });
-      });
+  const tabButtons = document.querySelectorAll('#tabs button[data-tab]');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  // Set initial active
+  tabButtons[0].classList.add('active');
+  tabPanels[0].classList.add('active');
+  document.getElementById('tabs').addEventListener('click', function (e) {
+    if (e.target.matches('button[data-tab]')) {
+      const tab = e.target.getAttribute('data-tab');
+      tabButtons.forEach(btn => btn.classList.toggle('active', btn === e.target));
+      tabPanels.forEach(panel => panel.classList.toggle('active', panel.getAttribute('data-tab') === tab));
+    }
+  });
 
+  // Открытие вкладки (мобильная версия)
+  const overlay = document.getElementById('overlayBg');
+  let openTabBtn = null;
+  let bottomTab = null;
 
-
-        const openBtn = document.getElementById('openTabBtn');
-const tab = document.getElementById('bottomTab');
-const overlay = document.getElementById('overlayBg');
-
-openBtn.addEventListener('click', (e) => {
-  // Только для мобильной версии (до md)
-  if (window.innerWidth >= 768) return;
-  gsap.to(tab, { y: '-300px', duration: 0.5, ease: "power2.out" });
-  gsap.to(overlay, { opacity: 1, duration: 0.5, pointerEvents: "auto", onStart: () => {
-      overlay.style.pointerEvents = "auto";
-  }});
-});
-
-// Клик по оверлею закрывает вкладку
-overlay.addEventListener('click', () => {
-        gsap.to(tab, { y: '0px', duration: 0.5, ease: "power2.in" });
-        gsap.to(overlay, { opacity: 0, duration: 0.5, onComplete: () => {
-            overlay.style.pointerEvents = "none";
-        }});
+  function bindTabOpeners() {
+    // Сначала снять старые обработчики, если были
+    document.querySelectorAll('[id^="openTabBtn-"]').forEach(btn => {
+      btn.onclick = null;
     });
 
-    // Сброс позиции вкладки и оверлея при загрузке
-    gsap.set(tab, { y: '0px' });
+    // Для активной вкладки назначить обработчик
+    const activePanel = document.querySelector('.tab-panel.active');
+    if (!activePanel) return;
+    const tab = activePanel.getAttribute('data-tab');
+    openTabBtn = document.getElementById('openTabBtn-' + tab);
+    bottomTab = document.getElementById('bottomTab-' + tab);
+
+    if (openTabBtn && bottomTab) {
+      openTabBtn.onclick = function(e) {
+        // Только для мобильной версии (до sm)
+        if (window.innerWidth >= 640) return;
+        gsap.to(bottomTab, { y: '-300px', duration: 0.5, ease: "power2.out" });
+        gsap.to(overlay, { opacity: 1, duration: 0.5, pointerEvents: "auto", onStart: () => {
+            overlay.style.pointerEvents = "auto";
+        }});
+      };
+    }
+  }
+
+  // Клик по оверлею закрывает вкладку
+  overlay.addEventListener('click', () => {
+    if (bottomTab) {
+      gsap.to(bottomTab, { y: '0px', duration: 0.5, ease: "power2.in" });
+    }
+    gsap.to(overlay, { opacity: 0, duration: 0.5, onComplete: () => {
+      overlay.style.pointerEvents = "none";
+    }});
+  });
+
+  // Сброс позиции вкладки и оверлея при загрузке
+  function resetAllBottomTabs() {
+    document.querySelectorAll('[id^="bottomTab-"]').forEach(tab => {
+      gsap.set(tab, { y: '0px' });
+    });
     gsap.set(overlay, { opacity: 0 });
     overlay.style.pointerEvents = "none";
+  }
+  resetAllBottomTabs();
+
+  // Переназначать обработчики при переключении табов
+  document.getElementById('tabs').addEventListener('click', function () {
+    setTimeout(bindTabOpeners, 0);
+  });
+  // Назначить при загрузке
+  bindTabOpeners();
+});
     </script>
