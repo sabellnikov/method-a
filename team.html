@@ -7,7 +7,7 @@ layout: default
 ' %}
 
 {% assign tasb_link = '
-  tab-btn rounded-full px-5 py-1 sm:py-2 bg-[#FD589E] text-[#38001B] font-semibold text-xs sm:text-base transition-colors duration-200 hover:bg-[#38001B] hover:text-[#FD589E] text-center
+  tab-btn rounded-full px-5 py-1 sm:py-2 bg-[#FD589E] text-[#38001B] font-semibold text-sm sm:text-base transition-colors duration-200 hover:bg-[#38001B] hover:text-[#FD589E] text-center
 ' %}
 
 
@@ -23,7 +23,7 @@ layout: default
   </div>
   <div class="flex justify-center items-center mt-[8vh] sm:mt-[16vh]">
     <div id="videoPinWrapper" class="w-full flex justify-center">
-      <div id="videoContainer" class="relative w-[80vw] h-[80vw] max-w-full box-border sm:w-[85vw] sm:h-auto sm:aspect-[16/9] sm:max-h-none">
+      <div id="videoContainer" class="relative w-[85vw] h-[85vw] max-w-full box-border sm:w-[85vw] sm:h-auto sm:aspect-[16/9] sm:max-h-none">
         <video id="teamVideo" class="object-cover w-full h-full rounded-3xl" preload="metadata" playsinline controls>
           <source src="/resources/team/team.mp4" type="video/mp4">
           Ваш браузер не поддерживает видео.
@@ -39,8 +39,8 @@ layout: default
     </div>
     <div id="videoPlaceholder" style="width:0;height:0;"></div>
   </div>
-  <div id="about" class="relative px-10 sm:px-14 md:px-28">
-    <h1 class="font-medium mt-[8vh] sm:mt-[12vh] max-w-full text-3xl sm:text-5xl md:text-7xl">История успеха</h1>
+  <div id="about" class="relative px-8 sm:px-14 md:px-28">
+    <h1 class="font-medium mt-[8vh] sm:mt-[12vh] max-w-full text-4xl sm:text-5xl md:text-7xl">История успеха</h1>
     <div id="tabs" class="flex mt-4 sm:mt-6 md:mt-8 gap-2 sm:gap-4">
       <button class="{{ tasb_link }}" data-tab="2025">2025</button>
       <button class="{{ tasb_link }}" data-tab="2024">2024</button>
@@ -52,7 +52,7 @@ layout: default
       <div class="tab-panel" data-tab="2025">
         <div class="w-full flex flex-col sm:flex-row items-center gap-8">
           <div class="flex-1 flex justify-center md:justify-start w-full sm:w-auto relative">
-            <div class="aspect-[16/9] w-[80vw] sm:w-160 sm:aspect-auto overflow-hidden relative" id="openTabBtn">
+            <div class="aspect-[16/9] w-[85vw] sm:w-160 sm:aspect-auto overflow-hidden relative" id="openTabBtn">
               <!-- Мобильный текст и кнопка в единой белой полоске снизу, только до md -->
               <div class="md:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-2 text-base mt-0 z-10 flex items-center justify-between box-border">
                 <span class="whitespace-nowrap text-center flex-1 min-w-0 overflow-hidden text-ellipsis font-medium">Это Мобильный интересный 2025</span>
