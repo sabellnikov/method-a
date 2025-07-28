@@ -24,7 +24,7 @@ layout: default
   <div class="flex justify-center items-center mt-[8vh] sm:mt-[16vh]">
     <div id="videoPinWrapper" class="w-full flex justify-center">
       <div id="videoContainer" class="relative w-[85vw] h-[85vw] max-w-full box-border sm:w-[85vw] sm:h-auto sm:aspect-[16/9] sm:max-h-none">
-        <video id="teamVideo" class="object-cover w-full h-full rounded-3xl" preload="metadata" playsinline controls poster="/resources/team/team.jpg">
+        <video id="teamVideo" class="object-cover w-full h-full rounded-3xl" preload="metadata" playsinline poster="/resources/team/team.jpg">
           <source src="/resources/team/team.mp4" type="video/mp4">
           Ваш браузер не поддерживает видео.
         </video>
@@ -47,6 +47,7 @@ layout: default
       <button class="{{ tasb_link }}" data-tab="2023">2023</button>
     </div>
 
+    
     {% assign 2025_head = '
       Год осознанности и человеческого смысла в мире перемен    ' %}
     {% assign 2025_text = '
@@ -59,7 +60,6 @@ layout: default
         <div class="w-full flex flex-col sm:flex-row items-center gap-8">
           <div class="flex-1 flex justify-center md:justify-start w-full sm:w-auto relative">
             <div class="aspect-[16/9] w-[85vw] sm:w-160 sm:aspect-auto overflow-hidden relative" id="openTabBtn">
-              <!-- Мобильный текст и кнопка в единой белой полоске снизу, только до md -->
               <div class="md:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-2 text-base mt-0 z-10 flex items-center justify-between box-border">
                 <span class="whitespace-nowrap text-center flex-1 min-w-0 overflow-hidden text-ellipsis font-medium">{{ 2025_head }}</span>
                 <button class="ml-2 flex items-center justify-center w-12 h-12 rounded-full bg-transparent shadow-none z-20 flex-shrink-0" tabindex="-1">
@@ -73,8 +73,6 @@ layout: default
                     {{ 2025_text }}
                   </div>
                 </div>
-
-
               <img src="/resources/team/years/2025.jpg" class="w-full h-full object-cover rounded-3xl" />
 
 
