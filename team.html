@@ -165,4 +165,28 @@ layout: default
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="/resources/js/team.js"></script>
+    <script>
+      // Короткий кастомный плавный скролл (совместимо с Safari)
+      function smoothScrollTo(y, d = 200) {
+        const s = window.pageYOffset, c = y - s;
+        let t;
+        function scrollStep(ts) {
+          if (t === undefined) t = ts;
+          const p = Math.min(1, (ts - t) / d);
+          window.scrollTo(0, s + c * (0.5 - 0.5 * Math.cos(Math.PI * p)));
+          if (p < 1) requestAnimationFrame(scrollStep);
+        }
+        requestAnimationFrame(scrollStep);
+      }
+      document.querySelectorAll('a[href^="#"]').forEach(link =>
+        link.addEventListener('click', e => {
+          const href = link.getAttribute('href');
+          if (href.length > 1 && document.querySelector(href)) {
+            e.preventDefault();
+            const y = document.querySelector(href).getBoundingClientRect().top + window.pageYOffset;
+            smoothScrollTo(y, 200);
+          }
+        })
+      );
+    </script>
 
