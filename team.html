@@ -46,7 +46,7 @@ layout: default
       <button class="{{ tasb_link }}" data-tab="2024">2024</button>
       <button class="{{ tasb_link }}" data-tab="2023">2023</button>
     </div>
-    <div class="tab-content mt-8 flex-1 flex flex-col">
+    <div class="tab-content mt-4 sm:mt-6 md:mt-8 flex-1 flex flex-col">
 
     {% assign 2025_head = '
       Год осознанности и человеческого смысла в мире перемен
@@ -170,14 +170,116 @@ layout: default
       document.addEventListener('DOMContentLoaded', function () {
   const tabButtons = document.querySelectorAll('#tabs button[data-tab]');
   const tabPanels = document.querySelectorAll('.tab-panel');
+  let autoTabInterval = null;
+  let autoTabTimeout = null;
+  let autoTabDelayMobile = 3000;   // 3 seconds для мобильных (<640px)
+  let autoTabDelayDesktop = 6000; // 6 секунд для десктопа (>=640px)
+  let userDelay = 10000;           // 10 секунд после действия пользователя
+  let autoTabStarted = false;
+
   // Set initial active
   tabButtons[0].classList.add('active');
   tabPanels[0].classList.add('active');
+
+  function activateTab(tab) {
+    tabButtons.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-tab') === tab));
+    tabPanels.forEach(panel => panel.classList.toggle('active', panel.getAttribute('data-tab') === tab));
+  }
+
+  function getActiveTabIndex() {
+    return Array.from(tabButtons).findIndex(btn => btn.classList.contains('active'));
+  }
+
+  function nextTabIndex() {
+    let idx = getActiveTabIndex();
+    return (idx + 1) % tabButtons.length;
+  }
+
+  function getAutoTabDelay() {
+    return window.innerWidth < 640 ? autoTabDelayMobile : autoTabDelayDesktop;
+  }
+
+  function startAutoTabSwitch(delay = getAutoTabDelay()) {
+    clearInterval(autoTabInterval);
+    clearTimeout(autoTabTimeout);
+    autoTabTimeout = setTimeout(() => {
+      // Закрыть открытую мобильную вкладку, если она есть
+      if (bottomTab && window.innerWidth < 640) {
+        gsap.to(bottomTab, { y: '0px', duration: 0.4, ease: "power2.in" });
+        gsap.to(overlay, { opacity: 0, duration: 0.4, onComplete: () => {
+          overlay.style.pointerEvents = "none";
+          // После закрытия сразу запустить автопереключение без задержки
+          autoTabInterval = setInterval(() => {
+            let idx = nextTabIndex();
+            let tab = tabButtons[idx].getAttribute('data-tab');
+            activateTab(tab);
+            bindTabOpeners();
+          }, getAutoTabDelay());
+        }});
+      } else {
+        autoTabInterval = setInterval(() => {
+          let idx = nextTabIndex();
+          let tab = tabButtons[idx].getAttribute('data-tab');
+          activateTab(tab);
+          bindTabOpeners();
+        }, getAutoTabDelay());
+      }
+    }, delay);
+  }
+
+  // Функция для паузы автопереключения на userDelay
+  function pauseAutoTabSwitch() {
+    clearInterval(autoTabInterval);
+    clearTimeout(autoTabTimeout);
+    startAutoTabSwitch(userDelay);
+  }
+
+  function startAutoTabSwitchIfNeeded() {
+    if (!autoTabStarted) {
+      autoTabStarted = true;
+      startAutoTabSwitch(0);
+    }
+  }
+
+  // Автоматическое переключение вкладок
+  // startAutoTabSwitch(0); // УБРАТЬ/ЗАКОММЕНТИРОВАТЬ эту строку
+
+  // GSAP ScrollTrigger для запуска автолистания, когда заголовок "История успеха" проедет 50% экрана
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.create({
+    trigger: '#about h1',
+    start: 'top 50%',
+    once: true,
+    onEnter: startAutoTabSwitchIfNeeded
+  });
+
+  // Наведение мыши на контейнер с текстом или картинкой — пауза автопереключения (только для десктопа)
+  document.querySelectorAll('.tab-panel .aspect-\\[16\\/9\\], .tab-panel .flex-1.basis-1\\/2').forEach(el => {
+    el.addEventListener('mouseenter', function() {
+      if (window.innerWidth >= 640) {
+        clearInterval(autoTabInterval);
+        clearTimeout(autoTabTimeout);
+      }
+    });
+    el.addEventListener('mouseleave', function() {
+      if (window.innerWidth >= 640) {
+        clearInterval(autoTabInterval);
+        clearTimeout(autoTabTimeout);
+        startAutoTabSwitch(0); // продолжить сразу без задержки
+      }
+    });
+    // Для мобильных ничего не делаем
+  });
+
   document.getElementById('tabs').addEventListener('click', function (e) {
     if (e.target.matches('button[data-tab]')) {
       const tab = e.target.getAttribute('data-tab');
-      tabButtons.forEach(btn => btn.classList.toggle('active', btn === e.target));
-      tabPanels.forEach(panel => panel.classList.toggle('active', panel.getAttribute('data-tab') === tab));
+      activateTab(tab);
+      bindTabOpeners();
+      // Сбросить автослайдшоу и увеличить задержку
+      clearInterval(autoTabInterval);
+      clearTimeout(autoTabTimeout);
+      startAutoTabSwitch(userDelay);
     }
   });
 
@@ -203,6 +305,10 @@ layout: default
       openTabBtn.onclick = function(e) {
         // Только для мобильной версии (до sm)
         if (window.innerWidth >= 640) return;
+        // Сбросить автослайдшоу и увеличить задержку при открытии мобильной вкладки
+        clearInterval(autoTabInterval);
+        clearTimeout(autoTabTimeout);
+        startAutoTabSwitch(userDelay);
         gsap.to(bottomTab, { y: '-300px', duration: 0.5, ease: "power2.out" });
         gsap.to(overlay, { opacity: 1, duration: 0.5, pointerEvents: "auto", onStart: () => {
             overlay.style.pointerEvents = "auto";
@@ -237,5 +343,12 @@ layout: default
   });
   // Назначить при загрузке
   bindTabOpeners();
+
+  // Перезапуск автолистания при изменении размера окна (смена режима)
+  window.addEventListener('resize', function() {
+    clearInterval(autoTabInterval);
+    clearTimeout(autoTabTimeout);
+    startAutoTabSwitch(getAutoTabDelay());
+  });
 });
     </script>
