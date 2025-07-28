@@ -68,6 +68,24 @@ body {
   }
 }
 
+#tabs .active {
+  background-color: #38001B !important;
+  color: #FD589E !important;
+}
+
+.tab-panel {
+  display: none;
+}
+.tab-panel.active {
+  display: block;
+}
+
+
+
+
+
+
+
 .team-image-container {
   padding-left: 4vw;
   padding-right: 4vw;
