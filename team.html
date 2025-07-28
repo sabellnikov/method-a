@@ -24,7 +24,7 @@ layout: default
   <div class="flex justify-center items-center mt-[8vh] sm:mt-[16vh]">
     <div id="videoPinWrapper" class="w-full flex justify-center">
       <div id="videoContainer" class="relative w-[85vw] h-[85vw] max-w-full box-border sm:w-[85vw] sm:h-auto sm:aspect-[16/9] sm:max-h-none">
-        <video id="teamVideo" class="object-cover w-full h-full rounded-3xl" preload="metadata" playsinline controls>
+        <video id="teamVideo" class="object-cover w-full h-full rounded-3xl" preload="metadata" playsinline controls poster="/resources/team/team.jpg">
           <source src="/resources/team/team.mp4" type="video/mp4">
           Ваш браузер не поддерживает видео.
         </video>
@@ -47,6 +47,12 @@ layout: default
       <button class="{{ tasb_link }}" data-tab="2023">2023</button>
     </div>
 
+    {% assign 2025_head = '
+      Год осознанности и человеческого смысла в мире перемен    ' %}
+    {% assign 2025_text = '
+      2025 год — это время осознанности, стремления к балансу между технологиями и человеческими ценностями. Мир меняется быстро, но в центре внимания остаётся человек: с его стремлением учиться, адаптироваться и находить смысл в сложном, взаимосвязанном мире.
+    ' %}
+
     
     <div class="tab-content mt-8">
       <div class="tab-panel" data-tab="2025">
@@ -55,23 +61,24 @@ layout: default
             <div class="aspect-[16/9] w-[85vw] sm:w-160 sm:aspect-auto overflow-hidden relative" id="openTabBtn">
               <!-- Мобильный текст и кнопка в единой белой полоске снизу, только до md -->
               <div class="md:hidden absolute left-0 right-0 bottom-0 w-full bg-white/90 rounded-b-xl px-4 py-2 text-base mt-0 z-10 flex items-center justify-between box-border">
-                <span class="whitespace-nowrap text-center flex-1 min-w-0 overflow-hidden text-ellipsis font-medium">Это Мобильный интересный 2025</span>
+                <span class="whitespace-nowrap text-center flex-1 min-w-0 overflow-hidden text-ellipsis font-medium">{{ 2025_head }}</span>
                 <button class="ml-2 flex items-center justify-center w-12 h-12 rounded-full bg-transparent shadow-none z-20 flex-shrink-0" tabindex="-1">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
                     <path d="M10 8l4 4-4 4" stroke="#38001B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </button>
               </div>
+                <div id="bottomTab" class="fixed left-0 right-0 bottom-[-300px] h-[300px] bg-white z-[1000] flex flex-col items-center justify-center rounded-t-3xl">
+                  <div class="text-lg mx-[5%]">
+                    {{ 2025_text }}
+                  </div>
+                </div>
+
+
               <img src="/resources/team/years/2025.jpg" class="w-full h-full object-cover rounded-3xl" />
 
 
-<!-- Вкладка, выезжающая снизу -->
-<div id="bottomTab" style="position: fixed; left: 0; right: 0; bottom: -300px; height: 300px; background: #fff; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; border-top-left-radius: 24px; border-top-right-radius: 24px;">
-    <div>
-        <!-- Контент вкладки -->
-        <p>Это выезжающая вкладка снизу.</p>
-    </div>
-</div>
+
               
             </div>
           </div>
