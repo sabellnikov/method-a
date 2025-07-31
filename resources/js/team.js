@@ -421,3 +421,32 @@ document.querySelectorAll('.tilt-card').forEach(card => {
   // Запуск авто-tilt при инициализации
   startAutoTilt();
 });
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const cards = gsap.utils.toArray(".card");
+  const minScale = 0.95;
+  const peekY = 25; // amount to move up for "peek out" effect
+
+  cards.forEach((card, index) => {
+    gsap.set(card, { zIndex: index }); // initial stacking order
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: card,
+        start: "center center",
+        endTrigger: cards[2], // третья карточка
+        end: "bottom center",
+        pin: true,
+        pinSpacing: false,
+        scrub: true,
+        markers: false,
+      }
+    })
+    .to(card, {
+      scale: minScale,
+      y: peekY * index, // move up more for each next card
+      zIndex: cards.length + index, // bring to front as it animates
+      ease: "none"
+    });
+  });
