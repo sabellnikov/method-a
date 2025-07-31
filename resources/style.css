@@ -14,31 +14,15 @@
   object-fit: cover;
 }
 
-.slide-section {
-  min-height: 100vh;
-  width: 100vw;
-  display: flex;
-  background: var(--color-background-current);
-  transition: background 0.3s ease-out; /* Shorter transition as fallback */
-}
-
 body {
   overflow-x: hidden;
 }
 
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.red-container {
+  background: #e53935;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.animate-gradient-move {
-  background-size: 200% 200%;
-  animation: gradientMove 6s ease-in-out infinite;
-}
-

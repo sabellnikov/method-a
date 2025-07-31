@@ -2,9 +2,48 @@
 layout: default
 ---
 
-<div class="relative">
-    <div class="sticky top-0 h-screen flex flex-col items-center justify-center" style="background-color: var(--color-background-top);">
-      <h2 class="text-4xl font-bold">The First slide</h2>
-      <p class="mt-2">Scroll Down for next slide</p>
-    </div>
+<div>
+
+  <div class="slide-section h-screen" data-bg="var(--color-background-top)">
+
+  </div>
+
+  <div class="slide-section h-screen" data-bg="var(--color-background-middle)">
+  </div>
+
+  <div class="slide-section h-screen" data-bg="var(--color-background-bottom)">
+  </div>
+
 </div>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Получаем цвета из CSS-переменных
+  function getCssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  const bgColors = [
+    getCssVar('--color-background-top'),
+    getCssVar('--color-background-middle'),
+    getCssVar('--color-background-bottom')
+  ];
+
+  // Анимация фона при скролле по секциям
+  document.querySelectorAll('.slide-section').forEach((section, i) => {
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top center",
+      end: "bottom center",
+     // markers: true,
+      onUpdate: self => {
+        if (self.progress > 0) {
+          gsap.to(document.body, { background: bgColors[i], duration: 0.6 });
+        } else if (i > 0) {
+          gsap.to(document.body, { background: bgColors[i - 1], duration: 0.6 });
+        }
+      }
+    });
+  });
+</script>
