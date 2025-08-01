@@ -24,20 +24,59 @@ layout: default
 </div>
 
 <div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-bottom)">
-  <div class="flex flex-col md:flex-row gap-4 md:gap-6 justify-center items-center h-full px-2">
-    <div class="bg-white rounded-xl p-6 min-w-[180px] w-full max-w-xs">
-      <h3 class="mb-2 font-semibold">Карточка 4</h3>
-      <p class="m-0">Описание первой карточки.</p>
-    </div>
-    <div class="bg-white rounded-xl p-6 min-w-[180px] w-full max-w-xs">
-      <h3 class="mb-2 font-semibold">Карточка 5</h3>
-      <p class="m-0">Описание второй карточки.</p>
-    </div>
-    <div class="bg-white rounded-xl p-6 min-w-[180px] w-full max-w-xs">
-      <h3 class="mb-2 font-semibold">Карточка 6</h3>
-      <p class="m-0">Описание третьей карточки.</p>
+
+
+<div id="team" class="relative px-8 sm:px-14 md:px-28">
+
+  <div class="flex grid gap-8 mt-[8vh] sm:mt-[12vh]">
+
+  <div class="flex-1 min-w-0">
+    <div class="card bg-[#D8F1FF] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full" style="padding:16px;">
+      <span class="text-3xl font-bold text-[#1A597B]">Карточка 1</span>
     </div>
   </div>
+      
+      <div class="flex-1 min-w-0">
+        <div class="card bg-[#82C0E1] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full" style="padding:16px;">
+          <span class="text-3xl font-bold text-[#FBF5ED]">Карточка 2</span>
+        </div>
+      </div>
+
+      {% assign team_quote1 = "Соберите всех великих учителей вместе в одной комнате, и они будут согласны во всём друг с другом. Соберите вместе их учеников, и они во всём будут спорить" %}
+      {% assign team_name1 = "Анастасия Меркоева" %}
+      {% assign team_role1 = "основатель Method-A" %}
+      <div class="flex-1 min-w-0">
+        <div class="card bg-[#EAFB7F] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full relative" style="padding:16px;">
+          <div class="flex flex-col-reverse sm:flex-row items-center justify-center w-full h-full">
+            <!-- Картинка на мобильных занимает весь контейнер, текст поверх -->
+            <div class="h-full sm:h-full w-full sm:w-[40%] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 relative">
+              <img src="/resources/team/people/owner.png" alt="Team member" class="h-[70vh] sm:h-full sm:max-h-[70vh] object-contain w-full opacity-80 sm:opacity-100" />
+              <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 opacity-100 sm:opacity-100 pointer-events-none sm:pointer-events-auto sm:hidden">
+                <h2 class="text-2xl sm:text-4xl font-bold text-[#003A4D] mb-4 sm:max-w-2xl sm:text-left">
+                  “{{ team_quote1 }}”
+                </h2>
+                <div class="mt-4 flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <span class="text-lg sm:text-xl font-semibold text-[#003A4D]">{{ team_name1 }}</span>
+                  <span class="text-base text-[#003A4D] mt-1">{{ team_role1 }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- Для десктопа текст справа -->
+            <div class="hidden sm:flex w-full sm:w-[60%] flex-col justify-center items-start text-left opacity-100">
+              <h2 class="text-4xl font-bold text-[#003A4D] mb-4 max-w-2xl text-left">
+                “{{ team_quote1 }}”
+              </h2>
+              <div class="mt-4 flex flex-col items-start text-left">
+                <span class="text-xl font-semibold text-[#003A4D]">{{ team_name1 }}</span>
+                <span class="text-base text-[#003A4D] mt-1">{{ team_role1 }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="height:120vh"></div>
 </div>
 
 <div class="background-bottom bg-white fixed inset-0 w-screen h-screen z-0 transition-opacity duration-300 opacity-0">
@@ -58,9 +97,9 @@ layout: default
 </div>
 
 <script>
+  // For background animation
   gsap.registerPlugin(ScrollTrigger);
 
-  // Получаем цвета из CSS-переменных
   function getCssVar(name) {
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   }
@@ -74,13 +113,11 @@ layout: default
   const bgBottom = document.querySelector('.background-bottom');
   bgBlend.style.backgroundColor = bgColors[0];
 
-  // Анимация фона контейнеров при скролле по секциям
   document.querySelectorAll('.slide-section').forEach((section, i) => {
     ScrollTrigger.create({
       trigger: section,
       start: "top center",
       end: "bottom center",
-      //markers: true,
       onUpdate: self => {
         if (self.progress >= 0) {
           gsap.to(bgBlend, { backgroundColor: bgColors[i], duration: 0.1, ease: "sine.inOut" });
@@ -91,22 +128,49 @@ layout: default
     });
   });
 
-  // scrub-анимация для background-blend и background-bottom
-  const lastSlide = document.querySelectorAll('.slide-section')[document.querySelectorAll('.slide-section').length - 1];
+  // card animations
+  gsap.registerPlugin(ScrollTrigger);
 
-  // Переменные для анимации
+  const cards = gsap.utils.toArray(".card");
+  const minScale = 0.95;
+  const peekY = 25;
+
+  cards.forEach((card, index) => {
+    gsap.set(card, { zIndex: index });
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: card,
+        start: "center center",
+        endTrigger: cards[2],
+        end: "bottom center",
+        pin: true,
+        pinSpacing: false,
+        scrub: true,
+        //markers: true,
+      }
+    })
+    .to(card, {
+      scale: minScale,
+      y: peekY * index,
+      zIndex: cards.length + index,
+      ease: "none"
+    });
+  });
+
+  // scrub-animation background-blend
+  const lastCard = cards[cards.length - 1]; // триггер — последняя карточка
   const scaleVal = 0.95;
   const yBlendVal = "-50vh";
   const ySlideVal = ((1 - scaleVal) * 50) + "vh";
 
-  // Объединенная анимация для background-blend, background-bottom и lastSlide
   const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: lastSlide,
-      start: "bottom bottom",
+      trigger: lastCard,
+      start: "bottom center",
       end: "+=200",
       scrub: true,
-      markers: true
+      //markers: true,
     }
   });
 
