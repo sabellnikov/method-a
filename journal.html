@@ -76,7 +76,7 @@ layout: default
       </div>
     </div>
   </div>
-  <div style="height:120vh"></div>
+  <div id="scrub-spacer"></div>
 </div>
 
 <div class="background-bottom bg-white fixed inset-0 w-screen h-screen z-0 transition-opacity duration-300 opacity-0">
@@ -164,6 +164,12 @@ layout: default
   const isMobile = window.innerWidth < 640;
   const yBlendVal = isMobile ? "-70vh" : "-60vh";
   const ySlideVal = ((1 - scaleVal) * 50) + "vh";
+
+  // Установка высоты spacer для scrub-анимации
+  const scrubSpacer = document.getElementById('scrub-spacer');
+  if (scrubSpacer) {
+    scrubSpacer.style.height = isMobile ? "130vh" : "120vh";
+  }
 
   const tl = gsap.timeline({
     scrollTrigger: {
