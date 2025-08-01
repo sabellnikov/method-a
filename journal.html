@@ -2,19 +2,79 @@
 layout: default
 ---
 
-<div>
+<style>
+  .rounded-bottom-anim {
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    transition: border-radius 0.4s;
+    overflow: hidden;
+  }
+</style>
 
-  <div class="slide-section h-screen" data-bg="var(--color-background-top)">
+<div class="background-blend fixed inset-0 w-screen h-screen z-10 pointer-events-none"></div>
 
+<!-- Секции с карточками теперь вне .background-blend -->
+<div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-top)">
+  <!-- Карточки -->
+  <div style="display: flex; gap: 1.5rem; justify-content: center; align-items: center; height: 100%;">
+    <div style="background: #fff; border-radius: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 2rem 1.5rem; min-width: 220px;">
+      <h3 style="margin:0 0 0.5rem 0;">Карточка 1</h3>
+      <p style="margin:0;">Описание первой карточки.</p>
+    </div>
+    <div style="background: #fff; border-radius: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 2rem 1.5rem; min-width: 220px;">
+      <h3 style="margin:0 0 0.5rem 0;">Карточка 2</h3>
+      <p style="margin:0;">Описание второй карточки.</p>
+    </div>
+    <div style="background: #fff; border-radius: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 2rem 1.5rem; min-width: 220px;">
+      <h3 style="margin:0 0 0.5rem 0;">Карточка 3</h3>
+      <p style="margin:0;">Описание третьей карточки.</p>
+    </div>
+  </div>
+</div>
+
+<div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-bottom)">
+
+
+  <div style="display: flex; gap: 1.5rem; justify-content: center; align-items: center; height: 100%;">
+    <div style="background: #fff; border-radius: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 2rem 1.5rem; min-width: 220px;">
+      <h3 style="margin:0 0 0.5rem 0;">Карточка 4</h3>
+      <p style="margin:0;">Описание первой карточки.</p>
+    </div>
+    <div style="background: #fff; border-radius: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 2rem 1.5rem; min-width: 220px;">
+      <h3 style="margin:0 0 0.5rem 0;">Карточка 5</h3>
+      <p style="margin:0;">Описание второй карточки.</p>
+    </div>
+    <div style="background: #fff; border-radius: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 2rem 1.5rem; min-width: 220px;">
+      <h3 style="margin:0 0 0.5rem 0;">Карточка 6</h3>
+      <p style="margin:0;">Описание третьей карточки.</p>
+    </div>
   </div>
 
-  <div class="slide-section h-screen" data-bg="var(--color-background-middle)">
-  </div>
-
-  <div class="slide-section h-screen" data-bg="var(--color-background-bottom)">
-  </div>
 
 </div>
+
+<div class="background-bottom bg-white fixed inset-0 w-screen h-screen z-0 transition-opacity duration-300 opacity-0">
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 50vh; display: flex; justify-content: center; align-items: center;">
+
+    <div style="display: flex; gap: 1.5rem; justify-content: center; align-items: center; height: 100%;">
+      <div style="background: #f8d7da; border-radius: 1rem; /* box-shadow удалён */ padding: 2rem 1.5rem; min-width: 220px;">
+        <h3 style="margin:0 0 0.5rem 0;">Карточка 7</h3>
+        <p style="margin:0;">Описание седьмой карточки.</p>
+      </div>
+      <div style="background: #d1ecf1; border-radius: 1rem; /* box-shadow удалён */ padding: 2rem 1.5rem; min-width: 220px;">
+        <h3 style="margin:0 0 0.5rem 0;">Карточка 8</h3>
+        <p style="margin:0;">Описание восьмой карточки.</p>
+      </div>
+      <div style="background: #d4edda; border-radius: 1rem; /* box-shadow удалён */ padding: 2rem 1.5rem; min-width: 220px;">
+        <h3 style="margin:0 0 0.5rem 0;">Карточка 9</h3>
+        <p style="margin:0;">Описание девятой карточки.</p>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
 
 <script>
   gsap.registerPlugin(ScrollTrigger);
@@ -26,24 +86,60 @@ layout: default
 
   const bgColors = [
     getCssVar('--color-background-top'),
-    getCssVar('--color-background-middle'),
     getCssVar('--color-background-bottom')
   ];
 
-  // Анимация фона при скролле по секциям
+  const bgBlend = document.querySelector('.background-blend');
+  const bgBottom = document.querySelector('.background-bottom');
+  bgBlend.style.backgroundColor = bgColors[0];
+
+  // Анимация фона контейнеров при скролле по секциям
   document.querySelectorAll('.slide-section').forEach((section, i) => {
     ScrollTrigger.create({
       trigger: section,
       start: "top center",
       end: "bottom center",
-     // markers: true,
+      //markers: true,
       onUpdate: self => {
-        if (self.progress > 0) {
-          gsap.to(document.body, { background: bgColors[i], duration: 0.6 });
-        } else if (i > 0) {
-          gsap.to(document.body, { background: bgColors[i - 1], duration: 0.6 });
+        if (self.progress >= 0) {
+          gsap.to(bgBlend, { backgroundColor: bgColors[i], duration: 0.1, ease: "sine.inOut" });
+        } else if (i >= 1) {
+          gsap.to(bgBlend, { backgroundColor: bgColors[i - 1], duration: 0.1, ease: "sine.inOut" });
         }
       }
     });
   });
+
+  // scrub-анимация для background-blend и background-bottom
+  const lastSlide = document.querySelectorAll('.slide-section')[document.querySelectorAll('.slide-section').length - 1];
+
+  // Переменные для анимации
+  const scaleVal = 0.95;
+  const yBlendVal = "-50vh";
+  const ySlideVal = ((1 - scaleVal) * 50) + "vh";
+
+  // Объединенная анимация для background-blend, background-bottom и lastSlide
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: lastSlide,
+      start: "bottom bottom",
+      end: "+=200",
+      scrub: true,
+      markers: true
+    }
+  });
+
+  tl.to(bgBlend, {
+    scale: scaleVal,
+    y: yBlendVal,
+    borderBottomLeftRadius: "2rem",
+    borderBottomRightRadius: "2rem"
+  }, 0)
+  .to(bgBottom, {
+    opacity: 1
+  }, 0)
+  .to(lastSlide, {
+    scale: scaleVal,
+    y: "-" + ySlideVal
+  }, 0);
 </script>
