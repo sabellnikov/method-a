@@ -83,6 +83,16 @@ if (isMobile()) {
   });
 }
 
+// Добавляем динамический margin-bottom для pin-контейнера
+(function() {
+  var pinWrapper = document.getElementById('videoPinWrapper');
+  if (pinWrapper && !isMobile()) {
+    // Высота видео + небольшой запас
+    var extraSpace = window.innerHeight * 0.5;
+    pinWrapper.style.marginBottom = extraSpace + 'px';
+  }
+})();
+
 // GSAP video expand on scroll
     gsap.registerPlugin(ScrollTrigger);
 
@@ -92,7 +102,7 @@ if (isMobile()) {
         trigger: "#videoPinWrapper",
         start: "center center",
         end: "bottom center",
-        pin: false,
+        pin: true,
         pinSpacing: false,
         markers: false,
         scrub: false
