@@ -246,21 +246,21 @@ layout: default
 
 
 <div class="background-bottom bg-white fixed inset-0 w-screen h-screen z-0 transition-opacity duration-300 opacity-0">
-  <div class="absolute left-0 right-0 bottom-0 h-[80vh] flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 px-2">
+  <div class="absolute left-0 right-0 bottom-0 h-[80vh] flex flex-col md:flex-row gap-4 md:gap-6 px-2">
     
     
-    <div class="absolute inset-0 flex flex-col justify-center pointer-events-none text-[#003A4D] pl-8 sm:pl-24">
-      <div class="flex flex-row items-center justify-between w-full max-w-3xl pointer-events-auto relative">
+    <div class="absolute inset-0 flex flex-col justify-center pointer-events-none text-[#003A4D] sm:pl-24">
+      <div class="flex flex-row items-center justify-between w-full max-w-xs sm:max-w-3xl mx-auto sm:mx-0 pointer-events-auto relative">
 
         <a href="https://t.me/{{ site.telegram_dm }}" class="group flex flex-row items-center justify-between w-full max-w-3xl pointer-events-auto transition-colors duration-200 no-underline hover:text-[#FD589E]" style="text-decoration:none;">
           <div>
-            <span class="text-4xl sm:text-5xl md:text-7xl font-medium text-left">Сделаем вместе</span>
-            <div class="mt-2 flex flex-row items-center gap-4 sm:gap-6">
-              <span class="text-4xl sm:text-5xl md:text-7xl font-medium text-left">что-то</span>
-              <span id="word-animate" class="text-4xl sm:text-5xl md:text-7xl font-medium text-left">невероятное</span>
+            <span class="text-3xl sm:text-5xl md:text-7xl font-medium text-left">Сделаем вместе</span>
+            <div class="mt-2 flex flex-row items-center gap-2 sm:gap-6">
+              <span class="text-3xl sm:text-5xl md:text-7xl font-medium text-left">что-то</span>
+              <span id="word-animate" class="text-3xl sm:text-5xl md:text-7xl font-medium text-left">невероятное</span>
             </div>
           </div>
-          <div class="bg-transparent p-0 outline-none cursor-pointer w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center">
+          <div class="bg-transparent p-0 outline-none cursor-pointer w-8 h-8 sm:w-16 sm:h-16 flex items-center justify-center">
             <svg id="arrow-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 12 12">
               <path fill="currentColor" d="M1.5 6a.75.75 0 0 1 .75-.75h5.94L6.22 3.28a.75.75 0 0 1 1.06-1.06l3.25 3.25a.75.75 0 0 1 0 1.06L7.28 9.78a.75.75 0 0 1-1.06-1.06l1.97-1.97H2.25A.75.75 0 0 1 1.5 6Z"/>
             </svg>
@@ -289,6 +289,7 @@ layout: default
       <a href="/" class="hover:underline text-[#003A4D]">Пользовательское соглашение</a><br>
       Все права защищены © <span id="copyright-year"></span>
     </div>
+    
   </div>
 
 
@@ -300,19 +301,3 @@ layout: default
 <script src="/resources/js/team-tabs.js"></script>
 <script src="/resources/js/team-play.js"></script>
 <script src="/resources/js/team-words.js"></script>
-
-      <script>
-        document.getElementById('copyright-year').textContent = new Date().getFullYear();
-
-        // Arrow animation on hover
-        const link = document.querySelector('.group.flex.flex-row.items-center.justify-between');
-        const arrow = document.getElementById('arrow-svg');
-        if (link && arrow) {
-          link.addEventListener('mouseenter', () => {
-            gsap.to(arrow, { x: 20, duration: 0.4, ease: "power2.out" });
-          });
-          link.addEventListener('mouseleave', () => {
-            gsap.to(arrow, { x: 0, duration: 0.4, ease: "power2.in" });
-          });
-        }
-      </script>
