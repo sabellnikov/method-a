@@ -27,7 +27,6 @@ layout: default
 
 
 <div id="team" class="relative px-8 sm:px-14 md:px-28">
-
   <div class="flex grid gap-8 mt-[8vh] sm:mt-[12vh]">
 
   <div class="flex-1 min-w-0">
@@ -76,8 +75,11 @@ layout: default
       </div>
     </div>
   </div>
-  <div id="scrub-spacer"></div>
+
+    <div style="height:130vh"></div>
+
 </div>
+
 
 <div class="background-bottom bg-white fixed inset-0 w-screen h-screen z-0 transition-opacity duration-300 opacity-0">
   <div class="absolute left-0 right-0 bottom-0 h-[50vh] flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 px-2">
@@ -88,6 +90,7 @@ layout: default
     <div class="bg-[#d1ecf1] rounded-xl p-6 min-w-[180px] w-full max-w-xs">
       <h3 class="mb-2 font-semibold">Карточка 8</h3>
       <p class="m-0">Описание восьмой карточки.</p>
+      <a href="/" class="mt-4 inline-block text-[#155724] font-semibold hover:underline">Перейти на главную</a>
     </div>
     <div class="bg-[#d4edda] rounded-xl p-6 min-w-[180px] w-full max-w-xs">
       <h3 class="mb-2 font-semibold">Карточка 9</h3>
@@ -161,16 +164,11 @@ layout: default
   // scrub-animation background-blend
   const lastCard = cards[cards.length - 1]; // триггер — последняя карточка
   const scaleVal = 0.95;
-  // Адаптивные значения на основе высоты окна
-  const vh = window.innerHeight;
-  const yBlendVal = (-vh * 0.65) + "px";
-  const ySlideVal = ((1 - scaleVal) * vh * 0.5) + "px";
+  const yBlendVal = "-70vh";
+  const ySlideVal = ((1 - scaleVal) * 50) + "vh";
 
-  // Адаптивная высота spacer для scrub-анимации
-  const scrubSpacer = document.getElementById('scrub-spacer');
-  if (scrubSpacer) {
-    scrubSpacer.style.height = (vh * 1.3) + "px";
-  }
+  // Новый способ: управляем pointer-events для .background-bottom и .slide-section
+  const slideSections = document.querySelectorAll('.slide-section');
 
   const tl = gsap.timeline({
     scrollTrigger: {
@@ -179,6 +177,15 @@ layout: default
       end: "+=200",
       scrub: true,
       //markers: true,
+      onUpdate: self => {
+        if (self.progress > 0.5) {
+          bgBottom.style.pointerEvents = 'auto';
+          slideSections.forEach(sec => sec.style.pointerEvents = 'none');
+        } else {
+          bgBottom.style.pointerEvents = 'none';
+          slideSections.forEach(sec => sec.style.pointerEvents = '');
+        }
+      }
     }
   });
 

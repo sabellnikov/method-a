@@ -1,8 +1,7 @@
 :root {
   /* Градиент фона */
   --color-background-top: #FFEDF5;
-  --color-background-middle: #B488F1;
-  --color-background-bottom: #FFFFFF;
+  --color-background-bottom: #B488F1;
 
   /* Навигационная панель */
   --color-hover-current-page: #38001B;
@@ -19,7 +18,6 @@ body {
   color: #38001B; /* Цвет текста */
   scroll-behavior: smooth
 }
-
 
 @media (min-width: 640px) {
   .video-center-row {
@@ -66,18 +64,6 @@ body {
     border-radius: 0 !important;
     display: block;
   }
-}
-
-#tabs .active {
-  background-color: #38001B !important;
-  color: #FD589E !important;
-}
-
-.tab-panel {
-  display: none;
-}
-.tab-panel.active {
-  display: block;
 }
 
 .tilt-card {
