@@ -161,7 +161,8 @@ layout: default
   // scrub-animation background-blend
   const lastCard = cards[cards.length - 1]; // триггер — последняя карточка
   const scaleVal = 0.95;
-  const yBlendVal = "-60vh";
+  const isMobile = window.innerWidth < 640;
+  const yBlendVal = isMobile ? "-90vh" : "-60vh";
   const ySlideVal = ((1 - scaleVal) * 50) + "vh";
 
   const tl = gsap.timeline({
