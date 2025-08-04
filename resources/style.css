@@ -1,7 +1,6 @@
 /* Общие цвета для страниц */
 :root {
   --color-custom-hover: #00000010;
-  --color-background-current: var(--color-background-top);
   --color-modal-background: #DCF5F2;
   --color-messenger1: #25D366;
   --color-messenger2: #2AABEE;
@@ -16,13 +15,4 @@
 
 body {
   overflow-x: hidden;
-}
-
-.red-container {
-  background: #e53935;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

@@ -1,4 +1,3 @@
-// --- Utility functions ---
 function isMobile() {
   return window.matchMedia('(max-width: 640px)').matches;
 }
@@ -16,7 +15,6 @@ function resetPlaceholderHeight() {
   videoPlaceholder.style.width = "0";
 }
 
-// --- Video logic ---
 const video = document.getElementById('teamVideo');
 const playBtn = document.getElementById('playBtn');
 const videoContainer = document.getElementById('videoContainer');
@@ -72,7 +70,6 @@ video.addEventListener('click', function() {
   }
 });
 
-// На мобильных устройствах: клик по любому месту контейнера — пауза
 if (isMobile()) {
   videoContainer.addEventListener('click', function(e) {
     if (e.target !== video && e.target !== playBtn) {
@@ -83,46 +80,41 @@ if (isMobile()) {
   });
 }
 
-// Добавляем динамический margin-bottom для pin-контейнера
 (function() {
   var pinWrapper = document.getElementById('videoPinWrapper');
   if (pinWrapper && !isMobile()) {
-    // Высота видео + небольшой запас
     var extraSpace = window.innerHeight * 0.5;
     pinWrapper.style.marginBottom = extraSpace + 'px';
   }
 })();
 
-// GSAP video expand on scroll
-    gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
-    if (!isMobile()) {
-      // Pin-анимация на внешней обёртке
-      ScrollTrigger.create({
-        trigger: "#videoPinWrapper",
-        start: "center center",
-        end: "bottom center",
-        pin: true,
-        pinSpacing: false,
-        markers: false,
-        scrub: false
-      });
+if (!isMobile()) {
+  ScrollTrigger.create({
+    trigger: "#videoPinWrapper",
+    start: "center center",
+    end: "bottom center",
+    pin: true,
+    pinSpacing: false,
+    markers: false,
+    scrub: false
+  });
 
-      // Анимация ширины только на внутреннем контейнере
-      gsap.to("#videoContainer", {
-        scrollTrigger: {
-          trigger: "#videoPinWrapper",
-          start: "top center",
-          end: "bottom center",
-          scrub: true,
-          markers: false
-        },
-        width: "95vw",
-        maxWidth: "95vw",
-        borderRadius: "0.5rem",
-        ease: "none",
-        duration: 1,
-        yoyo: true,
-        repeat: 1
-      });
-    }
+  gsap.to("#videoContainer", {
+    scrollTrigger: {
+      trigger: "#videoPinWrapper",
+      start: "top center",
+      end: "bottom center",
+      scrub: true,
+      markers: false
+    },
+    width: "95vw",
+    maxWidth: "95vw",
+    borderRadius: "0.5rem",
+    ease: "none",
+    duration: 1,
+    yoyo: true,
+    repeat: 1
+  });
+}

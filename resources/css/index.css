@@ -1,8 +1,8 @@
 :root {
   /* Градиент фона */
   --color-background-top: #F3F3E9;
-  --color-background-middle: #B488F1;
-  --color-background-bottom: #FFFFFF;
+  --color-background-middle: #97C2BB;
+  --color-background-bottom: #FFF8E4;
 
   /* Навигационная панель */
   --color-hover-current-page: #0F1D07;

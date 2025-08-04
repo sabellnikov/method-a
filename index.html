@@ -1,28 +1,46 @@
 ---
 layout: default
 ---
-
-<div>
-  <div class="slide-section" data-bg="var(--color-background-top)" style="display: flex; flex-direction: column; align-items: center;">
-      
-    
-    
-    
-    
-    <!-- Кейсы -->
-      {% for post in site.categories.case %}
-        <a href="{{ post.url }}" style="text-decoration: none; color: inherit;">
-          <div class="card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 120px; height: 120px; margin-bottom: 1rem; padding: 0.5rem; background: #fff; border-radius: 8px; border: 1px solid #eee; text-align: center;">
-            <img src="/resources/case_icons/{{ post.tags }}.png" class="featured-image-post" style="width: 40px; height: 40px; margin-bottom: 0.5rem; object-fit: contain;"/>
-            <span style="font-size: 0.95rem; font-weight: 500;">{{ post.title }}</span>
-          </div>
-        </a>
-      {% endfor %}
-  </div>
-  <div class="slide-section" data-bg="var(--color-background-middle)">
-    Scroll Down for next
-  </div>
-  <div class="slide-section" data-bg="var(--color-background-bottom)">
-    Scroll Down for next slide
-  </div>
+<style>
+  .full-width-bg {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background: #F3F3E9;
+  }
+</style>
+<div class="full-width-bg flex flex-col items-center justify-center min-h-screen relative overflow-hidden">
+  <span id="leftText" class="text-2xl font-bold mb-4 block transition-transform">Первая надпись</span>
+  <span id="rightText" class="text-xl block transition-transform">Вторая надпись</span>
 </div>
+
+
+
+<div class="w-full mt-8 mx-auto flex flex-col items-center"></div>
+  <h3 class="text-lg font-semibold mb-2 text-center">Заголовок карточки</h3>
+</div>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  ScrollTrigger.create({
+    trigger: ".full-width-bg",
+    start: "top top",
+    end: "bottom top",
+    pin: true,
+    pinSpacing: true,
+    markers: true,
+    scrub: true,
+    onUpdate: self => {
+      const progress = self.progress;
+      gsap.set("#leftText", { x: -30 * progress + "vw" });
+      gsap.set("#rightText", { x: 30 * progress + "vw" });
+
+      // Добавление/удаление fixed для панелей
+      const fixed = self.isActive;
+      document.getElementById('siteNameBar')?.classList.toggle('fixed', fixed);
+      document.getElementById('siteIconBar')?.classList.toggle('fixed', fixed);
+    }
+  });
+  // Надписи раздвигаются только при прокрутке страницы благодаря ScrollTrigger и scrub: true
+</script>
+
