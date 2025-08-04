@@ -4,206 +4,143 @@ layout: default
 
 <div class="background-blend fixed inset-0 w-screen h-screen z-10 pointer-events-none"></div>
 
-<!-- Секции с карточками теперь вне .background-blend -->
 <div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-top)">
-  <!-- Карточки -->
-  <div class="flex flex-col md:flex-row gap-4 md:gap-6 justify-center items-center h-full px-2">
-    <div class="bg-white rounded-xl p-6 min-w-[180px] w-full max-w-xs">
-      <h3 class="mb-2 font-semibold">Карточка 1</h3>
-      <p class="m-0">Описание первой карточки.</p>
-    </div>
-    <div class="bg-white rounded-xl p-6 min-w-[180px] w-full max-w-xs">
-      <h3 class="mb-2 font-semibold">Карточка 2</h3>
-      <p class="m-0">Описание второй карточки.</p>
-    </div>
-    <div class="bg-white rounded-xl p-6 min-w-[180px] w-full max-w-xs">
-      <h3 class="mb-2 font-semibold">Карточка 3</h3>
-      <p class="m-0">Описание третьей карточки.</p>
-    </div>
-  </div>
+      <div id="bulb-container">
+<svg id="bulb-svg-node" version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="428px" height="372.5px" viewBox="0 0 428 372.5" enable-background="new 0 0 428 372.5"
+	 xml:space="preserve">
+<defs>
+</defs>
+<path id="leaf" fill="#88CE02" d="M244.8,225.4c0.9-7.4,1-16,0.3-25.6c-0.9-8.4-1.3-13.1-1.3-13.9c-35.6,8.4-53.6,23.2-54,44.3
+	c-0.1,6.6,1.5,13.4,4.9,20.5c1.7,3.5,3.4,6.4,5.1,8.7c0-12.4,3.6-22,10.8-29.1c2.4-2.3,4.9-4.1,7.5-5.3c2.3-1.1,3.5-1.4,3.7-1
+	c-6.3,6.1-11.9,18.7-16.7,37.9c-2.4,9.6-4.2,18.5-5.3,26.8h14.6v-29.3C231.8,260.3,242,249,244.8,225.4z"/>
+<path id="bulb-head" fill="none" stroke="#ecf0f1" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="
+	M287.5,207.9c0,8.9-1.3,17.1-3.9,24.5c-1.6,4.7-4.6,10.8-8.8,18.3c-4.6,8.1-7.8,14.4-9.6,18.9c-3.3,8.1-5.4,16.9-6.4,26.6
+	c0,2-0.7,3.8-2.1,5.2c-1.4,1.4-3.2,2.1-5.2,2.1h-75c-2,0-3.8-0.7-5.2-2.1s-2.1-3.2-2.1-5.2c-1-9.6-3.1-18.5-6.4-26.6
+	c-1.8-4.5-5-10.8-9.6-18.9c-4.2-7.4-7.2-13.5-8.8-18.3c-2.6-7.4-3.9-15.6-3.9-24.5c0-10,1.9-19.5,5.8-28.6c3.7-8.8,9-16.5,15.8-23.3
+	s14.5-12,23.3-15.8c9.1-3.8,18.6-5.8,28.6-5.8c10,0,19.5,1.9,28.6,5.8c8.8,3.7,16.6,9,23.4,15.8s12,14.5,15.8,23.3
+	C285.6,188.4,287.5,198,287.5,207.9z"/>
+<path id="bulb-thread-top" fill="none" stroke="#ecf0f1" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="
+	M258.1,318.1c0,2-0.7,3.8-2.1,5.1c-1.4,1.4-3.2,2.1-5.2,2.1h-73.4c-2,0-3.8-0.7-5.2-2.1c-1.4-1.4-2.1-3.1-2.1-5.1s0.7-3.8,2.1-5.2
+	c1.4-1.4,3.2-2.1,5.2-2.1h73.4c2,0,3.8,0.7,5.2,2.1C257.4,314.4,258.1,316.1,258.1,318.1z"/>
+<path id="bulb-thread-bottom" fill="none" stroke="#ecf0f1" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="
+	M199.4,369.5h29.4c4.1,0,7.5-1.4,10.4-4.3c2.9-2.9,4.3-6.3,4.3-10.4h-58.8c0,4.1,1.4,7.5,4.3,10.4
+	C191.8,368.1,195.3,369.5,199.4,369.5z"/>
+<path id="bulb-thread-middle" fill="none" stroke="#ecf0f1" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="
+	M250.8,332.8h-73.4c-2,0-3.8,0.7-5.2,2.1c-1.4,1.4-2.1,3.2-2.1,5.2s0.7,3.8,2.1,5.2c1.4,1.4,3.2,2.1,5.2,2.1h73.4
+	c2,0,3.8-0.7,5.2-2.1c1.4-1.4,2.1-3.2,2.1-5.2s-0.7-3.8-2.1-5.2C254.5,333.5,252.8,332.8,250.8,332.8z"/>
+<path id="glow-line8" fill="none" stroke="#88CE02" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" d="
+	M391,322.5l-86.6-50"/>
+<path id="glow-line7" fill="none" stroke="#88CE02" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" d="
+	M423,222h-100"/>
+<path id="glow-line6" fill="none" stroke="#88CE02" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" d="
+	M395,117.5l-86.6,50"/>
+<path id="glow-line5" fill="none" stroke="#88CE02" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" d="
+	M324.5,35l-50,86.6"/>
+<path id="glow-line4" fill="none" stroke="#88CE02" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" d="M214,5
+	v100"/>
+<path id="glow-line3" fill="none" stroke="#88CE02" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" d="
+	M103.5,35l50,86.6"/>
+<path id="glow-line2" fill="none" stroke="#88CE02" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" d="
+	M33,117.5l86.6,50"/>
+<path id="glow-line1" fill="none" stroke="#88CE02" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" d="M5,222
+	h100"/>
+<path id="glow-line0" fill="none" stroke="#88CE02" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" d="
+	M37,322.5l86.6-50"/>
+  
+</svg>
+</div>
 </div>
 
 <div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-bottom)">
-
-
-        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="60" viewBox="0 0 12 12">
-        <path fill="currentColor" d="M1.5 6a.75.75 0 0 1 .75-.75h5.94L6.22 3.28a.75.75 0 0 1 1.06-1.06l3.25 3.25a.75.75 0 0 1 0 1.06L7.28 9.78a.75.75 0 0 1-1.06-1.06l1.97-1.97H2.25A.75.75 0 0 1 1.5 6Z"/>
-      </svg>
-
-<div id="team" class="relative px-8 sm:px-14 md:px-28">
-  <div class="flex grid gap-8 mt-[8vh] sm:mt-[12vh]">
-
-  <div class="flex-1 min-w-0">
-    <div class="card bg-[#D8F1FF] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full" style="padding:16px;">
-      <span class="text-3xl font-bold text-[#1A597B]">Карточка 1</span>
-    </div>
-  </div>
-      
-      <div class="flex-1 min-w-0">
-        <div class="card bg-[#82C0E1] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full" style="padding:16px;">
-          <span class="text-3xl font-bold text-[#FBF5ED]">Карточка 2</span>
-        </div>
-      </div>
-
-      {% assign team_quote1 = "Соберите всех великих учителей вместе в одной комнате, и они будут согласны во всём друг с другом. Соберите вместе их учеников, и они во всём будут спорить" %}
-      {% assign team_name1 = "Анастасия Меркоева" %}
-      {% assign team_role1 = "основатель Method-A" %}
-      <div class="flex-1 min-w-0">
-        <div class="card bg-[#EAFB7F] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full relative" style="padding:16px;">
-          <div class="flex flex-col-reverse sm:flex-row items-center justify-center w-full h-full">
-            <!-- Картинка на мобильных занимает весь контейнер, текст поверх -->
-            <div class="h-full sm:h-full w-full sm:w-[40%] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 relative">
-              <img src="/resources/team/people/owner.png" alt="Team member" class="h-[70vh] sm:h-full sm:max-h-[70vh] object-contain w-full opacity-80 sm:opacity-100" />
-              <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 opacity-100 sm:opacity-100 pointer-events-none sm:pointer-events-auto sm:hidden">
-                <h2 class="text-2xl sm:text-4xl font-bold text-[#003A4D] mb-4 sm:max-w-2xl sm:text-left">
-                  “{{ team_quote1 }}”
-                </h2>
-                <div class="mt-4 flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <span class="text-lg sm:text-xl font-semibold text-[#003A4D]">{{ team_name1 }}</span>
-                  <span class="text-base text-[#003A4D] mt-1">{{ team_role1 }}</span>
-                </div>
-              </div>
-            </div>
-            <!-- Для десктопа текст справа -->
-            <div class="hidden sm:flex w-full sm:w-[60%] flex-col justify-center items-start text-left opacity-100">
-              <h2 class="text-4xl font-bold text-[#003A4D] mb-4 max-w-2xl text-left">
-                “{{ team_quote1 }}”
-              </h2>
-              <div class="mt-4 flex flex-col items-start text-left">
-                <span class="text-xl font-semibold text-[#003A4D]">{{ team_name1 }}</span>
-                <span class="text-base text-[#003A4D] mt-1">{{ team_role1 }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-    <div style="height:130vh"></div>
-
+    <div style="height:250vh"></div>
 </div>
 
 
-<div class="background-bottom bg-white fixed inset-0 w-screen h-screen z-0 transition-opacity duration-300 opacity-0">
-  <div class="absolute left-0 right-0 bottom-0 h-[50vh] flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 px-2">
-    <div class="bg-[#f8d7da] rounded-xl p-6 min-w-[180px] w-full max-w-xs">
-      <h3 class="mb-2 font-semibold">Карточка 7</h3>
-      <p class="m-0">Описание седьмой карточки.</p>
-    </div>
-    <div class="bg-[#d1ecf1] rounded-xl p-6 min-w-[180px] w-full max-w-xs">
-      <h3 class="mb-2 font-semibold">Карточка 8</h3>
-      <p class="m-0">Описание восьмой карточки.</p>
-      <a href="/" class="mt-4 inline-block text-[#155724] font-semibold hover:underline">Перейти на главную</a>
-    </div>
-    <div class="bg-[#d4edda] rounded-xl p-6 min-w-[180px] w-full max-w-xs">
-      <h3 class="mb-2 font-semibold">Карточка 9</h3>
-      <p class="m-0">Описание девятой карточки.</p>
-    </div>
-  </div>
-</div>
 
-<script>
-  // For background animation
-  gsap.registerPlugin(ScrollTrigger);
 
-  function getCssVar(name) {
-    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-  }
+<!-- GSAP core -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/easing/EasePack.min.js"></script>
+<script src="https://assets.codepen.io/16327/DrawSVGPlugin.min.js"></script>
+<script> 
+  var bulbContainer = document.getElementById('bulb-container');
+var leaf = document.getElementById('leaf');
+var bulbHead = document.getElementById('bulb-head');
+var bulbThreadTop = document.getElementById('bulb-thread-top');
+var bulbThreadMiddle = document.getElementById('bulb-thread-middle');
+var bulbThreadBottom = document.getElementById('bulb-thread-bottom');
 
-  const bgColors = [
-    getCssVar('--color-background-top'),
-    getCssVar('--color-background-bottom')
-  ];
+var bulbGlowLines = [];
 
-  const bgBlend = document.querySelector('.background-blend');
-  const bgBottom = document.querySelector('.background-bottom');
-  bgBlend.style.backgroundColor = bgColors[0];
+for(var i = 0; i < 9; i++){
+ bulbGlowLines.push(document.getElementById('glow-line' + i));
+};
 
-  document.querySelectorAll('.slide-section').forEach((section, i) => {
-    ScrollTrigger.create({
-      trigger: section,
-      start: "top center",
-      end: "bottom center",
-      onUpdate: self => {
-        if (self.progress >= 0) {
-          gsap.to(bgBlend, { backgroundColor: bgColors[i], duration: 0.1, ease: "sine.inOut" });
-        } else if (i >= 1) {
-          gsap.to(bgBlend, { backgroundColor: bgColors[i - 1], duration: 0.1, ease: "sine.inOut" });
-        }
-      }
-    });
-  });
+TweenMax.set(bulbContainer, {
+  position:'absolute',
+  left:'50%',
+  xPercent:-50,
+  top:'50%',
+  yPercent:-50,
+  transformOrigin:'50% 110%'
+})
 
-  // card animations
-  gsap.registerPlugin(ScrollTrigger);
+TweenMax.set(bulbGlowLines, {
+ 	drawSVG:'100% 100%',
+  attr:{stroke:'#88CE02'}
+})
+TweenMax.set(leaf, {
+  transformOrigin:'50% 110%',
+  scale:0
+})
+TweenMax.set([bulbHead, bulbThreadTop, bulbThreadMiddle, bulbThreadBottom], {
+ 		drawSVG:'0% 0%'
+})
 
-  const cards = gsap.utils.toArray(".card");
-  const minScale = 0.95;
-  const peekY = 25;
+var bulbTl = new TimelineMax({repeat:-1, repeatDelay:2});
 
-  cards.forEach((card, index) => {
-    gsap.set(card, { zIndex: index });
 
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: card,
-        start: "center center",
-        endTrigger: cards[2],
-        end: "bottom center",
-        pin: true,
-        pinSpacing: false,
-        scrub: true,
-        //markers: true,
-      }
-    })
-    .to(card, {
-      scale: minScale,
-      y: peekY * index,
-      zIndex: cards.length + index,
-      ease: "none"
-    });
-  });
+bulbTl.set(bulbGlowLines, {
+ 	drawSVG:'100% 100%'
+})
 
-  // scrub-animation background-blend
-  const lastCard = cards[cards.length - 1]; // триггер — последняя карточка
-  const scaleVal = 0.95;
-  const yBlendVal = "-70vh";
-  const ySlideVal = ((1 - scaleVal) * 50) + "vh";
+.to(bulbThreadBottom, 1, {
+  drawSVG:'100% 0%'
+}, '-=0.5')
+  .to(bulbThreadMiddle, 1, {
+  drawSVG:'100% 0%'
+}, '-=1')
+  .to(bulbThreadTop, 1, {
+  drawSVG:'100% 0%'
+}, '-=1')
+  .to(bulbHead, 1.25, {
+  drawSVG:'100% 0%',
+  ease:Power1.easeInOut
+}, '-=1')
+ .to(leaf, 0.6, {
+  scale:0.7,
+  delay:0.3,
+  ease:SlowMo.ease
+})
+.fromTo(bulbContainer, 0.9,{
+  rotation:-9
+}, {
+  rotation:0,
+  immediateRender:false,
+  ease:Elastic.easeOut
+})
 
-  // Новый способ: управляем pointer-events для .background-bottom и .slide-section
-  const slideSections = document.querySelectorAll('.slide-section');
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: lastCard,
-      start: "bottom center",
-      end: "+=200",
-      scrub: true,
-      //markers: true,
-      onUpdate: self => {
-        if (self.progress > 0.5) {
-          bgBottom.style.pointerEvents = 'auto';
-          slideSections.forEach(sec => sec.style.pointerEvents = 'none');
-        } else {
-          bgBottom.style.pointerEvents = 'none';
-          slideSections.forEach(sec => sec.style.pointerEvents = '');
-        }
-      }
-    }
-  });
-
-  tl.to(bgBlend, {
-    scale: scaleVal,
-    y: yBlendVal,
-    borderBottomLeftRadius: "2rem",
-    borderBottomRightRadius: "2rem"
-  }, 0)
-  .to(bgBottom, {
-    opacity: 1
-  }, 0)
-  .to(lastSlide, {
-    scale: scaleVal,
-    y: "-" + ySlideVal
-  }, 0);
+ .to(bulbGlowLines, 0.5, {
+  drawSVG:'0% 100%'
+},'-=1')
+.to(bulbGlowLines, 0.8,{
+  drawSVG:'0% 0%',
+  alpha:0
+}, '-=0.8')
+.to([leaf, bulbHead, bulbThreadTop, bulbThreadMiddle, bulbThreadBottom], 1,{
+  alpha:0,
+  delay:1
+})
 </script>

@@ -70,10 +70,9 @@ layout: default
               <img src="/resources/team/history/2025.jpg" alt="2025" class="w-full h-full object-cover" />
               <!-- Затемнение и текст поверх картинки только на мобильных -->
               <div class="absolute inset-0 sm:hidden">
-                <div class="absolute inset-0 bg-[#38001B] opacity-40"></div>
+                <div class="absolute inset-0 bg-[#38001B] opacity-45"></div>
                 <div class="relative flex flex-col justify-center items-center h-full px-4">
-                  <div class="sm:text-sm md:text-lg font-semibold text-[#FFFFFF] text-center drop-shadow-lg">{{ head_2025 }}</div>
-                  <div class="sm:text-xs md:text-base text-[#FFFFFF] text-center drop-shadow-lg mt-2">{{ text_2025 }}</div>
+                    <div class="text-sm text-[#F8F8F8] text-center drop-shadow-lg mt-2">{{ text_2025 }}</div>
                 </div>
               </div>
             </div>
@@ -101,10 +100,9 @@ layout: default
               <img src="/resources/team/history/2024.jpg" alt="2024" class="w-full h-full object-cover" />
               <!-- Затемнение и текст поверх картинки только на мобильных -->
               <div class="absolute inset-0 sm:hidden">
-                <div class="absolute inset-0 bg-[#38001B] opacity-40"></div>
+                <div class="absolute inset-0 bg-[#38001B] opacity-45"></div>
                 <div class="relative flex flex-col justify-center items-center h-full px-4">
-                  <div class="sm:text-sm md:text-lg font-semibold text-[#FFFFFF] text-center drop-shadow-lg">{{ head_2024 }}</div>
-                  <div class="sm:text-xs md:text-base text-[#FFFFFF] text-center drop-shadow-lg mt-2">{{ text_2024 }}</div>
+                  <div class="text-sm text-[#FFFFFF] text-center drop-shadow-lg mt-2">{{ text_2024 }}</div>
                 </div>
               </div>
             </div>
@@ -132,10 +130,9 @@ layout: default
               <img src="/resources/team/history/2023.jpg" alt="2024" class="w-full h-full object-cover" />
               <!-- Затемнение и текст поверх картинки только на мобильных -->
               <div class="absolute inset-0 sm:hidden">
-                <div class="absolute inset-0 bg-[#38001B] opacity-40"></div>
+                <div class="absolute inset-0 bg-[#38001B] opacity-45"></div>
                 <div class="relative flex flex-col justify-center items-center h-full px-4">
-                  <div class="sm:text-sm md:text-lg font-semibold text-[#FFFFFF] text-center drop-shadow-lg">{{ head_2023 }}</div>
-                  <div class="sm:text-xs md:text-base text-[#FFFFFF] text-center drop-shadow-lg mt-2">{{ text_2023 }}</div>
+                  <div class="text-sm text-[#FFFFFF] text-center drop-shadow-lg mt-2">{{ text_2023 }}</div>
                 </div>
               </div>
             </div>
@@ -269,13 +266,13 @@ layout: default
       </div>
     </div>
 
-
-    <div class="absolute left-[2vw] bottom-[2vh] text-xs text-[#003A4D]">
+    <!-- Desktop footer -->
+    <div class="absolute left-[2vw] bottom-[2vh] text-xs text-[#003A4D] hidden sm:block">
       ИП Меркоева А.И.<br>
       ИНН 463312689824<br>
       ОГРН 323460000022305
     </div>
-    <div class="absolute left-1/2 bottom-4 text-[#003A4D]">
+    <div class="absolute left-1/2 bottom-4 text-[#003A4D] hidden sm:block">
       <a href="#up" class="mt-4 inline-block font-medium group relative">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Наверх" class="inline">
           <path d="M12 5l-7 7h4v7h6v-7h4l-7-7z"
@@ -284,10 +281,19 @@ layout: default
         </svg>
       </a>
     </div>
-    <div class="absolute right-[2vw] bottom-[2vh] text-xs text-[#003A4D]">
+    <div class="absolute right-[2vw] bottom-[2vh] text-xs text-[#003A4D] hidden sm:block">
       <a href="/" class="hover:underline text-[#003A4D]">Публичная оферта</a><br>
       <a href="/" class="hover:underline text-[#003A4D]">Пользовательское соглашение</a><br>
       Все права защищены © <span id="copyright-year"></span>
+    </div>
+    <!-- Mobile footer -->
+    <div class="absolute inset-x-0 bottom-10 flex flex-col items-center justify-center text-xs text-[#003A4D] py-4 sm:hidden">
+      <div class="mb-2 text-center">
+        ИП Меркоева А.И.<br>
+        ИНН 463312689824<br>
+        ОГРН 323460000022305<br>
+        <a href="/" class="hover:underline text-[#003A4D]">Пользовательское соглашение</a><br>
+      </div>
     </div>
     
   </div>
@@ -295,9 +301,9 @@ layout: default
 
 </div>
 
-<script src="/resources/js/team.js"></script>
 <script src="/resources/js/tilt.js"></script>
 <script src="/resources/js/smooth-scroll.js"></script>
+<script src="/resources/js/team.js"></script>
 <script src="/resources/js/team-tabs.js"></script>
 <script src="/resources/js/team-play.js"></script>
 <script src="/resources/js/team-words.js"></script>
