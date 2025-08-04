@@ -106,7 +106,7 @@ if (!isMobile()) {
       trigger: "#videoPinWrapper",
       start: "top center",
       end: "bottom center",
-      scrub: true,
+      scrub: 0.5,
       markers: false
     },
     width: "95vw",
