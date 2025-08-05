@@ -96,9 +96,9 @@ layout: default
     <!-- Третья часть: надпись и кнопка по центру -->
     <div class="flex flex-1 items-center justify-center w-full">
       <div class="flex items-center gap-4 mb-[5%]">
-        <span class="text-xl text-gray-700 font-medium">Можно выбрать уже готовые</span>
+        <span class="text-xl text-gray-700 font-medium">Выбрать готовое</span>
         <a href="/products" class="text-base px-3 py-3 bg-blue-500 text-white rounded-xl cursor-pointer font-medium z-10">
-          решения
+          решение
         </a>
       </div>
     </div>
@@ -115,15 +115,19 @@ layout: default
     </div>
 
     <div id="cardsContainer" class="absolute inset-0 w-full h-full">
+
+
       {% for post in site.categories.case %}
         <a href="{{ post.url }}" class="card-link absolute tilt-card" style="text-decoration: none; color: inherit;">
-          <div class="card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 120px; height: 120px; padding: 0.5rem; background: #fff; border-radius: 8px; border: 1px solid #eee; text-align: center; position: relative;">
-            <div class="tilt-gloss"></div>
-            <img src="/resources/case_icons/{{ post.tags }}.png" class="featured-image-post" style="width: 40px; height: 40px; margin-bottom: 0.5rem; object-fit: contain; position: relative; z-index: 1;"/>
-            <span style="font-size: 0.95rem; font-weight: 500; position: relative; z-index: 1;">{{ post.title }}</span>
+          <div class="card flex flex-col items-center justify-center w-[120px] h-[120px] p-2 bg-white rounded-lg text-center relative">
+        <div class="tilt-gloss"></div>
+        <img src="/resources/case_icons/{{ post.tags }}.png" class="featured-image-post w-10 h-10 mb-2 object-contain relative z-10"/>
+        <span class="text-[0.95rem] font-medium relative z-10">{{ post.title }}</span>
           </div>
         </a>
       {% endfor %}
+
+
     </div>
   </div>
 
