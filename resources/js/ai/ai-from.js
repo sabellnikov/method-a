@@ -31,7 +31,7 @@ class ChatInterface {
     this.documentHeight = document.documentElement.clientHeight;
     this.baseViewportHeight = window.innerHeight; // Упрощаем: одна базовая высота
     this.keyboardThreshold = 250; // Выносим в константу
-    this.mobileBottomOffset = '30px'; // Единый отступ от низа для мобильных устройств
+    this.mobileBottomOffset = '50px'; // Единый отступ от низа для мобильных устройств
     this.keyboardState = false; // Состояние клавиатуры
     
     this.init();
