@@ -28,11 +28,9 @@ class ChatInterface {
     
     this.isAnimating = false; // Флаг для предотвращения конфликтов анимаций
     this.messageQueue = []; // Очередь сообщений
-    this.initialViewportHeight = window.innerHeight; // Запоминаем начальную высоту
-    this.documentHeight = document.documentElement.clientHeight; // Высота без адресной строки
-    this.minViewportHeight = window.innerHeight; // Минимальная высота viewport
-    this.maxViewportHeight = window.innerHeight; // Максимальная высота viewport
-    this.addressBarState = 'unknown'; // Состояние адресной строки
+    this.documentHeight = document.documentElement.clientHeight;
+    this.baseViewportHeight = window.innerHeight; // Упрощаем: одна базовая высота
+    this.keyboardThreshold = 250; // Выносим в константу
     this.keyboardState = false; // Состояние клавиатуры
     
     this.init();
@@ -54,17 +52,16 @@ class ChatInterface {
   }
   
   setupViewportHandler() {
-    // Добавляем обработчик для мобильной клавиатуры
     if (this.isMobile()) {
-      // Обработчик изменения размера viewport
-      window.addEventListener('resize', this.debounce(() => {
-        this.updateViewportTracking();
+      const resizeHandler = this.debounce(() => {
+        this.updateViewportState();
         if (this.currentState === this.state.CHATTING) {
           this.handleMobileKeyboard();
         }
-      }, 100));
+      }, 100);
 
-      // Обработчик для iOS Visual Viewport API
+      window.addEventListener('resize', resizeHandler);
+
       if (window.visualViewport) {
         window.visualViewport.addEventListener('resize', () => {
           if (this.currentState === this.state.CHATTING) {
@@ -72,11 +69,6 @@ class ChatInterface {
           }
         });
       }
-
-      // Обработчик скролла для адресной строки
-      window.addEventListener('scroll', this.debounce(() => {
-        this.updateViewportTracking();
-      }, 50));
     }
   }
   
@@ -168,20 +160,11 @@ class ChatInterface {
     this.currentState = this.state.CHATTING;
     this.stopPlaceholderAnimation();
     
-    // Убираем классы центрирования
     this.elements.chatForm.classList.remove('-translate-x-1/2', '-translate-y-1/2');
     
-    // Устанавливаем начальное позиционирование
-    const initialBottom = this.isMobile() ? '100px' : '10vh';
+    // Используем единую функцию для позиционирования
+    this.setFormPosition(false);
     
-    gsap.set(this.elements.chatForm, {
-      top: 'auto',
-      bottom: initialBottom,
-      position: 'fixed',
-      transform: 'translateX(-50%)'
-    });
-    
-    // Показываем область сообщений
     this.elements.chatMessages.classList.remove('opacity-0');
     this.elements.chatMessages.classList.add('opacity-100');
   }
@@ -318,73 +301,42 @@ class ChatInterface {
   }
   
   trackViewportChanges() {
-    // Отслеживаем изменения высоты viewport для учета адресной строки
-    this.minViewportHeight = Math.min(this.minViewportHeight, window.innerHeight);
-    this.maxViewportHeight = Math.max(this.maxViewportHeight, window.innerHeight);
-    
-    // Определяем состояние адресной строки
-    const currentHeight = window.innerHeight;
-    const heightDifference = this.maxViewportHeight - currentHeight;
-    
-    if (heightDifference < 50) {
-      this.addressBarState = 'hidden'; // Адресная строка скрыта
-    } else if (heightDifference > 50 && heightDifference < 150) {
-      this.addressBarState = 'visible'; // Адресная строка видна
-    }
+    // Удаляем избыточную логику - используем упрощенный подход
+    this.updateViewportState();
   }
 
   updateViewportTracking() {
-    // Обновляем отслеживание viewport
-    this.trackViewportChanges();
+    this.updateViewportState();
   }
 
   isKeyboardOpen() {
-    // Улучшенная детекция клавиатуры
     const currentHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    const heightDifference = this.baseViewportHeight - currentHeight;
     
-    // Базовая высота зависит от состояния адресной строки
-    let baseHeight;
-    if (this.addressBarState === 'hidden') {
-      baseHeight = this.maxViewportHeight; // Используем максимальную высоту когда адресная строка скрыта
-    } else {
-      baseHeight = this.minViewportHeight; // Используем минимальную когда видна
-    }
+    return this.isMobile() && heightDifference > this.keyboardThreshold;
+  }
+
+  setFormPosition(isKeyboardOpen) {
+    // Централизованная функция для позиционирования формы
+    const bottomPosition = isKeyboardOpen ? '20px' : (this.isMobile() ? '50px' : '10vh');
     
-    const heightDifference = baseHeight - currentHeight;
-    
-    // Клавиатура открыта если разница больше порога и это не изменение адресной строки
-    const keyboardThreshold = 250; // Увеличиваем порог
-    const isKeyboardDetected = this.isMobile() && heightDifference > keyboardThreshold;
-    
-    return isKeyboardDetected;
+    gsap.set(this.elements.chatForm, {
+      bottom: bottomPosition,
+      position: 'fixed',
+      top: 'auto',
+      transform: 'translateX(-50%)'
+    });
   }
 
   handleMobileKeyboard() {
     if (!this.isMobile() || this.currentState !== this.state.CHATTING) return;
 
     const isKeyboardOpen = this.isKeyboardOpen();
-    const wasKeyboardOpen = this.keyboardState;
     
-    // Обновляем состояние клавиатуры
-    this.keyboardState = isKeyboardOpen;
-    
-    // Реагируем только на изменения состояния клавиатуры
-    if (isKeyboardOpen !== wasKeyboardOpen) {
-      if (isKeyboardOpen) {
-        // Клавиатура открылась - фиксируем в безопасной зоне
-        gsap.set(this.elements.chatForm, {
-          bottom: '20px',
-          position: 'fixed',
-          top: 'auto'
-        });
-      } else {
-        // Клавиатура закрылась - возвращаем в нормальное положение
-        gsap.set(this.elements.chatForm, {
-          bottom: '100px',
-          position: 'fixed',
-          top: 'auto'
-        });
-      }
+    // Реагируем только на изменения состояния
+    if (isKeyboardOpen !== this.keyboardState) {
+      this.keyboardState = isKeyboardOpen;
+      this.setFormPosition(isKeyboardOpen);
     }
   }
   
@@ -398,8 +350,8 @@ class ChatInterface {
       this.stopPlaceholderAnimation();
       gsap.to(this.elements.placeholderEl, { opacity: 0, duration: 0.2 });
     } else if (this.currentState === this.state.CHATTING && this.isMobile()) {
-      // Увеличиваем задержку для стабильной детекции
-      setTimeout(() => this.handleMobileKeyboard(), 500);
+      // Оптимизируем задержку
+      setTimeout(() => this.handleMobileKeyboard(), 300);
     }
   }
   
@@ -408,8 +360,8 @@ class ChatInterface {
       gsap.to(this.elements.placeholderEl, { opacity: 1, duration: 0.2 });
       setTimeout(() => this.startPlaceholderAnimation(), 200);
     } else if (this.currentState === this.state.CHATTING && this.isMobile()) {
-      // Большая задержка для blur чтобы viewport успел восстановиться
-      setTimeout(() => this.handleMobileKeyboard(), 800);
+      // Уменьшаем задержку для лучшей отзывчивости
+      setTimeout(() => this.handleMobileKeyboard(), 500);
     }
   }
   
