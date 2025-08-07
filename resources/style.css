@@ -4,6 +4,11 @@
   --color-modal-background: #DCF5F2;
   --color-messenger1: #25D366;
   --color-messenger2: #2AABEE;
+
+  
+  --color-ya: #ffcc00;
+  --color-vk: #45668e;
+  --color-none: #fff;
 }
 
 /* Размер картинки для case  */
@@ -16,3 +21,4 @@
 body {
   overflow-x: hidden;
 }
+

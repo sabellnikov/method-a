@@ -1,8 +1,6 @@
 :root {
   /* Градиент фона */
-  --color-background-top: #00d6bd;
-  --color-background-middle: #11a5e9;
-  --color-background-bottom: #37ea3a;
+  --color-background-top: #DCF5F2;
 
   /* Навигационная панель */
   --color-hover-current-page: #1C3232;
@@ -14,4 +12,8 @@
 
 body {
   color: #1C3232; /* Цвет текста */
+}
+
+.will-change-transform {
+  will-change: transform, opacity;
 }

@@ -1,0 +1,57 @@
+---
+layout: default
+---
+
+<div class="slide-section relative z-10 bg-transparent min-h-screen flex flex-col justify-end items-center" data-bg="var(--color-background-top)">
+  <!-- Chat area -->
+  <div id="chat-messages" class="w-full max-w-2xl mx-auto flex-1 overflow-hidden px-2 py-6 flex flex-col justify-start opacity-0 mt-16 relative">
+
+  </div>
+
+  <!-- Input form -->
+  <form
+    id="chat-form"
+    class="w-[calc(100%-2rem)] sm:w-full max-w-sm sm:max-w-xl flex items-center gap-2 bg-white/80 rounded-full p-3 sm:p-4 backdrop-blur transition-all duration-700 ease-in-out fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
+  >
+    <div class="flex-1 relative overflow-hidden">
+      <input
+        id="chat-input"
+        type="text"
+        placeholder=""
+        class="w-full bg-transparent outline-none px-4 py-2 text-gray-900 text-base rounded-full"
+        autocomplete="off"
+      />
+      <div 
+        id="placeholder-text" 
+        class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none select-none"
+      >
+      </div>
+    </div>
+    <button
+      type="submit"
+      class="bg-[var(--color-hover-current-page)] text-white rounded-full px-3 py-2 sm:px-4 sm:py-2 font-medium transition flex items-center justify-center group"
+      aria-label="Отправить"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4 sm:h-5 sm:w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="var(--color-text-current-page)"
+        style="transition: stroke 0.2s;"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      <style>
+        .group:hover {
+          background: var(--color-text-current-page) !important;
+        }
+        .group:hover svg {
+          stroke: var(--color-hover-current-page) !important;
+        }
+      </style>
+    </button>
+  </form>
+</div>
+
+<script src="/resources/js/ai/ai-from.js"></script>

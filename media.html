@@ -8,14 +8,13 @@ layout: default
       <div style="height:100vh"></div>
 
         <div class="flex flex-col items-center justify-center min-h-[60vh]">
-          {% for post in site.categories.case %}
-            <a href="{{ post.url }}" style="text-decoration: none; color: inherit;">
-              <div class="card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 120px; height: 120px; margin-bottom: 1rem; padding: 0.5rem; background: #fff; border-radius: 8px; border: 1px solid #eee; text-align: center;">
-                <img src="/resources/case_icons/{{ post.tags }}.png" class="featured-image-post" style="width: 40px; height: 40px; margin-bottom: 0.5rem; object-fit: contain;"/>
-                <span style="font-size: 0.95rem; font-weight: 500;">{{ post.title }}</span>
-              </div>
-            </a>
-          {% endfor %}
+      {% for post in site.categories.post %}
+        <a href="{{ post.url }}" style="text-decoration: none; color: inherit;">
+          <div class="card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 120px; height: 120px; margin-bottom: 1rem; padding: 0.5rem; background: #fff; border-radius: 8px; border: 1px solid #eee; text-align: center;">
+            <span style="font-size: 0.95rem; font-weight: 500;">{{ post.title }}</span>
+          </div>
+        </a>
+      {% endfor %}
         </div>
 </div>
 
@@ -76,4 +75,4 @@ layout: default
 </div>
 
 
-<script src="/resources/js/index/main.js"></script>
+<script src="/resources/js/index/main-background.js"></script>
