@@ -48,8 +48,24 @@ class ChatInterface {
   }
   
   setupViewportHandler() {
-    // Убираем обработчик resize, так как bottom позиционирование работает автоматически
-    // Оставляем только если действительно нужно для других целей
+    // Добавляем обработчик для мобильной клавиатуры
+    if (this.isMobile()) {
+      // Обработчик изменения размера viewport
+      window.addEventListener('resize', this.debounce(() => {
+        if (this.currentState === this.state.CHATTING) {
+          this.handleMobileKeyboard();
+        }
+      }, 100));
+
+      // Обработчик для iOS Visual Viewport API
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', () => {
+          if (this.currentState === this.state.CHATTING) {
+            this.handleMobileKeyboard();
+          }
+        });
+      }
+    }
   }
   
   debounce(func, wait) {
@@ -140,11 +156,18 @@ class ChatInterface {
     this.currentState = this.state.CHATTING;
     this.stopPlaceholderAnimation();
     
-    // Обновленная логика с bottom позиционированием
+    // Убираем классы центрирования
     this.elements.chatForm.classList.remove('-translate-x-1/2', '-translate-y-1/2');
-    this.elements.chatForm.style.top = 'auto';
-    this.elements.chatForm.style.bottom = this.isMobile() ? '100px' : '10vh';
-    this.elements.chatForm.style.transform = 'translateX(-50%)';
+    
+    // Устанавливаем начальное позиционирование
+    const initialBottom = this.isMobile() ? '100px' : '10vh';
+    
+    gsap.set(this.elements.chatForm, {
+      top: 'auto',
+      bottom: initialBottom,
+      position: 'fixed',
+      transform: 'translateX(-50%)'
+    });
     
     // Показываем область сообщений
     this.elements.chatMessages.classList.remove('opacity-0');
@@ -282,20 +305,53 @@ class ChatInterface {
     this.simulateBotReply(text);
   }
   
+  isKeyboardOpen() {
+    // Более точная детекция клавиатуры
+    const currentHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    const heightDifference = this.initialViewportHeight - currentHeight;
+    return this.isMobile() && heightDifference > 150;
+  }
+
+  handleMobileKeyboard() {
+    if (!this.isMobile() || this.currentState !== this.state.CHATTING) return;
+
+    const isKeyboardOpen = this.isKeyboardOpen();
+    
+    if (isKeyboardOpen) {
+      // Клавиатура открыта - фиксируем снизу
+      gsap.set(this.elements.chatForm, {
+        bottom: '10px',
+        position: 'fixed',
+        top: 'auto'
+      });
+    } else {
+      // Клавиатура закрыта - возвращаем в обычное положение
+      gsap.set(this.elements.chatForm, {
+        bottom: '100px',
+        position: 'fixed',
+        top: 'auto'
+      });
+    }
+  }
+  
   handleInputFocus() {
     if (this.currentState === this.state.INITIAL) {
       this.stopPlaceholderAnimation();
       gsap.to(this.elements.placeholderEl, { opacity: 0, duration: 0.2 });
+    } else if (this.currentState === this.state.CHATTING && this.isMobile()) {
+      // Небольшая задержка для корректной детекции клавиатуры
+      setTimeout(() => this.handleMobileKeyboard(), 300);
     }
-    // Убираем лишние вызовы updateFormPosition - bottom позиционирование работает автоматически
   }
   
   handleInputBlur() {
     if (this.currentState === this.state.INITIAL && !this.elements.chatInput.value.trim()) {
       gsap.to(this.elements.placeholderEl, { opacity: 1, duration: 0.2 });
       setTimeout(() => this.startPlaceholderAnimation(), 200);
+    } else if (this.currentState === this.state.CHATTING && this.isMobile()) {
+      // Задержка для корректной обработки закрытия клавиатуры
+      setTimeout(() => this.handleMobileKeyboard(), 500);
     }
-    // Убираем лишние вызовы updateFormPosition
   }
   
   handleInputChange() {
