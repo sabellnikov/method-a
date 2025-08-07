@@ -31,6 +31,8 @@ class ChatInterface {
     this.documentHeight = document.documentElement.clientHeight;
     this.baseViewportHeight = window.innerHeight; // Упрощаем: одна базовая высота
     this.keyboardThreshold = 250; // Выносим в константу
+    this.mobileBottomOffset = '50px'; // Отступ от низа для мобильных устройств
+    this.mobileKeyboardOffset = '0px'; // Отступ при открытой клавиатуре
     this.keyboardState = false; // Состояние клавиатуры
     
     this.init();
@@ -144,7 +146,7 @@ class ChatInterface {
     if (this.currentState !== this.state.CHATTING) return;
     
     // Используем одинаковые значения для синхронизации
-    const bottomPosition = this.isMobile() ? '20px' : '10vh';
+    const bottomPosition = this.isMobile() ? this.mobileKeyboardOffset : '10vh';
     
     gsap.to(this.elements.chatForm, {
       bottom: bottomPosition,
@@ -318,7 +320,7 @@ class ChatInterface {
 
   setFormPosition(isKeyboardOpen) {
     // Централизованная функция для позиционирования формы
-    const bottomPosition = isKeyboardOpen ? '20px' : (this.isMobile() ? '50px' : '10vh');
+    const bottomPosition = isKeyboardOpen ? this.mobileKeyboardOffset : (this.isMobile() ? this.mobileBottomOffset : '10vh');
     
     gsap.set(this.elements.chatForm, {
       bottom: bottomPosition,
