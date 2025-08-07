@@ -31,6 +31,13 @@ class ChatInterface {
     this.currentPlaceholderIndex = 0;
     this.isAnimating = false;
     this.messageQueue = [];
+    this.keyboardState = false;
+    
+    // Настройки viewport и мобильных устройств
+    this.documentHeight = document.documentElement.clientHeight;
+    this.baseViewportHeight = window.innerHeight;
+    this.keyboardThreshold = 250;
+    this.mobileBottomOffset = '50px';
     
     this.init();
   }
@@ -41,9 +48,7 @@ class ChatInterface {
     this.setupEventListeners();
     this.setRandomInitialPlaceholder();
     this.startPlaceholderAnimation();
-    
-    // Устанавливаем fixed классы при загрузке страницы
-    this.toggleNavigationFixed(true);
+    // Убираем сложные viewport handlers - CSS справится сам
   }
   
   setupEventListeners() {
@@ -65,6 +70,10 @@ class ChatInterface {
       clearTimeout(timeout);
       timeout = setTimeout(later, wait);
     };
+  }
+  
+  isMobile() {
+    return window.innerWidth <= 640;
   }
   
   getRandomPlaceholderIndex() {
@@ -121,9 +130,54 @@ class ChatInterface {
     this.elements.placeholderEl.textContent = this.placeholders[this.currentPlaceholderIndex];
   }
   
+  // ==================== ПОЗИЦИОНИРОВАНИЕ И VIEWPORT ====================
+  
+  updateViewportState() {
+    const currentHeight = window.innerHeight;
+    if (currentHeight > this.baseViewportHeight) {
+      this.baseViewportHeight = currentHeight;
+    }
+  }
+  
+  trackViewportChanges() {
+    this.updateViewportState();
+  }
+
+  updateViewportTracking() {
+    this.updateViewportState();
+  }
+
+  isKeyboardOpen() {
+    const currentHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    const heightDifference = this.baseViewportHeight - currentHeight;
+    
+    return this.isMobile() && heightDifference > this.keyboardThreshold;
+  }
+
+  handleMobileKeyboard() {
+    if (!this.isMobile() || this.currentState !== this.state.CHATTING) return;
+
+    const isKeyboardOpen = this.isKeyboardOpen();
+    
+    if (isKeyboardOpen !== this.keyboardState) {
+      this.keyboardState = isKeyboardOpen;
+      this.setFormPosition(isKeyboardOpen);
+    }
+  }
+  
+  // Удаляем сложные методы позиционирования
+  setFormPosition(isKeyboardOpen) {
+    // Больше не нужно - CSS медиа-запросы управляют позицией
+  }
+
+  updateFormPosition() {
+    // Больше не нужно - все через flex
+  }
+  
   toggleNavigationFixed(isActive) {
-    document.getElementById('siteNameBar')?.classList.toggle('fixed', isActive);
-    document.getElementById('siteIconBar')?.classList.toggle('fixed', isActive);
+    const fixed = isActive;
+    document.getElementById('siteNameBar')?.classList.toggle('fixed', fixed);
+    document.getElementById('siteIconBar')?.classList.toggle('fixed', fixed);
   }
   
   // ==================== УПРАВЛЕНИЕ СОСТОЯНИЕМ ====================
@@ -267,6 +321,7 @@ class ChatInterface {
       this.stopPlaceholderAnimation();
       gsap.to(this.elements.placeholderEl, { opacity: 0, duration: 0.2 });
     }
+    // Убираем мобильную логику - CSS медиа-запросы справятся
   }
   
   handleInputBlur() {
@@ -274,6 +329,7 @@ class ChatInterface {
       gsap.to(this.elements.placeholderEl, { opacity: 1, duration: 0.2 });
       setTimeout(() => this.startPlaceholderAnimation(), 200);
     }
+    // Убираем мобильную логику - CSS медиа-запросы справятся
   }
   
   handleInputChange() {
