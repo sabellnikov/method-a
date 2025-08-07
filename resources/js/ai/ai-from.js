@@ -1,5 +1,6 @@
 class ChatInterface {
   constructor() {
+    // DOM элементы
     this.elements = {
       chatMessages: document.getElementById('chat-messages'),
       chatForm: document.getElementById('chat-form'),
@@ -7,16 +8,14 @@ class ChatInterface {
       placeholderEl: document.getElementById('placeholder-text')
     };
     
+    // Состояния чата
     this.state = {
       INITIAL: 'initial',
       CHATTING: 'chatting',
       TYPING: 'typing'
     };
     
-    this.currentState = this.state.INITIAL;
-    this.placeholderTL = null;
-    this.currentPlaceholderIndex = 0;
-    
+    // Конфигурация
     this.placeholders = [
       "Желаете создать план обучения?",
       "Как изучить новый навык?", 
@@ -26,23 +25,25 @@ class ChatInterface {
       "Помочь с выбором курса?"
     ];
     
-    this.isAnimating = false; // Флаг для предотвращения конфликтов анимаций
-    this.messageQueue = []; // Очередь сообщений
-    this.documentHeight = document.documentElement.clientHeight;
-    this.baseViewportHeight = window.innerHeight; // Упрощаем: одна базовая высота
-    this.keyboardThreshold = 250; // Выносим в константу
-    this.mobileBottomOffset = '50px'; // Единый отступ от низа для мобильных устройств
-    this.keyboardState = false; // Состояние клавиатуры
+    // Состояние компонента
+    this.currentState = this.state.INITIAL;
+    this.placeholderTL = null;
+    this.currentPlaceholderIndex = 0;
+    this.isAnimating = false;
+    this.messageQueue = [];
     
     this.init();
   }
+  
+  // ==================== ИНИЦИАЛИЗАЦИЯ ====================
   
   init() {
     this.setupEventListeners();
     this.setRandomInitialPlaceholder();
     this.startPlaceholderAnimation();
-    this.setupViewportHandler();
-    this.trackViewportChanges(); // Отслеживаем изменения viewport
+    
+    // Устанавливаем fixed классы при загрузке страницы
+    this.toggleNavigationFixed(true);
   }
   
   setupEventListeners() {
@@ -52,26 +53,7 @@ class ChatInterface {
     this.elements.chatInput.addEventListener('input', this.debounce(this.handleInputChange.bind(this), 200));
   }
   
-  setupViewportHandler() {
-    if (this.isMobile()) {
-      const resizeHandler = this.debounce(() => {
-        this.updateViewportState();
-        if (this.currentState === this.state.CHATTING) {
-          this.handleMobileKeyboard();
-        }
-      }, 100);
-
-      window.addEventListener('resize', resizeHandler);
-
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', () => {
-          if (this.currentState === this.state.CHATTING) {
-            this.handleMobileKeyboard();
-          }
-        });
-      }
-    }
-  }
+  // ==================== УТИЛИТЫ ====================
   
   debounce(func, wait) {
     let timeout;
@@ -95,6 +77,8 @@ class ChatInterface {
     
     return newIndex;
   }
+  
+  // ==================== АНИМАЦИИ PLACEHOLDER ====================
   
   startPlaceholderAnimation() {
     if (this.currentState !== this.state.INITIAL) return;
@@ -137,23 +121,12 @@ class ChatInterface {
     this.elements.placeholderEl.textContent = this.placeholders[this.currentPlaceholderIndex];
   }
   
-  isMobile() {
-    return window.innerWidth <= 640; // sm breakpoint in Tailwind
+  toggleNavigationFixed(isActive) {
+    document.getElementById('siteNameBar')?.classList.toggle('fixed', isActive);
+    document.getElementById('siteIconBar')?.classList.toggle('fixed', isActive);
   }
   
-  updateFormPosition() {
-    if (this.currentState !== this.state.CHATTING) return;
-    
-    // Используем одинаковые значения для синхронизации
-    const bottomPosition = this.isMobile() ? this.mobileBottomOffset : '10vh';
-    
-    gsap.to(this.elements.chatForm, {
-      bottom: bottomPosition,
-      top: 'auto',
-      duration: 0.3,
-      ease: "power2.out"
-    });
-  }
+  // ==================== УПРАВЛЕНИЕ СОСТОЯНИЕМ ====================
   
   transitionToChatMode() {
     if (this.currentState === this.state.CHATTING) return;
@@ -161,22 +134,18 @@ class ChatInterface {
     this.currentState = this.state.CHATTING;
     this.stopPlaceholderAnimation();
     
-    this.elements.chatForm.classList.remove('-translate-x-1/2', '-translate-y-1/2');
+    // Только переключение CSS классов - всё остальное делает CSS
+    document.querySelector('.chat-container').classList.add('chat-active');
+    this.elements.chatMessages.classList.add('visible');
     
-    // Используем единую функцию для позиционирования
-    this.setFormPosition(false);
-    
-    this.elements.chatMessages.classList.remove('opacity-0');
-    this.elements.chatMessages.classList.add('opacity-100');
-    
-    // Устанавливаем фиксированное позиционирование для навигации
     this.toggleNavigationFixed(true);
   }
+  
+  // ==================== УПРАВЛЕНИЕ СООБЩЕНИЯМИ ====================
   
   addMessage(text, isUser = false) {
     if (!text?.trim()) return;
     
-    // Добавляем в очередь если идет анимация
     if (this.isAnimating) {
       this.messageQueue.push({ text, isUser });
       return;
@@ -190,17 +159,14 @@ class ChatInterface {
     
     const existingMessages = Array.from(this.elements.chatMessages.children);
     
-    // Удаляем старые сообщения если их больше 2
     if (existingMessages.length >= 2) {
       await this.removeOldMessages(existingMessages);
     }
     
-    // Создаем и анимируем новое сообщение
     const messageElement = await this.createAndAnimateMessage(text, isUser);
     
     this.isAnimating = false;
     
-    // Обрабатываем очередь
     if (this.messageQueue.length > 0) {
       const next = this.messageQueue.shift();
       setTimeout(() => this.processMessage(next.text, next.isUser), 100);
@@ -215,7 +181,6 @@ class ChatInterface {
         onComplete: resolve
       });
       
-      // Группируем анимацию для лучшей производительности
       messages.forEach((msg, index) => {
         tl.to(msg, {
           y: -100,
@@ -243,7 +208,6 @@ class ChatInterface {
       messageElement.textContent = text;
       messageElement.style.marginBottom = '16px';
       
-      // Оптимизированная начальная позиция
       gsap.set(messageElement, { 
         y: 20, 
         opacity: 0, 
@@ -252,7 +216,6 @@ class ChatInterface {
       
       this.elements.chatMessages.appendChild(messageElement);
       
-      // Улучшенная анимация появления
       gsap.to(messageElement, {
         y: 0,
         opacity: 1,
@@ -263,10 +226,6 @@ class ChatInterface {
         onComplete: () => resolve(messageElement)
       });
     });
-  }
-  
-  scrollToBottom() {
-    // Не нужно скроллить, так как сообщения появляются в фиксированной позиции
   }
   
   async simulateBotReply(userText) {
@@ -285,6 +244,8 @@ class ChatInterface {
     }
   }
   
+  // ==================== ОБРАБОТЧИКИ СОБЫТИЙ ====================
+  
   handleSubmit(event) {
     event.preventDefault();
     
@@ -295,67 +256,16 @@ class ChatInterface {
     this.elements.chatInput.value = '';
     this.transitionToChatMode();
     
-    // Устанавливаем placeholder после изменения состояния
     this.elements.chatInput.placeholder = 'Введите ваше сообщение...';
-    
-    // Скрываем анимированный placeholder
     gsap.to(this.elements.placeholderEl, { opacity: 0, duration: 0.2 });
     
     this.simulateBotReply(text);
-  }
-  
-  trackViewportChanges() {
-    // Удаляем избыточную логику - используем упрощенный подход
-    this.updateViewportState();
-  }
-
-  updateViewportTracking() {
-    this.updateViewportState();
-  }
-
-  isKeyboardOpen() {
-    const currentHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    const heightDifference = this.baseViewportHeight - currentHeight;
-    
-    return this.isMobile() && heightDifference > this.keyboardThreshold;
-  }
-
-  setFormPosition(isKeyboardOpen) {
-    // Централизованная функция для позиционирования формы
-    const bottomPosition = this.isMobile() ? this.mobileBottomOffset : '10vh';
-    
-    gsap.set(this.elements.chatForm, {
-      bottom: bottomPosition,
-      position: 'fixed',
-      top: 'auto',
-      transform: 'translateX(-50%)'
-    });
-  }
-
-  handleMobileKeyboard() {
-    if (!this.isMobile() || this.currentState !== this.state.CHATTING) return;
-
-    const isKeyboardOpen = this.isKeyboardOpen();
-    
-    // Реагируем только на изменения состояния
-    if (isKeyboardOpen !== this.keyboardState) {
-      this.keyboardState = isKeyboardOpen;
-      this.setFormPosition(isKeyboardOpen);
-    }
-  }
-  
-  isAddressBarVisible() {
-    // Проверяем состояние адресной строки
-    return this.addressBarState === 'visible';
   }
   
   handleInputFocus() {
     if (this.currentState === this.state.INITIAL) {
       this.stopPlaceholderAnimation();
       gsap.to(this.elements.placeholderEl, { opacity: 0, duration: 0.2 });
-    } else if (this.currentState === this.state.CHATTING && this.isMobile()) {
-      // Оптимизируем задержку
-      setTimeout(() => this.handleMobileKeyboard(), 300);
     }
   }
   
@@ -363,9 +273,6 @@ class ChatInterface {
     if (this.currentState === this.state.INITIAL && !this.elements.chatInput.value.trim()) {
       gsap.to(this.elements.placeholderEl, { opacity: 1, duration: 0.2 });
       setTimeout(() => this.startPlaceholderAnimation(), 200);
-    } else if (this.currentState === this.state.CHATTING && this.isMobile()) {
-      // Уменьшаем задержку для лучшей отзывчивости
-      setTimeout(() => this.handleMobileKeyboard(), 500);
     }
   }
   
@@ -377,15 +284,9 @@ class ChatInterface {
       gsap.to(this.elements.placeholderEl, { opacity: targetOpacity, duration: 0.2 });
     }
   }
-  
-  toggleNavigationFixed(isActive) {
-    const fixed = isActive;
-    document.getElementById('siteNameBar')?.classList.toggle('fixed', fixed);
-    document.getElementById('siteIconBar')?.classList.toggle('fixed', fixed);
-  }
 }
 
-// Инициализация после загрузки DOM
+// ==================== ИНИЦИАЛИЗАЦИЯ ====================
 document.addEventListener('DOMContentLoaded', () => {
   window.chatInterface = new ChatInterface();
 });

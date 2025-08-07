@@ -2,56 +2,208 @@
 layout: default
 ---
 
-<div class="slide-section relative z-10 bg-transparent min-h-screen flex flex-col justify-end items-center" data-bg="var(--color-background-top)">
-  <!-- Chat area -->
-  <div id="chat-messages" class="w-full max-w-2xl mx-auto flex-1 overflow-hidden px-2 py-6 flex flex-col justify-start opacity-0 mt-16 relative">
-
+<div class="chat-container" data-bg="var(--color-background-top)">
+  <!-- Chat messages -->
+  <div id="chat-messages" class="chat-messages">
   </div>
 
   <!-- Input form -->
-  <form
-    id="chat-form"
-    class="w-[calc(100%-2rem)] sm:w-full max-w-sm sm:max-w-xl flex items-center gap-2 bg-white/80 rounded-full p-3 sm:p-4 backdrop-blur transition-all duration-700 ease-in-out fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
-  >
-    <div class="flex-1 relative overflow-hidden">
+  <form id="chat-form" class="chat-form">
+    <div class="chat-input-wrapper">
       <input
         id="chat-input"
         type="text"
         placeholder=""
-        class="w-full bg-transparent outline-none px-4 py-2 text-gray-900 text-base rounded-full"
+        class="chat-input"
         autocomplete="off"
       />
-      <div 
-        id="placeholder-text" 
-        class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none select-none"
-      >
-      </div>
+      <div id="placeholder-text" class="chat-placeholder"></div>
     </div>
-    <button
-      type="submit"
-      class="bg-[var(--color-hover-current-page)] text-white rounded-full px-3 py-2 sm:px-4 sm:py-2 font-medium transition flex items-center justify-center group"
-      aria-label="Отправить"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4 sm:h-5 sm:w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="var(--color-text-current-page)"
-        style="transition: stroke 0.2s;"
-      >
+    <button type="submit" class="chat-submit-btn" aria-label="Отправить">
+      <svg xmlns="http://www.w3.org/2000/svg" class="chat-submit-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
-      <style>
-        .group:hover {
-          background: var(--color-text-current-page) !important;
-        }
-        .group:hover svg {
-          stroke: var(--color-hover-current-page) !important;
-        }
-      </style>
     </button>
   </form>
 </div>
+
+<style>
+.chat-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background: var(--color-background-top);
+  position: relative;
+}
+
+.chat-container.chat-active {
+  justify-content: flex-start;
+  padding-top: 6rem;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 42rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  order: 1;
+}
+
+.chat-messages.visible {
+  opacity: 1;
+}
+
+.chat-form {
+  width: calc(100% - 2rem); /* Отступы по 1rem с каждой стороны */
+  max-width: 24rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 9999px;
+  padding: 0.75rem 1rem;
+  order: 2;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  
+  /* Анимация только вертикального смещения */
+  transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: fixed;
+  bottom: 50vh; /* Начальная позиция - центр */
+}
+
+.chat-container.chat-active .chat-form {
+  bottom: max(10vh, 80px); /* Минимум 80px отступ */
+}
+
+.chat-input-wrapper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.chat-input {
+  width: 100%;
+  background: transparent;
+  outline: none;
+  padding: 0.5rem 1rem;
+  color: #111827;
+  font-size: 1rem;
+  border: none;
+  border-radius: 9999px;
+}
+
+.chat-placeholder {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.2s ease;
+}
+
+.chat-submit-btn {
+  background: var(--color-hover-current-page);
+  color: var(--color-text-current-page);
+  border-radius: 9999px;
+  padding: 0.5rem 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.chat-submit-btn:hover {
+  background: var(--color-text-current-page);
+  color: var(--color-hover-current-page);
+}
+
+.chat-submit-icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+@media (min-width: 640px) {
+  .chat-form {
+    width: 100%; /* На десктопе убираем ограничение ширины */
+    max-width: 36rem;
+    padding: 1rem 1.25rem;
+  }
+  
+  .chat-input {
+    padding: 0.5rem 1rem;
+  }
+  
+  .chat-submit-btn {
+    padding: 0.5rem 1rem;
+  }
+  
+  .chat-submit-icon {
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+  
+  .chat-container.chat-active .chat-form {
+    bottom: 10vh; /* Обычный отступ для десктопа */
+  }
+}
+
+@media (max-width: 640px) {
+  .chat-form {
+    width: calc(100% - 3rem); /* Увеличенные отступы для мобильных */
+    /* Убираем margin - он конфликтует с transform */
+  }
+  
+  .chat-container.chat-active .chat-form {
+    bottom: max(env(safe-area-inset-bottom, 0px) + 60px, 80px);
+    /* Учитываем безопасную зону iOS + минимум 80px */
+  }
+  
+  /* Для очень маленьких экранов */
+  @media (max-width: 400px) {
+    .chat-form {
+      width: calc(100% - 2rem); /* Меньшие отступы на очень маленьких экранах */
+    }
+  }
+  
+  /* Для устройств с очень маленьким экраном */
+  @media (max-height: 600px) {
+    .chat-container.chat-active .chat-form {
+      bottom: 60px;
+    }
+  }
+}
+
+/* Дополнительная поддержка для новых единиц viewport */
+@supports (height: 100dvh) {
+  .chat-form {
+    bottom: 50dvh; /* Dynamic viewport height */
+  }
+  
+  .chat-container.chat-active .chat-form {
+    bottom: max(10dvh, 80px);
+  }
+  
+  @media (max-width: 640px) {
+    .chat-container.chat-active .chat-form {
+      bottom: max(env(safe-area-inset-bottom, 0px) + 60px, 80px);
+    }
+  }
+}
+</style>
 
 <script src="/resources/js/ai/ai-from.js"></script>
