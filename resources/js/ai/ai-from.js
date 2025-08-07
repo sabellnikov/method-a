@@ -48,14 +48,8 @@ class ChatInterface {
   }
   
   setupViewportHandler() {
-    // Добавляем обработчик для мобильной клавиатуры
-    if (this.isMobile()) {
-      window.addEventListener('resize', this.debounce(() => {
-        if (this.currentState === this.state.CHATTING) {
-          this.handleMobileKeyboard();
-        }
-      }, 150));
-    }
+    // Убираем обработчик resize, так как bottom позиционирование работает автоматически
+    // Оставляем только если действительно нужно для других целей
   }
   
   debounce(func, wait) {
@@ -126,27 +120,6 @@ class ChatInterface {
     return window.innerWidth <= 640; // sm breakpoint in Tailwind
   }
   
-  handleMobileKeyboard() {
-    if (!this.isMobile() || this.currentState !== this.state.CHATTING) return;
-    
-    const isKeyboardOpen = window.innerHeight < this.initialViewportHeight * 0.75;
-    
-    if (isKeyboardOpen) {
-      // Фиксируем панель снизу при открытой клавиатуре
-      gsap.set(this.elements.chatForm, {
-        position: 'fixed',
-        bottom: '0px',
-        top: 'auto'
-      });
-    } else {
-      // Возвращаем в обычное положение при закрытой клавиатуре
-      gsap.set(this.elements.chatForm, {
-        bottom: '100px',
-        top: 'auto'
-      });
-    }
-  }
-  
   updateFormPosition() {
     if (this.currentState !== this.state.CHATTING) return;
     
@@ -167,17 +140,11 @@ class ChatInterface {
     this.currentState = this.state.CHATTING;
     this.stopPlaceholderAnimation();
     
-    // Обновленная логика с учетом мобильных устройств
+    // Обновленная логика с bottom позиционированием
     this.elements.chatForm.classList.remove('-translate-x-1/2', '-translate-y-1/2');
     this.elements.chatForm.style.top = 'auto';
+    this.elements.chatForm.style.bottom = this.isMobile() ? '100px' : '10vh';
     this.elements.chatForm.style.transform = 'translateX(-50%)';
-    
-    if (this.isMobile()) {
-      this.elements.chatForm.style.bottom = '100px';
-      this.elements.chatForm.style.position = 'fixed';
-    } else {
-      this.elements.chatForm.style.bottom = '10vh';
-    }
     
     // Показываем область сообщений
     this.elements.chatMessages.classList.remove('opacity-0');
@@ -319,29 +286,16 @@ class ChatInterface {
     if (this.currentState === this.state.INITIAL) {
       this.stopPlaceholderAnimation();
       gsap.to(this.elements.placeholderEl, { opacity: 0, duration: 0.2 });
-    } else if (this.currentState === this.state.CHATTING && this.isMobile()) {
-      // Немедленно фиксируем снизу при фокусе на мобильном
-      setTimeout(() => {
-        gsap.set(this.elements.chatForm, {
-          bottom: '0px',
-          position: 'fixed'
-        });
-      }, 100);
     }
+    // Убираем лишние вызовы updateFormPosition - bottom позиционирование работает автоматически
   }
   
   handleInputBlur() {
     if (this.currentState === this.state.INITIAL && !this.elements.chatInput.value.trim()) {
       gsap.to(this.elements.placeholderEl, { opacity: 1, duration: 0.2 });
       setTimeout(() => this.startPlaceholderAnimation(), 200);
-    } else if (this.currentState === this.state.CHATTING && this.isMobile()) {
-      // Возвращаем в обычное положение при потере фокуса
-      setTimeout(() => {
-        gsap.set(this.elements.chatForm, {
-          bottom: '100px'
-        });
-      }, 300);
     }
+    // Убираем лишние вызовы updateFormPosition
   }
   
   handleInputChange() {
