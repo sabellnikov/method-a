@@ -168,6 +168,9 @@ class ChatInterface {
     
     this.elements.chatMessages.classList.remove('opacity-0');
     this.elements.chatMessages.classList.add('opacity-100');
+    
+    // Устанавливаем фиксированное позиционирование для навигации
+    this.toggleNavigationFixed(true);
   }
   
   addMessage(text, isUser = false) {
@@ -373,6 +376,12 @@ class ChatInterface {
       
       gsap.to(this.elements.placeholderEl, { opacity: targetOpacity, duration: 0.2 });
     }
+  }
+  
+  toggleNavigationFixed(isActive) {
+    const fixed = isActive;
+    document.getElementById('siteNameBar')?.classList.toggle('fixed', fixed);
+    document.getElementById('siteIconBar')?.classList.toggle('fixed', fixed);
   }
 }
 
