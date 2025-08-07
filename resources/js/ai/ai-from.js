@@ -29,6 +29,8 @@ class ChatInterface {
     this.isAnimating = false; // Флаг для предотвращения конфликтов анимаций
     this.messageQueue = []; // Очередь сообщений
     this.initialViewportHeight = window.innerHeight; // Запоминаем начальную высоту
+    this.documentHeight = document.documentElement.clientHeight; // Высота без адресной строки
+    this.minViewportHeight = window.innerHeight; // Минимальная высота viewport
     
     this.init();
   }
@@ -37,7 +39,8 @@ class ChatInterface {
     this.setupEventListeners();
     this.setRandomInitialPlaceholder();
     this.startPlaceholderAnimation();
-    this.setupViewportHandler(); // Добавляем обработчик изменения viewport
+    this.setupViewportHandler();
+    this.trackViewportChanges(); // Отслеживаем изменения viewport
   }
   
   setupEventListeners() {
@@ -52,6 +55,7 @@ class ChatInterface {
     if (this.isMobile()) {
       // Обработчик изменения размера viewport
       window.addEventListener('resize', this.debounce(() => {
+        this.updateViewportTracking();
         if (this.currentState === this.state.CHATTING) {
           this.handleMobileKeyboard();
         }
@@ -65,6 +69,11 @@ class ChatInterface {
           }
         });
       }
+
+      // Обработчик скролла для адресной строки
+      window.addEventListener('scroll', this.debounce(() => {
+        this.updateViewportTracking();
+      }, 50));
     }
   }
   
@@ -305,27 +314,45 @@ class ChatInterface {
     this.simulateBotReply(text);
   }
   
+  trackViewportChanges() {
+    // Отслеживаем изменения высоты viewport для учета адресной строки
+    this.minViewportHeight = Math.min(this.minViewportHeight, window.innerHeight);
+  }
+
+  updateViewportTracking() {
+    // Обновляем минимальную высоту viewport
+    this.minViewportHeight = Math.min(this.minViewportHeight, window.innerHeight);
+  }
+
   isKeyboardOpen() {
-    // Более точная детекция клавиатуры
+    // Более точная детекция клавиатуры с учетом адресной строки
     const currentHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    const heightDifference = this.initialViewportHeight - currentHeight;
-    return this.isMobile() && heightDifference > 150;
+    
+    // Используем минимальную зафиксированную высоту как базовую
+    const baseHeight = Math.min(this.initialViewportHeight, this.minViewportHeight);
+    const heightDifference = baseHeight - currentHeight;
+    
+    // Увеличиваем порог для учета вариаций адресной строки
+    return this.isMobile() && heightDifference > 200;
   }
 
   handleMobileKeyboard() {
     if (!this.isMobile() || this.currentState !== this.state.CHATTING) return;
 
     const isKeyboardOpen = this.isKeyboardOpen();
+    const currentViewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
     
     if (isKeyboardOpen) {
-      // Клавиатура открыта - фиксируем снизу
+      // Клавиатура открыта - позиционируем относительно видимой области
+      const safeAreaBottom = Math.max(10, currentViewportHeight * 0.02); // 2% от видимой высоты или минимум 10px
+      
       gsap.set(this.elements.chatForm, {
-        bottom: '10px',
+        bottom: `${safeAreaBottom}px`,
         position: 'fixed',
         top: 'auto'
       });
     } else {
-      // Клавиатура закрыта - возвращаем в обычное положение
+      // Клавиатура закрыта - стандартное позиционирование
       gsap.set(this.elements.chatForm, {
         bottom: '100px',
         position: 'fixed',
