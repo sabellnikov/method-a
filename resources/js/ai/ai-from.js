@@ -282,14 +282,17 @@ class ChatInterface {
     });
   }
   
-  async simulateBotReply(userText) {
+  async fetchBotReply(userText) {
     this.currentState = this.state.TYPING;
-    
+    const FUNCTION_URL = "https://functions.yandexcloud.net/d4eifnmujs29c4uf9nj6"; // Укажите ваш URL
     try {
-      await new Promise(resolve => setTimeout(resolve, 800));
-      
-      const response = `Это пример ответа на: "${userText}"`;
-      this.addMessage(response, false);
+      const response = await fetch(FUNCTION_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: userText })
+      });
+      const data = await response.json();
+      this.addMessage(data.answer || data.result || "Нет ответа", false);
       this.currentState = this.state.CHATTING;
     } catch (error) {
       console.error('Ошибка при получении ответа:', error);
@@ -313,9 +316,9 @@ class ChatInterface {
     this.elements.chatInput.placeholder = 'Введите ваше сообщение...';
     gsap.to(this.elements.placeholderEl, { opacity: 0, duration: 0.2 });
     
-    this.simulateBotReply(text);
+    this.fetchBotReply(text); // Заменили simulateBotReply на fetchBotReply
   }
-  
+
   handleInputFocus() {
     if (this.currentState === this.state.INITIAL) {
       this.stopPlaceholderAnimation();
