@@ -2,15 +2,7 @@
 layout: default
 ---
 
-<style>
-  /* Fallback для динамической высоты viewport */
-  .dynamic-height {
-    height: 100vh; /* Fallback */
-    height: calc(var(--vh, 1vh) * 100); /* Динамическая высота */
-  }
-</style>
-
-<div class="max-w-3xl mx-auto flex flex-col rounded-2xl bg-transparent relative dynamic-height">
+<div class="max-w-3xl mx-auto h-[100vh] flex flex-col rounded-2xl bg-transparent relative">
   <!-- Контейнер сообщений с компактными отступами -->
   <div class="flex-1 px-3 sm:px-6 pt-16 sm:pt-16 pb-34 sm:pb-26 overflow-hidden chat-messages">
     <div class="h-full overflow-y-auto scroll-smooth">
@@ -19,18 +11,13 @@ layout: default
   </div>
   
   <!-- Компактная форма ввода -->
-  <form class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-1.5rem)] sm:w-[calc(100%-3rem)] z-10 flex gap-2 sm:gap-3 bg-transparent border-none chat-form px-3 pt-3 pb-16 sm:p-6" autocomplete="off">
+  <form class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[calc(100%-1.5rem)] sm:w-[calc(100%-3rem)] z-10 flex gap-2 sm:gap-3 bg-transparent border-none chat-form">
     <div class="relative flex-1">
       <input 
         class="w-full px-3 sm:px-4 py-3.5 sm:py-5 pr-12 sm:pr-14 rounded-full bg-white text-base sm:text-base outline-none transition-all duration-300 placeholder-teal-600/50 border-none shadow-none chat-input" 
         type="text" 
         placeholder="Введите сообщение..." 
         autocomplete="off" 
-        autocapitalize="off"
-        autocorrect="off"
-        spellcheck="false"
-        data-form-type="other"
-        name="chat-message"
       />
       <button 
         type="submit" 

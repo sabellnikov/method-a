@@ -2,12 +2,11 @@ const FUNCTION_URL = "https://functions.yandexcloud.net/d4eifnmujs29c4uf9nj6..."
 
 class ChatBot {
   constructor() {
-    this.chatMessages = document.querySelector('.chat-messages > div');
+    this.chatMessages = document.querySelector('.chat-messages > div'); // Внутренний скроллируемый контейнер
     this.chatForm = document.querySelector('.chat-form');
     this.chatInput = document.querySelector('.chat-input');
     this.chatBtn = document.querySelector('.chat-btn');
     this.isFirstMessage = true;
-    this.keyboardHeight = 0;
     
     this.init();
   }
@@ -38,157 +37,10 @@ class ChatBot {
       }
     });
     
-    // Инициализируем статическую панель внизу
-    this.initStaticBottomPanel();
+    // Обработка изменения размера окна для адаптации позиции формы
+    window.addEventListener('resize', () => this.handleResize());
     
-    // Обработка виртуальной клавиатуры
-    this.setupKeyboardHandling();
-  }
-
-  // Инициализация статической панели внизу (ChatGPT стиль)
-  initStaticBottomPanel() {
-    // Форма уже позиционирована внизу через CSS (bottom-0)
-    // Сбрасываем любые transform от GSAP
-    gsap.set(this.chatForm, {
-      y: 0,
-      duration: 0
-    });
-    
-    // Устанавливаем CSS-переменную для динамической высоты viewport
-    this.updateViewportHeight();
-    
-    this.isFirstMessage = false; // Форма уже в финальной позиции
-  }
-
-  // Обновление CSS-переменной высоты viewport
-  updateViewportHeight() {
-    const vh = window.visualViewport ? 
-      window.visualViewport.height * 0.01 : 
-      window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  }
-
-  // Настройка обработки виртуальной клавиатуры
-  setupKeyboardHandling() {
-    // Отслеживаем изменения viewport для клавиатуры и динамической навигации
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', () => {
-        this.handleKeyboardResize();
-      });
-      
-      // Дополнительно отслеживаем события scroll для более точного определения
-      window.visualViewport.addEventListener('scroll', () => {
-        this.handleKeyboardResize();
-      });
-    }
-    
-    // Фокус на поле ввода
-    this.chatInput.addEventListener('focus', () => {
-      setTimeout(() => this.adjustForKeyboard(), 300);
-    });
-    
-    // Потеря фокуса
-    this.chatInput.addEventListener('blur', () => {
-      setTimeout(() => this.resetKeyboardPosition(), 300);
-    });
-    
-    // Обработка изменения размера окна (включая поворот экрана)
-    window.addEventListener('resize', () => {
-      setTimeout(() => this.handleWindowResize(), 100);
-    });
-    
-    // Дополнительно отслеживаем событие orientationchange для мобильных
-    window.addEventListener('orientationchange', () => {
-      setTimeout(() => this.handleWindowResize(), 500);
-    });
-  }
-
-  // Обработка изменения viewport (клавиатура)
-  handleKeyboardResize() {
-    if (window.visualViewport) {
-      // Обновляем CSS-переменную высоты viewport
-      this.updateViewportHeight();
-      
-      const viewportHeight = window.visualViewport.height;
-      const windowHeight = window.innerHeight;
-      const heightDifference = windowHeight - viewportHeight;
-      
-      // Обновляем позицию независимо от фокуса поля ввода
-      if (heightDifference > 50) {
-        const safeOffset = 20;
-        gsap.to(this.chatForm, {
-          y: -(heightDifference + safeOffset),
-          duration: 0.3,
-          ease: "power2.out"
-        });
-        this.keyboardHeight = heightDifference;
-      } else {
-        gsap.to(this.chatForm, {
-          y: 0,
-          duration: 0.3,
-          ease: "power2.out"
-        });
-        this.keyboardHeight = 0;
-      }
-    }
-  }
-
-  // Адаптация под клавиатуру
-  adjustForKeyboard() {
-    if (window.visualViewport) {
-      const viewportHeight = window.visualViewport.height;
-      const windowHeight = window.innerHeight;
-      this.keyboardHeight = windowHeight - viewportHeight;
-      
-      // Поднимаем форму над клавиатурой с учетом безопасного отступа
-      if (this.keyboardHeight > 50) { // Клавиатура или панель навигации изменились
-        const safeOffset = 20; // Дополнительный отступ для безопасности
-        gsap.to(this.chatForm, {
-          y: -(this.keyboardHeight + safeOffset),
-          duration: 0.3,
-          ease: "power2.out"
-        });
-      }
-    }
-  }
-
-  // Возврат в исходную позицию
-  resetKeyboardPosition() {
-    gsap.to(this.chatForm, {
-      y: 0,
-      duration: 0.3,
-      ease: "power2.out"
-    });
-    this.keyboardHeight = 0;
-  }
-
-  // Обработка изменения размера окна
-  handleWindowResize() {
-    // Обновляем CSS-переменную высоты viewport
-    this.updateViewportHeight();
-    
-    if (window.visualViewport) {
-      const viewportHeight = window.visualViewport.height;
-      const windowHeight = window.innerHeight;
-      const newKeyboardHeight = windowHeight - viewportHeight;
-      
-      if (newKeyboardHeight > 50) {
-        const safeOffset = 20;
-        gsap.to(this.chatForm, {
-          y: -(newKeyboardHeight + safeOffset),
-          duration: 0.2,
-          ease: "power2.out"
-        });
-        this.keyboardHeight = newKeyboardHeight;
-      } else {
-        gsap.to(this.chatForm, {
-          y: 0,
-          duration: 0.2,
-          ease: "power2.out"
-        });
-        this.keyboardHeight = 0;
-      }
-    }
+    // приветственное сообщение удалено
   }
 
   async handleSubmit(e) {
@@ -197,7 +49,19 @@ class ChatBot {
     const message = this.chatInput.value.trim();
     if (!message) return;
 
-    // Форма уже в нужной позиции, просто добавляем сообщение
+    // Если это первое сообщение, перемещаем форму к оптимальной позиции
+    if (this.isFirstMessage) {
+      const moveDistance = this.calculateFormPosition();
+      
+      gsap.to(this.chatForm, {
+        y: moveDistance,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+      this.isFirstMessage = false;
+    }
+    
+    // Добавляем сообщение пользователя
     this.addMessage(message, 'user');
     this.chatInput.value = '';
     
@@ -303,46 +167,41 @@ class ChatBot {
     this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
   }
 
-  // Вычисляет смещение для поднятия формы над клавиатурой
-  calculateBottomPosition() {
-    // Форма уже позиционирована внизу через CSS (bottom-0)
-    // Возвращаем 0, так как дополнительное смещение не требуется
-    return 0;
-  }
-
-  // Получает реальную высоту viewport с учётом мобильной навигации
-  getRealViewportHeight() {
-    // Используем Visual Viewport API если доступен (учитывает динамическую навигацию)
-    if (window.visualViewport) {
-      return window.visualViewport.height;
+  // Вычисляет оптимальную позицию формы в зависимости от размера экрана
+  calculateFormPosition() {
+    const isMobile = window.innerWidth < 640; // sm breakpoint в Tailwind
+    const containerHeight = this.chatForm.parentElement.clientHeight;
+    const formHeight = this.chatForm.clientHeight;
+    
+    let moveDistance;
+    if (isMobile) {
+      // На мобильных: форма ближе к низу для удобства набора
+      const bottomOffset = this.getTailwindPadding('pb-12');
+      moveDistance = (containerHeight / 2) - formHeight - bottomOffset;
+    } else {
+      // На ПК: форма ближе к центру для лучшего баланса  
+      const bottomOffset = this.getTailwindPadding('pb-4');
+      moveDistance = (containerHeight / 2) - formHeight - bottomOffset;
     }
     
-    // Fallback для старых браузеров
-    return window.innerHeight;
+    return moveDistance;
   }
 
-
-}
-
-// Устанавливаем начальное значение CSS-переменной высоты viewport
-function setInitialViewportHeight() {
-  const vh = window.visualViewport ? 
-    window.visualViewport.height * 0.01 : 
-    window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
+  // Обрабатывает изменение размера окна
+  handleResize() {
+    // Если форма уже была перемещена, корректируем её позицию
+    if (!this.isFirstMessage) {
+      const newPosition = this.calculateFormPosition();
+      gsap.to(this.chatForm, {
+        y: newPosition,
+        duration: 0.4,
+        ease: "power2.out"
+      });
+    }
+  }
 }
 
 // Инициализация чат-бота после загрузки страницы
 document.addEventListener('DOMContentLoaded', () => {
-  // Сначала устанавливаем высоту viewport
-  setInitialViewportHeight();
-  
-  // Затем создаем чат-бот
   new ChatBot();
-});
-
-// Дополнительная инициализация после полной загрузки окна
-window.addEventListener('load', () => {
-  // Обновляем высоту viewport еще раз после полной загрузки
-  setInitialViewportHeight();
 });
