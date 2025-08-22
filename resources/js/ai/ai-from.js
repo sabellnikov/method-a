@@ -1,4 +1,4 @@
-const FUNCTION_URL = "https://functions.yandexcloud.net/d4eifnmujs29c4uf9nj6";
+const FUNCTION_URL = "https://functions.yandexcloud.net/d4eifnmujs29c4uf9nj6...";
 
 class ChatBot {
   constructor() {
@@ -39,6 +39,26 @@ class ChatBot {
     
     // Обработка изменения размера окна для адаптации позиции формы
     window.addEventListener('resize', () => this.handleResize());
+    
+    // Обработка скрытия/показа мобильной навигации
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => this.updateViewportHeight(), 500);
+    });
+    
+    // Обновляем высоту viewport при загрузке и изменении размера
+    this.updateViewportHeight();
+    window.addEventListener('resize', () => this.updateViewportHeight());
+    
+    // Слушаем изменения visual viewport для мобильных браузеров
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => {
+        this.updateViewportHeight();
+        if (!this.isFirstMessage) {
+          // Перерасчитываем позицию формы при изменении высоты viewport
+          setTimeout(() => this.handleResize(), 150);
+        }
+      });
+    }
     
     // приветственное сообщение удалено
   }
@@ -170,7 +190,9 @@ class ChatBot {
   // Вычисляет оптимальную позицию формы в зависимости от размера экрана
   calculateFormPosition() {
     const isMobile = window.innerWidth < 640; // sm breakpoint в Tailwind
-    const containerHeight = this.chatForm.parentElement.clientHeight;
+    
+    // Используем реальную высоту viewport с учётом мобильных браузеров
+    const containerHeight = this.getRealViewportHeight();
     const formHeight = this.chatForm.clientHeight;
     
     let moveDistance;
@@ -185,6 +207,23 @@ class ChatBot {
     }
     
     return moveDistance;
+  }
+
+  // Получает реальную высоту viewport с учётом мобильной навигации
+  getRealViewportHeight() {
+    // На мобильных используем визуальный viewport если доступен
+    if (window.visualViewport) {
+      return window.visualViewport.height;
+    }
+    
+    // Fallback для старых браузеров
+    return window.innerHeight;
+  }
+
+  // Обновляет CSS custom property для реальной высоты viewport
+  updateViewportHeight() {
+    const vh = this.getRealViewportHeight() * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
   }
 
   // Обрабатывает изменение размера окна
