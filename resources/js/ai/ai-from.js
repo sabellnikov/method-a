@@ -324,7 +324,25 @@ class ChatBot {
 
 }
 
+// Устанавливаем начальное значение CSS-переменной высоты viewport
+function setInitialViewportHeight() {
+  const vh = window.visualViewport ? 
+    window.visualViewport.height * 0.01 : 
+    window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
 // Инициализация чат-бота после загрузки страницы
 document.addEventListener('DOMContentLoaded', () => {
+  // Сначала устанавливаем высоту viewport
+  setInitialViewportHeight();
+  
+  // Затем создаем чат-бот
   new ChatBot();
+});
+
+// Дополнительная инициализация после полной загрузки окна
+window.addEventListener('load', () => {
+  // Обновляем высоту viewport еще раз после полной загрузки
+  setInitialViewportHeight();
 });
