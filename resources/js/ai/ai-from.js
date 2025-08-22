@@ -40,6 +40,16 @@ class ChatBot {
     // Обработка изменения размера окна для адаптации позиции формы
     window.addEventListener('resize', () => this.handleResize());
     
+    // Слушаем изменения visual viewport для мобильных браузеров
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => {
+        // Только если форма уже была перемещена и это не виртуальная клавиатура
+        if (!this.isFirstMessage) {
+          setTimeout(() => this.handleResize(), 150);
+        }
+      });
+    }
+    
     // приветственное сообщение удалено
   }
 
@@ -170,7 +180,9 @@ class ChatBot {
   // Вычисляет оптимальную позицию формы в зависимости от размера экрана
   calculateFormPosition() {
     const isMobile = window.innerWidth < 640; // sm breakpoint в Tailwind
-    const containerHeight = this.chatForm.parentElement.clientHeight;
+    
+    // Используем реальную высоту viewport с учётом мобильной навигации
+    const containerHeight = this.getRealViewportHeight();
     const formHeight = this.chatForm.clientHeight;
     
     let moveDistance;
@@ -185,6 +197,17 @@ class ChatBot {
     }
     
     return moveDistance;
+  }
+
+  // Получает реальную высоту viewport с учётом мобильной навигации
+  getRealViewportHeight() {
+    // Используем Visual Viewport API если доступен (учитывает динамическую навигацию)
+    if (window.visualViewport) {
+      return window.visualViewport.height;
+    }
+    
+    // Fallback для старых браузеров
+    return window.innerHeight;
   }
 
   // Обрабатывает изменение размера окна
