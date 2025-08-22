@@ -2,14 +2,7 @@
 layout: default
 ---
 
-<style>
-  /* Фиксируем проблему с мобильной навигацией */
-  .mobile-viewport {
-    height: calc(var(--vh, 1vh) * 100);
-  }
-</style>
-
-<div class="max-w-3xl mx-auto mobile-viewport flex flex-col rounded-2xl bg-transparent relative">
+<div class="max-w-3xl mx-auto h-[100vh] flex flex-col rounded-2xl bg-transparent relative">
   <!-- Контейнер сообщений с компактными отступами -->
   <div class="flex-1 px-3 sm:px-6 pt-16 sm:pt-16 pb-34 sm:pb-26 overflow-hidden chat-messages">
     <div class="h-full overflow-y-auto scroll-smooth">

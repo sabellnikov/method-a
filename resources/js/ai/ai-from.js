@@ -7,8 +7,6 @@ class ChatBot {
     this.chatInput = document.querySelector('.chat-input');
     this.chatBtn = document.querySelector('.chat-btn');
     this.isFirstMessage = true;
-    this.lastViewportHeight = window.innerHeight;
-    this.isKeyboardVisible = false;
     
     this.init();
   }
@@ -41,39 +39,6 @@ class ChatBot {
     
     // Обработка изменения размера окна для адаптации позиции формы
     window.addEventListener('resize', () => this.handleResize());
-    
-    // Обработка скрытия/показа мобильной навигации
-    window.addEventListener('orientationchange', () => {
-      setTimeout(() => this.updateViewportHeight(), 500);
-    });
-    
-    // Обновляем высоту viewport при загрузке и изменении размера
-    this.updateViewportHeight();
-    this.lastViewportHeight = this.getRealViewportHeight();
-    window.addEventListener('resize', () => this.updateViewportHeight());
-    
-    // Слушаем изменения visual viewport для мобильных браузеров
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', () => {
-        this.updateViewportHeight();
-        this.handleViewportChange();
-      });
-    }
-
-    // Отслеживаем фокус на поле ввода для определения состояния клавиатуры
-    this.chatInput.addEventListener('focus', () => {
-      this.isKeyboardVisible = true;
-    });
-
-    this.chatInput.addEventListener('blur', () => {
-      this.isKeyboardVisible = false;
-      // Небольшая задержка перед пересчётом позиции после скрытия клавиатуры
-      setTimeout(() => {
-        if (!this.isFirstMessage) {
-          this.handleResize();
-        }
-      }, 300);
-    });
     
     // приветственное сообщение удалено
   }
@@ -205,9 +170,7 @@ class ChatBot {
   // Вычисляет оптимальную позицию формы в зависимости от размера экрана
   calculateFormPosition() {
     const isMobile = window.innerWidth < 640; // sm breakpoint в Tailwind
-    
-    // Используем реальную высоту viewport с учётом мобильных браузеров
-    const containerHeight = this.getRealViewportHeight();
+    const containerHeight = this.chatForm.parentElement.clientHeight;
     const formHeight = this.chatForm.clientHeight;
     
     let moveDistance;
@@ -222,39 +185,6 @@ class ChatBot {
     }
     
     return moveDistance;
-  }
-
-  // Получает реальную высоту viewport с учётом мобильной навигации
-  getRealViewportHeight() {
-    // На мобильных используем визуальный viewport если доступен
-    if (window.visualViewport) {
-      return window.visualViewport.height;
-    }
-    
-    // Fallback для старых браузеров
-    return window.innerHeight;
-  }
-
-  // Обновляет CSS custom property для реальной высоты viewport
-  updateViewportHeight() {
-    const vh = this.getRealViewportHeight() * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  }
-
-  // Умная обработка изменений viewport
-  handleViewportChange() {
-    if (!this.isFirstMessage) {
-      const currentHeight = this.getRealViewportHeight();
-      const heightDifference = Math.abs(currentHeight - this.lastViewportHeight);
-      
-      // Если изменение высоты значительное (более 150px) и клавиатура не активна,
-      // то это скорее всего скрытие/показ навигации браузера
-      if (heightDifference > 150 && !this.isKeyboardVisible) {
-        setTimeout(() => this.handleResize(), 150);
-      }
-      
-      this.lastViewportHeight = currentHeight;
-    }
   }
 
   // Обрабатывает изменение размера окна
