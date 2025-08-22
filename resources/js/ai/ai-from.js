@@ -2,12 +2,30 @@ const FUNCTION_URL = "https://functions.yandexcloud.net/d4eifnmujs29c4uf9nj6";
 
 class ChatBot {
   constructor() {
-    this.chatMessages = document.querySelector('.chat-messages');
+    this.chatMessages = document.querySelector('.chat-messages > div'); // Внутренний скроллируемый контейнер
     this.chatForm = document.querySelector('.chat-form');
     this.chatInput = document.querySelector('.chat-input');
     this.chatBtn = document.querySelector('.chat-btn');
+    this.isFirstMessage = true;
     
     this.init();
+  }
+
+  // Конвертирует классы Tailwind padding-bottom в пиксели
+  getTailwindPadding(className) {
+    const paddingMap = {
+      'pb-0': 0,    'pb-px': 1,   'pb-0.5': 2,  'pb-1': 4,
+      'pb-1.5': 6,  'pb-2': 8,    'pb-2.5': 10, 'pb-3': 12,
+      'pb-3.5': 14, 'pb-4': 16,   'pb-5': 20,   'pb-6': 24,
+      'pb-7': 28,   'pb-8': 32,   'pb-9': 36,   'pb-10': 40,
+      'pb-11': 44,  'pb-12': 48,  'pb-14': 56,  'pb-16': 64,
+      'pb-20': 80,  'pb-24': 96,  'pb-28': 112, 'pb-32': 128,
+      'pb-36': 144, 'pb-40': 160, 'pb-44': 176, 'pb-48': 192,
+      'pb-52': 208, 'pb-56': 224, 'pb-60': 240, 'pb-64': 256,
+      'pb-72': 288, 'pb-80': 320, 'pb-96': 384, 'pb-26': 104
+    };
+    
+    return paddingMap[className] || 0;
   }
 
   init() {
@@ -19,6 +37,9 @@ class ChatBot {
       }
     });
     
+    // Обработка изменения размера окна для адаптации позиции формы
+    window.addEventListener('resize', () => this.handleResize());
+    
     // приветственное сообщение удалено
   }
 
@@ -27,6 +48,18 @@ class ChatBot {
     
     const message = this.chatInput.value.trim();
     if (!message) return;
+
+    // Если это первое сообщение, перемещаем форму к оптимальной позиции
+    if (this.isFirstMessage) {
+      const moveDistance = this.calculateFormPosition();
+      
+      gsap.to(this.chatForm, {
+        y: moveDistance,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+      this.isFirstMessage = false;
+    }
     
     // Добавляем сообщение пользователя
     this.addMessage(message, 'user');
@@ -66,10 +99,20 @@ class ChatBot {
 
   addMessage(text, sender, isError = false) {
     const messageDiv = document.createElement('div');
-    messageDiv.className = `chat-message ${sender}-message ${isError ? 'error' : ''}`;
+    
+    // Адаптивные отступы между сообщениями для лучшего восприятия
+    messageDiv.className = `animate-in slide-in-from-bottom-5 duration-300 mb-1.5 sm:mb-2.5 ${sender === 'user' ? 'flex justify-end' : 'flex justify-start'}`;
     
     const messageContent = document.createElement('div');
-    messageContent.className = 'message-content';
+    
+    // Увеличенный текст для лучшей читаемости на мобильных
+    if (sender === 'user') {
+      messageContent.className = 'max-w-[90%] xs:max-w-[85%] sm:max-w-[70%] py-1.5 px-2.5 sm:py-2.5 sm:px-3.5 text-sm xs:text-base sm:text-base leading-relaxed rounded-lg sm:rounded-xl rounded-br-sm bg-teal-200 text-teal-900 break-words';
+    } else if (isError) {
+      messageContent.className = 'max-w-[90%] xs:max-w-[85%] sm:max-w-[70%] py-1.5 px-2.5 sm:py-2.5 sm:px-3.5 text-sm xs:text-base sm:text-base leading-relaxed rounded-lg sm:rounded-xl rounded-bl-sm bg-red-500 text-white break-words';
+    } else {
+      messageContent.className = 'max-w-[90%] xs:max-w-[85%] sm:max-w-[70%] py-1.5 px-2.5 sm:py-2.5 sm:px-3.5 text-sm xs:text-base sm:text-base leading-relaxed rounded-lg sm:rounded-xl rounded-bl-sm bg-white text-teal-900 break-words';
+    }
     
     // Если это сообщение от бота и не ошибка, парсим Markdown
     if (sender === 'bot' && !isError && typeof marked !== 'undefined') {
@@ -89,9 +132,7 @@ class ChatBot {
       messageContent.textContent = text;
     }
     
-    // Временная метка удалена — не добавляем элемент с временем
     messageDiv.appendChild(messageContent);
-    
     this.chatMessages.appendChild(messageDiv);
     this.scrollToBottom();
   }
@@ -100,13 +141,13 @@ class ChatBot {
     if (document.querySelector('.typing-indicator')) return;
     
     const typingDiv = document.createElement('div');
-    typingDiv.className = 'chat-message bot-message typing-indicator';
+    typingDiv.className = 'flex justify-start typing-indicator mb-1.5 sm:mb-2.5';
     typingDiv.innerHTML = `
-      <div class="message-content">
-        <div class="typing-dots">
-          <span></span>
-          <span></span>
-          <span></span>
+      <div class="max-w-[90%] xs:max-w-[85%] sm:max-w-[70%] py-1.5 px-2.5 sm:py-2.5 sm:px-3.5 rounded-lg sm:rounded-xl rounded-bl-sm bg-transparent">
+        <div class="flex gap-1 items-center h-4 sm:h-5">
+          <span class="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-teal-700 rounded-full opacity-40 animate-pulse" style="animation-delay: 0s"></span>
+          <span class="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-teal-700 rounded-full opacity-40 animate-pulse" style="animation-delay: 0.2s"></span>
+          <span class="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-teal-700 rounded-full opacity-40 animate-pulse" style="animation-delay: 0.4s"></span>
         </div>
       </div>
     `;
@@ -124,6 +165,39 @@ class ChatBot {
 
   scrollToBottom() {
     this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+  }
+
+  // Вычисляет оптимальную позицию формы в зависимости от размера экрана
+  calculateFormPosition() {
+    const isMobile = window.innerWidth < 640; // sm breakpoint в Tailwind
+    const containerHeight = this.chatForm.parentElement.clientHeight;
+    const formHeight = this.chatForm.clientHeight;
+    
+    let moveDistance;
+    if (isMobile) {
+      // На мобильных: форма ближе к низу для удобства набора
+      const bottomOffset = this.getTailwindPadding('pb-12');
+      moveDistance = (containerHeight / 2) - formHeight - bottomOffset;
+    } else {
+      // На ПК: форма ближе к центру для лучшего баланса  
+      const bottomOffset = this.getTailwindPadding('pb-4');
+      moveDistance = (containerHeight / 2) - formHeight - bottomOffset;
+    }
+    
+    return moveDistance;
+  }
+
+  // Обрабатывает изменение размера окна
+  handleResize() {
+    // Если форма уже была перемещена, корректируем её позицию
+    if (!this.isFirstMessage) {
+      const newPosition = this.calculateFormPosition();
+      gsap.to(this.chatForm, {
+        y: newPosition,
+        duration: 0.4,
+        ease: "power2.out"
+      });
+    }
   }
 }
 
