@@ -8,6 +8,7 @@ class ChatBot {
     this.chatBtn = document.querySelector('.chat-btn');
     this.isFirstMessage = true;
     this.keyboardHeight = 0;
+    this.isInitializing = true; // Флаг инициализации
     
     this.init();
   }
@@ -43,19 +44,26 @@ class ChatBot {
     
     // Обработка виртуальной клавиатуры
     this.setupKeyboardHandling();
+    
+    // Завершаем инициализацию через небольшую задержку
+    setTimeout(() => {
+      this.isInitializing = false;
+      // Добавляем класс для включения плавных переходов
+      this.chatForm.classList.add('initialized');
+    }, 150);
   }
 
   // Инициализация статической панели внизу (ChatGPT стиль)
   initStaticBottomPanel() {
     // Форма уже позиционирована внизу через CSS (bottom-0)
-    // Сбрасываем любые transform от GSAP
+    // Сразу устанавливаем начальную позицию без анимации
     gsap.set(this.chatForm, {
       y: 0,
-      duration: 0
+      duration: 0,
+      immediateRender: true
     });
     
-    // Устанавливаем CSS-переменную для динамической высоты viewport
-    this.updateViewportHeight();
+    // НЕ обновляем viewport здесь - это уже сделано глобально
     
     this.isFirstMessage = false; // Форма уже в финальной позиции
   }
@@ -105,6 +113,9 @@ class ChatBot {
 
   // Обработка изменения viewport (клавиатура)
   handleKeyboardResize() {
+    // Игнорируем изменения во время инициализации
+    if (this.isInitializing) return;
+    
     if (window.visualViewport) {
       // Обновляем CSS-переменную высоты viewport
       this.updateViewportHeight();
@@ -165,6 +176,9 @@ class ChatBot {
 
   // Обработка изменения размера окна
   handleWindowResize() {
+    // Игнорируем изменения во время инициализации
+    if (this.isInitializing) return;
+    
     // Обновляем CSS-переменную высоты viewport
     this.updateViewportHeight();
     
@@ -350,15 +364,11 @@ function setInitialViewportHeight() {
 
 // Инициализация чат-бота после загрузки страницы
 document.addEventListener('DOMContentLoaded', () => {
-  // Сначала устанавливаем высоту viewport
+  // Устанавливаем высоту viewport один раз
   setInitialViewportHeight();
   
-  // Затем создаем чат-бот
-  new ChatBot();
-});
-
-// Дополнительная инициализация после полной загрузки окна
-window.addEventListener('load', () => {
-  // Обновляем высоту viewport еще раз после полной загрузки
-  setInitialViewportHeight();
+  // Создаем чат-бот после небольшой задержки для стабилизации layout
+  requestAnimationFrame(() => {
+    new ChatBot();
+  });
 });
