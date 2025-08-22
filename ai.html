@@ -8,16 +8,6 @@ layout: default
     height: 100vh; /* Fallback */
     height: calc(var(--vh, 1vh) * 100); /* Динамическая высота */
   }
-  
-  /* Предотвращение рывков формы при загрузке */
-  .chat-form {
-    transform: translateY(0) !important; /* Принудительная начальная позиция */
-  }
-  
-  /* Плавные переходы только после загрузки */
-  .chat-form.initialized {
-    transition: transform 0.3s ease-out;
-  }
 </style>
 
 <div class="max-w-3xl mx-auto flex flex-col rounded-2xl bg-transparent relative dynamic-height">
