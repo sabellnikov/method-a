@@ -1,4 +1,4 @@
-const FUNCTION_URL = "https://functions.yandexcloud.net/d4eifnmujs29c4uf9nj6...";
+const FUNCTION_URL = "https://functions.yandexcloud.net/d4eifnmujs29c4uf9nj6";
 
 class ChatBot {
   constructor() {
@@ -52,12 +52,20 @@ class ChatBot {
     // Если это первое сообщение, перемещаем форму к оптимальной позиции
     if (this.isFirstMessage) {
       const moveDistance = this.calculateFormPosition();
+      const isMobile = window.innerWidth < 640;
       
-      gsap.to(this.chatForm, {
-        y: moveDistance,
-        duration: 0.8,
-        ease: "power2.out"
-      });
+      if (isMobile) {
+        // На мобильных: мгновенное позиционирование без анимации
+        gsap.set(this.chatForm, { y: moveDistance });
+      } else {
+        // На десктопе: красивая анимация
+        gsap.to(this.chatForm, {
+          y: moveDistance,
+          duration: 0.8,
+          ease: "power2.out"
+        });
+      }
+      
       this.isFirstMessage = false;
     }
     
@@ -192,11 +200,23 @@ class ChatBot {
     // Если форма уже была перемещена, корректируем её позицию
     if (!this.isFirstMessage) {
       const newPosition = this.calculateFormPosition();
-      gsap.to(this.chatForm, {
-        y: newPosition,
-        duration: 0.4,
-        ease: "power2.out"
-      });
+      const isMobile = window.innerWidth < 640;
+      
+      if (isMobile) {
+        // На мобильных: быстрое позиционирование для адаптации к клавиатуре
+        gsap.to(this.chatForm, {
+          y: newPosition,
+          duration: 0.2,
+          ease: "power2.out"
+        });
+      } else {
+        // На десктопе: плавная анимация
+        gsap.to(this.chatForm, {
+          y: newPosition,
+          duration: 0.4,
+          ease: "power2.out"
+        });
+      }
     }
   }
 }
