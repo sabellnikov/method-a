@@ -12,17 +12,25 @@ layout: default
   
   <!-- Компактная форма ввода -->
   <form class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[calc(100%-1.5rem)] sm:w-[calc(100%-3rem)] z-10 flex gap-2 sm:gap-3 bg-transparent border-none chat-form" autocomplete="off">
+    <!-- Скрытые поля-ловушки для обмана автозаполнения -->
+    <input type="text" name="username" autocomplete="username" style="display: none;" tabindex="-1">
+    <input type="password" name="password" autocomplete="new-password" style="display: none;" tabindex="-1">
+    
     <div class="relative flex-1">
       <input 
         class="w-full px-3 sm:px-4 py-3.5 sm:py-5 pr-12 sm:pr-14 rounded-full bg-white text-base sm:text-base outline-none transition-all duration-300 placeholder-teal-600/50 border-none shadow-none chat-input" 
         type="text" 
         placeholder="Введите сообщение..." 
-        autocomplete="off" 
+        autocomplete="new-password" 
         autocapitalize="off"
         autocorrect="off"
         spellcheck="false"
         data-form-type="other"
-        name="chat-message"
+        name="message"
+        role="textbox"
+        aria-label="Сообщение для чата"
+        data-lpignore="true"
+        data-1p-ignore="true"
       />
       <button 
         type="submit" 
@@ -36,5 +44,34 @@ layout: default
     </div>
   </form>
 </div>
+
+<script>
+// Дополнительная защита от автозаполнения
+document.addEventListener('DOMContentLoaded', function() {
+  const chatInput = document.querySelector('.chat-input');
+  const chatForm = document.querySelector('.chat-form');
+  
+  // Отключаем автозаполнение через JavaScript
+  if (chatInput) {
+    chatInput.setAttribute('autocomplete', 'one-time-code');
+    
+    // Периодически меняем name для обмана браузера
+    let nameCounter = 0;
+    setInterval(() => {
+      chatInput.setAttribute('name', `msg_${Date.now()}_${nameCounter++}`);
+    }, 5000);
+  }
+  
+  // Предотвращаем сохранение данных формы
+  if (chatForm) {
+    chatForm.addEventListener('submit', function() {
+      // Очищаем поле сразу после отправки чтобы браузер не запомнил
+      setTimeout(() => {
+        chatInput.value = '';
+      }, 10);
+    });
+  }
+});
+</script>
 
 <script src="/resources/js/ai/ai-from.js"></script>
