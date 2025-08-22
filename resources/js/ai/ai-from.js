@@ -2,11 +2,12 @@ const FUNCTION_URL = "https://functions.yandexcloud.net/d4eifnmujs29c4uf9nj6..."
 
 class ChatBot {
   constructor() {
-    this.chatMessages = document.querySelector('.chat-messages > div'); // Внутренний скроллируемый контейнер
+    this.chatMessages = document.querySelector('.chat-messages > div');
     this.chatForm = document.querySelector('.chat-form');
     this.chatInput = document.querySelector('.chat-input');
     this.chatBtn = document.querySelector('.chat-btn');
     this.isFirstMessage = true;
+    this.keyboardHeight = 0;
     
     this.init();
   }
@@ -37,20 +38,102 @@ class ChatBot {
       }
     });
     
-    // Обработка изменения размера окна для адаптации позиции формы
-    window.addEventListener('resize', () => this.handleResize());
+    // Инициализируем статическую панель внизу
+    this.initStaticBottomPanel();
     
-    // Слушаем изменения visual viewport для мобильных браузеров
+    // Обработка виртуальной клавиатуры
+    this.setupKeyboardHandling();
+  }
+
+  // Инициализация статической панели внизу (ChatGPT стиль)
+  initStaticBottomPanel() {
+    // Форма уже позиционирована внизу через CSS (bottom-0)
+    // Сбрасываем любые transform от GSAP
+    gsap.set(this.chatForm, {
+      y: 0,
+      duration: 0
+    });
+    
+    this.isFirstMessage = false; // Форма уже в финальной позиции
+  }
+
+  // Настройка обработки виртуальной клавиатуры
+  setupKeyboardHandling() {
+    // Отслеживаем изменения viewport для клавиатуры
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', () => {
-        // Только если форма уже была перемещена и это не виртуальная клавиатура
-        if (!this.isFirstMessage) {
-          setTimeout(() => this.handleResize(), 150);
-        }
+        this.handleKeyboardResize();
       });
     }
     
-    // приветственное сообщение удалено
+    // Фокус на поле ввода
+    this.chatInput.addEventListener('focus', () => {
+      setTimeout(() => this.adjustForKeyboard(), 300);
+    });
+    
+    // Потеря фокуса
+    this.chatInput.addEventListener('blur', () => {
+      setTimeout(() => this.resetKeyboardPosition(), 300);
+    });
+    
+    // Обработка изменения размера окна
+    window.addEventListener('resize', () => {
+      setTimeout(() => this.handleWindowResize(), 100);
+    });
+  }
+
+  // Обработка изменения viewport (клавиатура)
+  handleKeyboardResize() {
+    if (document.activeElement === this.chatInput) {
+      this.adjustForKeyboard();
+    } else {
+      this.resetKeyboardPosition();
+    }
+  }
+
+  // Адаптация под клавиатуру
+  adjustForKeyboard() {
+    if (window.visualViewport) {
+      const viewportHeight = window.visualViewport.height;
+      const windowHeight = window.innerHeight;
+      this.keyboardHeight = windowHeight - viewportHeight;
+      
+      // Поднимаем форму над клавиатурой
+      if (this.keyboardHeight > 150) { // Клавиатура показана
+        gsap.to(this.chatForm, {
+          y: -this.keyboardHeight,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      }
+    }
+  }
+
+  // Возврат в исходную позицию
+  resetKeyboardPosition() {
+    gsap.to(this.chatForm, {
+      y: 0,
+      duration: 0.3,
+      ease: "power2.out"
+    });
+    this.keyboardHeight = 0;
+  }
+
+  // Обработка изменения размера окна
+  handleWindowResize() {
+    if (this.keyboardHeight > 0) {
+      gsap.to(this.chatForm, {
+        y: -this.keyboardHeight,
+        duration: 0.2,
+        ease: "power2.out"
+      });
+    } else {
+      gsap.to(this.chatForm, {
+        y: 0,
+        duration: 0.2,
+        ease: "power2.out"
+      });
+    }
   }
 
   async handleSubmit(e) {
@@ -59,19 +142,7 @@ class ChatBot {
     const message = this.chatInput.value.trim();
     if (!message) return;
 
-    // Если это первое сообщение, перемещаем форму к оптимальной позиции
-    if (this.isFirstMessage) {
-      const moveDistance = this.calculateFormPosition();
-      
-      gsap.to(this.chatForm, {
-        y: moveDistance,
-        duration: 0.8,
-        ease: "power2.out"
-      });
-      this.isFirstMessage = false;
-    }
-    
-    // Добавляем сообщение пользователя
+    // Форма уже в нужной позиции, просто добавляем сообщение
     this.addMessage(message, 'user');
     this.chatInput.value = '';
     
@@ -177,26 +248,11 @@ class ChatBot {
     this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
   }
 
-  // Вычисляет оптимальную позицию формы в зависимости от размера экрана
-  calculateFormPosition() {
-    const isMobile = window.innerWidth < 640; // sm breakpoint в Tailwind
-    
-    // Используем реальную высоту viewport с учётом мобильной навигации
-    const containerHeight = this.getRealViewportHeight();
-    const formHeight = this.chatForm.clientHeight;
-    
-    let moveDistance;
-    if (isMobile) {
-      // На мобильных: форма ближе к низу для удобства набора
-      const bottomOffset = this.getTailwindPadding('pb-12');
-      moveDistance = (containerHeight / 2) - formHeight - bottomOffset;
-    } else {
-      // На ПК: форма ближе к центру для лучшего баланса  
-      const bottomOffset = this.getTailwindPadding('pb-4');
-      moveDistance = (containerHeight / 2) - formHeight - bottomOffset;
-    }
-    
-    return moveDistance;
+  // Вычисляет смещение для поднятия формы над клавиатурой
+  calculateBottomPosition() {
+    // Форма уже позиционирована внизу через CSS (bottom-0)
+    // Возвращаем 0, так как дополнительное смещение не требуется
+    return 0;
   }
 
   // Получает реальную высоту viewport с учётом мобильной навигации
@@ -210,18 +266,7 @@ class ChatBot {
     return window.innerHeight;
   }
 
-  // Обрабатывает изменение размера окна
-  handleResize() {
-    // Если форма уже была перемещена, корректируем её позицию
-    if (!this.isFirstMessage) {
-      const newPosition = this.calculateFormPosition();
-      gsap.to(this.chatForm, {
-        y: newPosition,
-        duration: 0.4,
-        ease: "power2.out"
-      });
-    }
-  }
+
 }
 
 // Инициализация чат-бота после загрузки страницы
