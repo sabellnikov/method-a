@@ -111,17 +111,17 @@ class ChatBot {
       
       const viewportHeight = window.visualViewport.height;
       const windowHeight = window.innerHeight;
-      const heightDifference = windowHeight - viewportHeight;
+      const keyboardHeight = windowHeight - viewportHeight;
       
-      // Обновляем позицию независимо от фокуса поля ввода
-      if (heightDifference > 50) {
-        const safeOffset = 20;
+      // Поднимаем форму над клавиатурой с безопасным расчетом
+      if (keyboardHeight > 50) {
+        const safeOffset = this.calculateSafeOffset(keyboardHeight);
         gsap.to(this.chatForm, {
-          y: -(heightDifference + safeOffset),
+          y: -safeOffset,
           duration: 0.3,
           ease: "power2.out"
         });
-        this.keyboardHeight = heightDifference;
+        this.keyboardHeight = keyboardHeight;
       } else {
         gsap.to(this.chatForm, {
           y: 0,
@@ -138,16 +138,17 @@ class ChatBot {
     if (window.visualViewport) {
       const viewportHeight = window.visualViewport.height;
       const windowHeight = window.innerHeight;
-      this.keyboardHeight = windowHeight - viewportHeight;
+      const keyboardHeight = windowHeight - viewportHeight;
       
-      // Поднимаем форму над клавиатурой с учетом безопасного отступа
-      if (this.keyboardHeight > 50) { // Клавиатура или панель навигации изменились
-        const safeOffset = 20; // Дополнительный отступ для безопасности
+      // Поднимаем форму над клавиатурой с безопасным расчетом
+      if (keyboardHeight > 50) {
+        const safeOffset = this.calculateSafeOffset(keyboardHeight);
         gsap.to(this.chatForm, {
-          y: -(this.keyboardHeight + safeOffset),
+          y: -safeOffset,
           duration: 0.3,
           ease: "power2.out"
         });
+        this.keyboardHeight = keyboardHeight;
       }
     }
   }
@@ -170,16 +171,16 @@ class ChatBot {
     if (window.visualViewport) {
       const viewportHeight = window.visualViewport.height;
       const windowHeight = window.innerHeight;
-      const newKeyboardHeight = windowHeight - viewportHeight;
+      const keyboardHeight = windowHeight - viewportHeight;
       
-      if (newKeyboardHeight > 50) {
-        const safeOffset = 20;
+      if (keyboardHeight > 50) {
+        const safeOffset = this.calculateSafeOffset(keyboardHeight);
         gsap.to(this.chatForm, {
-          y: -(newKeyboardHeight + safeOffset),
+          y: -safeOffset,
           duration: 0.2,
           ease: "power2.out"
         });
-        this.keyboardHeight = newKeyboardHeight;
+        this.keyboardHeight = keyboardHeight;
       } else {
         gsap.to(this.chatForm, {
           y: 0,
@@ -301,6 +302,21 @@ class ChatBot {
 
   scrollToBottom() {
     this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+  }
+
+  // Вычисляет безопасное смещение для формы над клавиатурой
+  calculateSafeOffset(keyboardHeight) {
+    const formHeight = this.chatForm.offsetHeight || 60; // Примерная высота формы
+    const containerHeight = this.chatForm.parentElement.offsetHeight;
+    
+    // Максимальное смещение - это высота контейнера минус высота формы минус отступ
+    const maxOffset = containerHeight - formHeight - 20;
+    
+    // Вычисляем желаемое смещение (80% от высоты клавиатуры)
+    const desiredOffset = keyboardHeight * 0.6;
+    
+    // Возвращаем минимальное из двух значений
+    return Math.min(desiredOffset, maxOffset);
   }
 
   // Вычисляет смещение для поднятия формы над клавиатурой
