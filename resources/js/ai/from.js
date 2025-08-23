@@ -29,10 +29,14 @@ class ChatBot {
   }
 
   init() {
-    this.chatForm.addEventListener('submit', (e) => this.handleSubmit(e));
+    this.chatForm.addEventListener('submit', (e) => {
+      this.hideWelcomeMessage();
+      this.handleSubmit(e);
+    });
     this.chatInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
+        this.hideWelcomeMessage();
         this.handleSubmit(e);
       }
     });
@@ -41,6 +45,29 @@ class ChatBot {
     window.addEventListener('resize', () => this.handleResize());
     
     // приветственное сообщение удалено
+  }
+
+  hideWelcomeMessage() {
+    if (this.isFirstMessage) {
+      const welcomeMessage = document.querySelector('.welcome-message');
+      const actionButtons = document.querySelector('.action-buttons');
+      
+      if (welcomeMessage) {
+        gsap.to(welcomeMessage, {
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      }
+      
+      if (actionButtons) {
+        gsap.to(actionButtons, {
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      }
+    }
   }
 
   async handleSubmit(e) {
