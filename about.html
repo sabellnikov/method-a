@@ -57,94 +57,80 @@ layout: default
     <div class="tab-content mt-4 sm:mt-6 md:mt-8 flex-1 flex flex-col">
 
     {% assign head_2025 = "
-      Год осознанности и человеческого смысла в мире перемен
+      Выходим в web
     " %}
     {% assign text_2025 = "
-      2025 год — это время осознанности, стремления к балансу между технологиями и человеческими ценностями. Мир меняется быстро, но в центре внимания остаётся человек: с его стремлением учиться, адаптироваться и находить смысл в сложном, взаимосвязанном мире.
+      2025 год – это время формирования бренда в цифровой среде. Мы создали сайт с описанием кейсов, чтобы больше компаний узнали о нас и могли с нами повзаимодействовать. Записали подкасты с крутыми экспертами из сферы образования. Делились своей экспертизой в Telegram-канале бюро, чтобы больше студентов и преподавателей смогли качественно обучать и обучаться. Приняли участие в методическом онлайн-хакатоне, чтобы продемонстрировать свою экспертизу.
     " %}
       <div class="tab-panel" data-tab="2025">
-        <div class="flex flex-col sm:flex-row items-center gap-8 w-full">
+        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-8 w-full">
           <div class="w-full sm:w-1/2 flex justify-center items-center relative">
-            <div class="w-full aspect-[16/9] flex items-center justify-center rounded-xl overflow-hidden relative">
+            <div class="w-full aspect-[16/9] flex items-center justify-center rounded-xl overflow-hidden">
               <img src="/resources/team/history/2025.jpg" alt="2025" class="w-full h-full object-cover" />
-              <!-- Затемнение и текст поверх картинки только на мобильных -->
-              <div class="absolute inset-0 sm:hidden">
-                <div class="absolute inset-0 bg-[#38001B] opacity-45"></div>
-                <div class="relative flex flex-col justify-center items-center h-full px-4">
-                    <div class="text-sm text-[#F8F8F8] text-center drop-shadow-lg mt-2">{{ text_2025 }}</div>
-                </div>
-              </div>
             </div>
           </div>
-          <!-- На десктопе текст справа от картинки -->
-          <div class="w-full sm:w-1/2 mt-6 sm:mt-0 hidden sm:block">
-            <div>
-              <div class="sm:text-sm md:text-lg font-semibold">{{ head_2025 }}</div>
-              <div class="sm:text-xs md:text-base">{{ text_2025 }}</div>
+          <!-- На мобильных текст под картинкой, на десктопе справа -->
+          <div class="w-full sm:w-1/2 mt-1 sm:mt-0">
+            <div class="px-2 sm:px-0">
+              <h3 class="text-lg sm:text-sm md:text-lg font-semibold mb-2 sm:mb-0">{{ head_2025 }}</h3>
+              <p class="text-sm sm:text-xs md:text-base leading-relaxed">{{ text_2025 }}</p>
             </div>
           </div>
         </div>
       </div>
 
     {% assign head_2024 = "
-      Год человеческого смысла в мире перемен
+      Первый этап пройден
     " %}
     {% assign text_2024 = "
-      2024 год — это время осознанности, стремления к балансу между технологиями и человеческими ценностями. Мир меняется быстро, но в центре внимания остаётся человек: с его стремлением учиться, адаптироваться и находить смысл в сложном, взаимосвязанном мире.
+      Согласно статистике Росcтата 92% новых компаний закрываются за первый год существования. Раз вы читаете этот текст, значит, мы избежали этой ужасной участи.
+      <br><br>
+      За 2024 год мы привлекли еще компании, которые доверяют нашей экспертизе, поучаствовали как заказчики в конкурсе студенческих работ от SkillFactory, расширили свою команду и дистанционно отпраздновали День Рождения бюро.
+      <br><br>
+      Главное, что мы сохранили заряд для движения дальше! 
     " %}
-      <div class="tab-panel" data-tab="2024" style="display:none;">
-        <div class="flex flex-col sm:flex-row items-center gap-8 w-full">
+      <div class="tab-panel" data-tab="2024">
+        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-8 w-full">
           <div class="w-full sm:w-1/2 flex justify-center items-center relative">
-            <div class="w-full aspect-[16/9] flex items-center justify-center rounded-xl overflow-hidden relative">
+            <div class="w-full aspect-[16/9] flex items-center justify-center rounded-xl overflow-hidden">
               <img src="/resources/team/history/2024.jpg" alt="2024" class="w-full h-full object-cover" />
-              <!-- Затемнение и текст поверх картинки только на мобильных -->
-              <div class="absolute inset-0 sm:hidden">
-                <div class="absolute inset-0 bg-[#38001B] opacity-45"></div>
-                <div class="relative flex flex-col justify-center items-center h-full px-4">
-                  <div class="text-sm text-[#FFFFFF] text-center drop-shadow-lg mt-2">{{ text_2024 }}</div>
-                </div>
-              </div>
             </div>
           </div>
-          <!-- На десктопе текст справа от картинки -->
-          <div class="w-full sm:w-1/2 mt-6 sm:mt-0 hidden sm:block">
-            <div>
-              <div class="sm:text-sm md:text-lg font-semibold">{{ head_2024 }}</div>
-              <div class="sm:text-xs md:text-base">{{ text_2024 }}</div>
+          <!-- На мобильных текст под картинкой, на десктопе справа -->
+          <div class="w-full sm:w-1/2 mt-1 sm:mt-0">
+            <div class="px-2 sm:px-0">
+              <h3 class="text-lg sm:text-sm md:text-lg font-semibold mb-2 sm:mb-0">{{ head_2024 }}</h3>
+              <p class="text-sm sm:text-xs md:text-base leading-relaxed">{{ text_2024 }}</p>
             </div>
           </div>
         </div>
       </div>
       
     {% assign head_2023 = "
-      Год человеческого смысла в мире перемен
+      Объединяемся, чтобы делать результат
     " %}
     {% assign text_2023 = "
-      2023 год — это время осознанности, стремления к балансу между технологиями и человеческими ценностями. Мир меняется быстро, но в центре внимания остаётся человек: с его стремлением учиться, адаптироваться и находить смысл в сложном, взаимосвязанном мире.
+      В июне 2023 г. мы начинаем работу над первым проектом. В нас поверил первый заказчик. Ура!
+      <br><br>
+      Разрабатываем совместно с экспертами 7 курсов и погружаемся в IT-тематику. В итоге, меньше чем за год успеваем принять участие в 20 проектах и помочь айтишникам стать преподавателями.
+      <br><br>
+      Делаем глубокую рефлексию, что удалось и где стоит еще докрутить нашу экспертизу. И продолжаем движение вперед!
     " %}
-      <div class="tab-panel" data-tab="2023" style="display:none;">
-          <div class="flex flex-col sm:flex-row items-center gap-8 w-full">
+      <div class="tab-panel" data-tab="2023">
+        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-8 w-full">
           <div class="w-full sm:w-1/2 flex justify-center items-center relative">
-            <div class="w-full aspect-[16/9] flex items-center justify-center rounded-xl overflow-hidden relative">
+            <div class="w-full aspect-[16/9] flex items-center justify-center rounded-xl overflow-hidden">
               <img src="/resources/team/history/2023.jpg" alt="2024" class="w-full h-full object-cover" />
-              <!-- Затемнение и текст поверх картинки только на мобильных -->
-              <div class="absolute inset-0 sm:hidden">
-                <div class="absolute inset-0 bg-[#38001B] opacity-45"></div>
-                <div class="relative flex flex-col justify-center items-center h-full px-4">
-                  <div class="text-sm text-[#FFFFFF] text-center drop-shadow-lg mt-2">{{ text_2023 }}</div>
-                </div>
-              </div>
             </div>
           </div>
-          <!-- На десктопе текст справа от картинки -->
-          <div class="w-full sm:w-1/2 mt-6 sm:mt-0 hidden sm:block">
-            <div>
-              <div class="sm:text-sm md:text-lg font-semibold">{{ head_2023 }}</div>
-              <div class="sm:text-xs md:text-base">{{ text_2023 }}</div>
+          <!-- На мобильных текст под картинкой, на десктопе справа -->
+          <div class="w-full sm:w-1/2 mt-1 sm:mt-0">
+            <div class="px-2 sm:px-0">
+              <h3 class="text-lg sm:text-sm md:text-lg font-semibold mb-2 sm:mb-0">{{ head_2023 }}</h3>
+              <p class="text-sm sm:text-xs md:text-base leading-relaxed">{{ text_2023 }}</p>
             </div>
           </div>
         </div>
-
       </div>
       
     </div>
