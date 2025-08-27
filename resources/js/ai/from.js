@@ -7,6 +7,8 @@ class ChatBot {
     this.chatInput = document.querySelector('.chat-input');
     this.chatBtn = document.querySelector('.chat-btn');
     this.isFirstMessage = true;
+    this.messageCount = 0; // Счетчик сообщений пользователя
+    this.messageLimit = 5; // Лимит сообщений
     
     this.init();
   }
@@ -55,7 +57,7 @@ class ChatBot {
       if (welcomeMessage) {
         gsap.to(welcomeMessage, {
           opacity: 0,
-          duration: 0.3,
+          duration: 0.1,
           ease: "power2.out"
         });
       }
@@ -63,7 +65,7 @@ class ChatBot {
       if (actionButtons) {
         gsap.to(actionButtons, {
           opacity: 0,
-          duration: 0.3,
+          duration: 0.1,
           ease: "power2.out"
         });
       }
@@ -75,6 +77,15 @@ class ChatBot {
     
     const message = this.chatInput.value.trim();
     if (!message) return;
+
+    // Проверяем лимит сообщений
+    if (this.messageCount >= this.messageLimit) {
+      this.showLimitReached();
+      return;
+    }
+
+    // Увеличиваем счетчик сообщений
+    this.messageCount++;
 
     // Если это первое сообщение, перемещаем форму к оптимальной позиции
     if (this.isFirstMessage) {
@@ -200,6 +211,52 @@ class ChatBot {
 
   scrollToBottom() {
     this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+  }
+
+  // Показывает уведомление о достижении лимита сообщений
+  showLimitReached() {
+    // Блокируем ввод
+    this.chatInput.disabled = true;
+    this.chatBtn.disabled = true;
+    
+    // Меняем placeholder
+    this.chatInput.placeholder = "Лимит сообщений исчерпан";
+    
+    // Добавляем системное сообщение с анимацией
+    const limitMessage = document.createElement('div');
+    limitMessage.className = 'flex justify-center mb-1.5 sm:mb-2.5 limit-message';
+    limitMessage.innerHTML = `
+      <div class="max-w-[90%] xs:max-w-[85%] sm:max-w-[70%] py-2 px-3 sm:py-3 sm:px-4 text-sm xs:text-base sm:text-base leading-relaxed rounded-lg sm:rounded-xl bg-orange-100 text-orange-800 border border-orange-200 text-center">
+        <div class="flex items-center justify-center gap-2 mb-1">
+          <svg class="w-5 h-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+          </svg>
+          <span class="font-medium">Лимит исчерпан</span>
+        </div>
+        <p class="text-xs sm:text-sm">Это тестовая версия наших наработок! Вы можете связаться с нами для предоставления полного доступа!</p>
+      </div>
+    `;
+    
+    // Добавляем с красивой анимацией
+    gsap.set(limitMessage, { opacity: 0, y: 20, scale: 0.95 });
+    this.chatMessages.appendChild(limitMessage);
+    
+    gsap.to(limitMessage, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.5,
+      ease: "back.out(1.7)"
+    });
+    
+    // Анимация блокировки формы
+    gsap.to(this.chatForm, {
+      opacity: 0.6,
+      duration: 0.3,
+      ease: "power2.out"
+    });
+    
+    this.scrollToBottom();
   }
 
   // Вычисляет оптимальную позицию формы в зависимости от размера экрана

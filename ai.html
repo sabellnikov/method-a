@@ -11,7 +11,7 @@ layout: default
   </div>
   
   <!-- Приветственное сообщение -->
-  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -translate-y-34 sm:-translate-y-40 text-center welcome-message transition-opacity duration-500 opacity-100">
+  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -translate-y-34 sm:-translate-y-40 text-center welcome-message opacity-100">
     <div class="mb-1 sm:mb-2">
       <span class="animate-wave inline-block text-4xl sm:text-5xl">👋</span>
     </div>
@@ -19,13 +19,13 @@ layout: default
       Добро пожаловать!
     </h2>
     <p class="text-sm sm:text-base text-teal-600 leading-relaxed whitespace-nowrap">
-      Задайте любой вопрос, и я постараюсь помочь
+      Задайте любой вопрос, я постараюсь помочь
     </p>
   </div>
   
   <!-- Контейнер с кнопками действий -->
-  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 translate-y-12 sm:translate-y-12 text-center action-buttons transition-opacity duration-500 opacity-100">
-    <p class="text-sm sm:text-base text-teal-600 mb-3 sm:mb-4">или воспользуйтесь заготовкой</p>
+  <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 translate-y-10 sm:translate-y-12 text-center action-buttons opacity-100">
+    <p class="text-sm sm:text-base text-teal-600 mb-3 sm:mb-4 leading-relaxed whitespace-nowrap">или воспользуйтесь заготовкой</p>
     <div class="flex gap-3 justify-center">
       <button 
         onclick="openPromptModal('creation')" 
