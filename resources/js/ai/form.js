@@ -1,4 +1,4 @@
-const FUNCTION_URL = "https://functions.yandexcloud.net/d4eifnmujs29c4uf9nj6...";
+const FUNCTION_URL = "https://functions.yandexcloud.net/d4eifnmujs29c4uf9nj6";
 
 class ChatBot {
   constructor() {
