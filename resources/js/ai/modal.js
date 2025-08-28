@@ -1,17 +1,20 @@
 // Предустановленные промты
 const prompts = {
-  creation: `Помоги создать структуру образовательного курса на тему: [укажите тему]
+  creation: `Ты – совет из экспертов: лучший методолог, который составляет результативные образовательные программы для обучения людей, <strong>укажите дополнительно профессии/названия специалистов, которые могли бы выступить экспертами по теме вашего курса</strong>.
 
-Включи следующие элементы:
-- Цели и задачи курса
-- Целевую аудиторию  
-- Структуру модулей
-- Основные темы каждого модуля
-- Методы обучения и оценки`,
+Составь образовательную программу по теме <strong>введите тему обучения</strong>. Укажи оптимальную длительность и формат обучения в соответствии с целевой аудиторией и образовательным результатом по итогу обучения.
+
+Ответ представь в виде таблицы со списком предварительных тем, а также описанием образовательной цели курса, образовательных результатов по итогу обучения, длительности программы по часам, форматов каждого занятия.
+
+Целевая аудитория образовательной программы: <strong>опишите подробно ЦА</strong>
+
+До старта курса целевая аудитория уже знает/умеет … по теме курса. <strong>Укажите начальные данные по уровню подготовки аудитории к обучению</strong>
+
+Образовательный результат ЦА по итогу обучения <strong>опишите, как можно подробнее, что после обучения студенты смогут делать</strong>`,
   
   refactoring: `Помоги улучшить существующий образовательный курс:
 
-[Вставьте описание текущего курса или его структуру]
+<strong>Вставьте описание текущего курса или его структуру</strong>
 
 Проанализируй и предложи улучшения по:
 - Логике изложения материала
@@ -24,10 +27,9 @@ const prompts = {
 function openPromptModal(type) {
   const modal = document.getElementById('promptModal');
   const title = document.getElementById('modalTitle');
-  const textarea = document.getElementById('promptText');
+  const promptDiv = document.getElementById('promptText');
   
-  title.textContent = type === 'creation' ? 'Создание курса' : 'Рефакторинг курса';
-  textarea.value = prompts[type];
+  promptDiv.innerHTML = prompts[type];
   
   modal.classList.remove('invisible');
   modal.classList.remove('opacity-0');
@@ -45,12 +47,12 @@ function closePromptModal() {
 }
 
 function sendPrompt() {
-  const textarea = document.getElementById('promptText');
+  const promptDiv = document.getElementById('promptText');
   const chatInput = document.querySelector('.chat-input');
   const chatForm = document.querySelector('.chat-form');
   
-  // Вставляем промт в форму
-  chatInput.value = textarea.value.trim();
+  // Получаем текст без HTML тегов
+  chatInput.value = promptDiv.innerText.trim();
   
   // Закрываем модальное окно
   closePromptModal();

@@ -148,15 +148,15 @@ layout: default
         <!-- Карточки автоматически займут 2x3 на sm, 3x2 на md, 5 в ряд на lg+ -->
         <a href="https://rutube.ru/video/47bcb39f59e3db3b2542a7191e3c0fb4/" target="_blank" rel="noopener" class="media-card tilt-card rounded-2xl flex items-center justify-center aspect-square transition-shadow duration-200 hover:z-10 relative overflow-hidden min-h-[100px] sm:min-h-[140px] md:min-h-[120px] lg:min-h-[100px]" style="background: rgba(255,255,255,0.3);">
           <span class="tilt-gloss"></span>
-          <span class="text-lg sm:text-xl md:text-2xl">СПбГУ</span>
+          <span class="text-lg sm:text-xl">СПбГУ</span>
         </a>
         <a href="https://www.the-village.ru/business/rabota/ya-proshel-mnogo-kursov/" target="_blank" rel="noopener" class="media-card tilt-card rounded-2xl flex items-center justify-center aspect-square transition-shadow duration-200 hover:z-10 relative overflow-hidden min-h-[100px] sm:min-h-[140px] md:min-h-[120px] lg:min-h-[100px]" style="background: rgba(255,255,255,0.3);">
           <span class="tilt-gloss"></span>
-          <span class="text-lg sm:text-xl md:text-2xl">The Village</span>
+          <span class="text-lg sm:text-xl">The Village</span>
         </a>
         <a href="https://journal.tinkoff.ru/" target="_blank" rel="noopener" class="media-card tilt-card rounded-2xl flex items-center justify-center aspect-square transition-shadow duration-200 hover:z-10 relative overflow-hidden min-h-[100px] sm:min-h-[140px] md:min-h-[120px] lg:min-h-[100px]" style="background: rgba(255,255,255,0.3);">
           <span class="tilt-gloss"></span>
-          <span class="text-lg sm:text-xl md:text-2xl">ВШМ</span>
+          <span class="text-lg sm:text-xl">ВШМ</span>
         </a>
         <a href="https://www.rbc.ru/" target="_blank" rel="noopener" class="media-card tilt-card rounded-2xl flex items-center justify-center aspect-square transition-shadow duration-200 hover:z-10 relative overflow-hidden min-h-[100px] sm:min-h-[140px] md:min-h-[120px] lg:min-h-[100px]" style="background: rgba(255,255,255,0.3);">
           <span class="tilt-gloss"></span>
@@ -174,50 +174,172 @@ layout: default
 <div id="team" class="relative px-8 sm:px-14 md:px-28">
   <div class="flex grid gap-8 mt-[8vh] sm:mt-[12vh]">
 
-  <div class="flex-1 min-w-0">
-    <div class="card bg-[#D8F1FF] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full" style="padding:16px;">
-      <span class="text-3xl font-bold text-[#1A597B]">Карточка 1</span>
-    </div>
-  </div>
-      
+      {% assign team_quote = "Результат работы методиста – это счастливые глаза студентов и преподавателей. Поэтому мы проектируем обучение, исходя из потребностей каждой из сторон" %}
+      {% assign team_name = "Мила Васильева" %}
+      {% assign team_role = "Дизайнер образовательного опыта" %}
       <div class="flex-1 min-w-0">
-        <div class="card bg-[#82C0E1] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full" style="padding:16px;">
-          <span class="text-3xl font-bold text-[#FBF5ED]">Карточка 2</span>
-        </div>
-      </div>
-
-      {% assign team_quote1 = "Соберите всех великих учителей вместе в одной комнате, и они будут согласны во всём друг с другом. Соберите вместе их учеников, и они во всём будут спорить" %}
-      {% assign team_name1 = "Анастасия Меркоева" %}
-      {% assign team_role1 = "основатель Method-A" %}
-      <div class="flex-1 min-w-0">
-        <div class="card bg-[#EAFB7F] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full relative" style="padding:16px;">
+        <div class="card bg-[#D8F1FF] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full relative" style="padding:16px;">
           <div class="flex flex-col-reverse sm:flex-row items-center justify-center w-full h-full">
             <!-- Картинка на мобильных занимает весь контейнер, текст поверх -->
             <div class="h-full sm:h-full w-full sm:w-[40%] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 relative">
-              <img src="/resources/team/people/owner.png" alt="Team member" class="h-[70vh] sm:h-full sm:max-h-[70vh] object-contain w-full opacity-80 sm:opacity-100" />
+              <img src="/resources/team/people/Mila.png" alt="Team member" class="hidden sm:block h-[70vh] sm:h-full sm:max-h-[70vh] object-contain w-full opacity-80 sm:opacity-100" />
               <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 opacity-100 sm:opacity-100 sm:hidden">
                 <h2 class="text-2xl sm:text-4xl font-bold text-[#003A4D] mb-4 sm:max-w-2xl sm:text-left">
-                  “{{ team_quote1 }}”
+                  “{{ team_quote }}”
                 </h2>
                 <div class="mt-4 flex flex-col items-center sm:items-start text-center sm:text-left">
-                  <span class="text-lg sm:text-xl font-semibold text-[#003A4D]">{{ team_name1 }}</span>
-                  <span class="text-base text-[#003A4D] mt-1">{{ team_role1 }}</span>
+                  <span class="text-lg sm:text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                  <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
                 </div>
               </div>
             </div>
             <!-- Для десктопа текст справа -->
             <div class="hidden sm:flex w-full sm:w-[60%] flex-col justify-center items-start text-left opacity-100">
               <h2 class="text-4xl font-bold text-[#003A4D] mb-4 max-w-2xl text-left">
-                “{{ team_quote1 }}”
+                “{{ team_quote }}”
               </h2>
               <div class="mt-4 flex flex-col items-start text-left">
-                <span class="text-xl font-semibold text-[#003A4D]">{{ team_name1 }}</span>
-                <span class="text-base text-[#003A4D] mt-1">{{ team_role1 }}</span>
+                <span class="text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
+      
+      {% assign team_quote = "Поддержка в обучении должна быть гибкой. Важно доверять экспертам и направлять их, а не подменять их решения" %}
+      {% assign team_name = "Антонина Гарновская" %}
+      {% assign team_role = "Менеджер по сопровождению обучения" %}
+      <div class="flex-1 min-w-0">
+        <div class="card bg-[#82C0E1] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full relative" style="padding:16px;">
+          <div class="flex flex-col-reverse sm:flex-row items-center justify-center w-full h-full">
+            <!-- Картинка на мобильных занимает весь контейнер, текст поверх -->
+            <div class="h-full sm:h-full w-full sm:w-[40%] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 relative">
+              <img src="/resources/team/people/Tonya.png" alt="Team member" class="hidden sm:block h-[70vh] sm:h-full sm:max-h-[70vh] object-contain w-full opacity-80 sm:opacity-100" />
+              <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 opacity-100 sm:opacity-100 sm:hidden">
+                <h2 class="text-2xl sm:text-4xl font-bold text-[#003A4D] mb-4 sm:max-w-2xl sm:text-left">
+                  “{{ team_quote }}”
+                </h2>
+                <div class="mt-4 flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <span class="text-lg sm:text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                  <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- Для десктопа текст справа -->
+            <div class="hidden sm:flex w-full sm:w-[60%] flex-col justify-center items-start text-left opacity-100">
+              <h2 class="text-4xl font-bold text-[#003A4D] mb-4 max-w-2xl text-left">
+                “{{ team_quote }}”
+              </h2>
+              <div class="mt-4 flex flex-col items-start text-left">
+                <span class="text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% assign team_quote = "Образование – это большое поле для творчества и развития себя как специалиста. Чувствуешь, что делаешь очень важную работу" %}
+      {% assign team_name = "Александр Сабельников" %}
+      {% assign team_role = "Веб-разработчик" %}
+      <div class="flex-1 min-w-0">
+        <div class="card bg-[#DE6E4B] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full relative" style="padding:16px;">
+          <div class="flex flex-col-reverse sm:flex-row items-center justify-center w-full h-full">
+            <!-- Картинка на мобильных занимает весь контейнер, текст поверх -->
+            <div class="h-full sm:h-full w-full sm:w-[40%] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 relative">
+              <img src="/resources/team/people/Alex.png" alt="Team member" class="hidden sm:block h-[70vh] sm:h-full sm:max-h-[70vh] object-contain w-full opacity-80 sm:opacity-100" />
+              <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 opacity-100 sm:opacity-100 sm:hidden">
+                <h2 class="text-2xl sm:text-4xl font-bold text-[#003A4D] mb-4 sm:max-w-2xl sm:text-left">
+                  “{{ team_quote }}”
+                </h2>
+                <div class="mt-4 flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <span class="text-lg sm:text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                  <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- Для десктопа текст справа -->
+            <div class="hidden sm:flex w-full sm:w-[60%] flex-col justify-center items-start text-left opacity-100">
+              <h2 class="text-4xl font-bold text-[#003A4D] mb-4 max-w-2xl text-left">
+                “{{ team_quote }}”
+              </h2>
+              <div class="mt-4 flex flex-col items-start text-left">
+                <span class="text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {% assign team_quote = "Структура и порядок – это залог успешного обучения. Именно этим я и занимаюсь в бюро: слежу за процессом, чтобы всё было готово в срок и все остались довольны" %}
+      {% assign team_name = "Юлия Гладких" %}
+      {% assign team_role = "Проджект-менеджер" %}
+      <div class="flex-1 min-w-0">
+        <div class="card bg-[#E56399] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full relative" style="padding:16px;">
+          <div class="flex flex-col-reverse sm:flex-row items-center justify-center w-full h-full">
+            <!-- Картинка на мобильных занимает весь контейнер, текст поверх -->
+            <div class="h-full sm:h-full w-full sm:w-[40%] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 relative">
+              <img src="/resources/team/people/Julia.png" alt="Team member" class="hidden sm:block h-[70vh] sm:h-full sm:max-h-[70vh] object-contain w-full opacity-80 sm:opacity-100" />
+              <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 opacity-100 sm:opacity-100 sm:hidden">
+                <h2 class="text-2xl sm:text-4xl font-bold text-[#003A4D] mb-4 sm:max-w-2xl sm:text-left">
+                  “{{ team_quote }}”
+                </h2>
+                <div class="mt-4 flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <span class="text-lg sm:text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                  <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- Для десктопа текст справа -->
+            <div class="hidden sm:flex w-full sm:w-[60%] flex-col justify-center items-start text-left opacity-100">
+              <h2 class="text-4xl font-bold text-[#003A4D] mb-4 max-w-2xl text-left">
+                “{{ team_quote }}”
+              </h2>
+              <div class="mt-4 flex flex-col items-start text-left">
+                <span class="text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% assign team_quote = "В детстве я представляла, как преподаю математику и английский язык. Здорово, что и во взрослой жизни можно продолжать делать то, что любишь" %}
+      {% assign team_name = "Анастасия Меркоева" %}
+      {% assign team_role = "основатель Method-A" %}
+      <div class="flex-1 min-w-0">
+        <div class="card bg-[#EAFB7F] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full relative" style="padding:16px;">
+          <div class="flex flex-col-reverse sm:flex-row items-center justify-center w-full h-full">
+            <!-- Картинка на мобильных занимает весь контейнер, текст поверх -->
+            <div class="h-full sm:h-full w-full sm:w-[40%] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 relative">
+              <img src="/resources/team/people/owner.png" alt="Team member" class="hidden sm:block h-[70vh] sm:h-full sm:max-h-[70vh] object-contain w-full opacity-80 sm:opacity-100" />
+              <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 opacity-100 sm:opacity-100 sm:hidden">
+                <h2 class="text-2xl sm:text-4xl font-bold text-[#003A4D] mb-4 sm:max-w-2xl sm:text-left">
+                  “{{ team_quote }}”
+                </h2>
+                <div class="mt-4 flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <span class="text-lg sm:text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                  <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- Для десктопа текст справа -->
+            <div class="hidden sm:flex w-full sm:w-[60%] flex-col justify-center items-start text-left opacity-100">
+              <h2 class="text-4xl font-bold text-[#003A4D] mb-4 max-w-2xl text-left">
+                “{{ team_quote }}”
+              </h2>
+              <div class="mt-4 flex flex-col items-start text-left">
+                <span class="text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
     </div>
   </div>
 
@@ -239,7 +361,7 @@ layout: default
               <span class="text-3xl sm:text-5xl md:text-7xl font-medium text-left">Сделаем вместе</span>
               <div class="mt-2 flex flex-row items-center gap-2 sm:gap-6">
                 <span class="text-3xl sm:text-5xl md:text-7xl font-medium text-left">что-то</span>
-                <span id="word-animate" class="text-3xl sm:text-5xl md:text-7xl font-medium text-left">невероятное</span>
+                <span id="word-animate" class="text-3xl sm:text-5xl md:text-7xl font-medium text-left">новое</span>
               </div>
             </div>
             <div class="bg-transparent p-0 outline-none cursor-pointer w-8 h-8 sm:w-16 sm:h-16 flex items-center justify-center ml-4">

@@ -1,4 +1,4 @@
-const FUNCTION_URL = "https://functions.yandexcloud.net/d4eifnmujs29c4uf9nj6";
+const FUNCTION_URL = "https://functions.yandexcloud.net/d4eifnmujs29c4uf9nj6...";
 
 class ChatBot {
   constructor() {
@@ -58,7 +58,11 @@ class ChatBot {
         gsap.to(welcomeMessage, {
           opacity: 0,
           duration: 0.1,
-          ease: "power2.out"
+          ease: "power2.out",
+          onComplete: () => {
+            // Отключаем взаимодействие после анимации
+            welcomeMessage.style.pointerEvents = 'none';
+          }
         });
       }
       
@@ -66,7 +70,11 @@ class ChatBot {
         gsap.to(actionButtons, {
           opacity: 0,
           duration: 0.1,
-          ease: "power2.out"
+          ease: "power2.out",
+          onComplete: () => {
+            // Отключаем взаимодействие после анимации
+            actionButtons.style.pointerEvents = 'none';
+          }
         });
       }
     }
@@ -213,6 +221,20 @@ class ChatBot {
     this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
   }
 
+  // Получает HTML кнопки связи из разметки
+  getContactButton() {
+    const contactButton = document.getElementById('limitContactButton');
+    if (!contactButton) return '';
+    
+    // Клонируем элемент, чтобы не изменять оригинал
+    const clonedButton = contactButton.cloneNode(true);
+    
+    // Убираем все скрывающие классы из клона
+    clonedButton.classList.remove('hidden', 'absolute', '-top-full', 'opacity-0', 'pointer-events-none');
+    
+    return clonedButton.outerHTML;
+  }
+
   // Показывает уведомление о достижении лимита сообщений
   showLimitReached() {
     // Блокируем ввод
@@ -233,7 +255,8 @@ class ChatBot {
           </svg>
           <span class="font-medium">Лимит исчерпан</span>
         </div>
-        <p class="text-xs sm:text-sm">Это тестовая версия наших наработок! Вы можете связаться с нами для предоставления полного доступа!</p>
+        <p class="text-xs sm:text-sm mb-3">Сохраните свои наработки и приходите к нам в бюро! <br> Мы воплотим вашу идею в жизнь!</p>
+        ${this.getContactButton()}
       </div>
     `;
     

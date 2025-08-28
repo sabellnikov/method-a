@@ -44,7 +44,7 @@
       scrollTrigger: {
         trigger: card,
         start: "center center",
-        endTrigger: cards[2],
+        endTrigger: cards[4],
         end: "bottom center",
         pin: true,
         pinSpacing: false,

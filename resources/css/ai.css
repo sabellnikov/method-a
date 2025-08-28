@@ -29,3 +29,19 @@ body {
   animation: wave 0.6s ease-in-out 3;
   transform-origin: 70% 70%;
 }
+
+[contenteditable]:empty:before {
+  content: attr(data-placeholder);
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+[contenteditable] strong {
+  font-weight: 600;
+  color: #0d9488;
+}
+
+#promptText {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
