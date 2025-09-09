@@ -1,142 +1,11 @@
 ---
 layout: default
 ---
-<style>
-  .full-width-bg {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    background: #F3F3E9;
-  }
-  
-  #expandingContainer {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #e0e0d1;
-    border-radius: 2rem;
-    z-index: 1;
-    opacity: 0;
-    /* pointer-events: none; */
-    transform: scale(0.2);
-    transition: border-radius 0.2s;
-  }
-  
-  .tilt-card {
-    perspective: 700px;
-    will-change: transform;
-  }
 
-  .tilt-gloss {
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: inherit;
-    background: linear-gradient(120deg, rgba(255,255,255,0.18) 20%, rgba(255,255,255,0.04) 80%);
-    opacity: 0;
-    transition: opacity 0.2s;
-    z-index: 2;
-  }
+<div class="background-blend fixed inset-0 w-screen z-10"></div>
 
-  .tilt-card.tilted .tilt-gloss {
-    opacity: 1;
-  }
-
-  /* Скрываем карточки изначально */
-  .card-link {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-
-  /* Mobile optimizations */
-  @media (max-width: 640px) {
-    .card {
-      width: 80px !important;
-      height: 80px !important;
-      min-height: 44px; /* Minimum touch target size */
-    }
+<div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-top)">
     
-    .card-link {
-      min-width: 44px;
-      min-height: 44px;
-    }
-    
-    .featured-image-post {
-      width: 1.5rem !important;
-      height: 1.5rem !important;
-    }
-  }
-</style>
-
-<div class="full-width-bg">
-
-
-  <div id="expandingContainer" class="fixed left-0 top-0 w-screen h-screen bg-[#e0e0d1] rounded-[2rem] z-[1] opacity-0 scale-[0.2] transition-[border-radius] duration-200 flex flex-col">
-    
-    <!-- Header section - initially visible, then hidden -->
-    <header id="expandedHeader" class="flex-none h-[20vh] flex items-center justify-center opacity-0 hidden sm:flex">
-      <h2 class="text-2xl font-semibold text-gray-700">Наши услуги</h2>
-    </header>
-    
-    <!-- Main content area -->
-    <main class="flex-1 flex flex-col justify-center min-h-0">
-      
-      <!-- Carousel section -->
-      <section class="flex items-center justify-center h-full">
-        <div id="carouselContainer" class="w-full h-[50vh] min-h-[45vh] max-h-[60vh] overflow-hidden">
-          <div id="carouselTrack" class="flex items-center h-full">
-        <div class="carousel-card carousel-card-large flex-none h-full p-4">
-          <div class="bg-white rounded-xl p-6 mx-2 h-full flex items-center justify-center">
-        <p class="text-gray-400 text-center leading-relaxed">Мы учитываем индивидуальные особенности и цели каждого студента, чтобы обучение было максимально эффективным.</p>
-          </div>
-        </div>
-        <div class="carousel-card carousel-card-small flex-none h-full p-4">
-          <div class="bg-white rounded-xl p-6 mx-2 h-full flex items-center justify-center">
-        <p class="text-gray-400 text-center leading-relaxed">Используем лучшие онлайн-инструменты для интерактивного обучения и контроля прогресса.</p>
-          </div>
-        </div>
-        <div class="carousel-card carousel-card-large flex-none h-full p-4">
-          <div class="bg-white rounded-xl p-6 mx-2 h-full flex items-center justify-center">
-        <p class="text-gray-400 text-center leading-relaxed">Наши преподаватели всегда готовы помочь и ответить на любые вопросы по учебному процессу.</p>
-          </div>
-        </div>
-        <div class="carousel-card carousel-card-small flex-none h-full p-4">
-          <div class="bg-white rounded-xl p-6 mx-2 h-full flex items-center justify-center">
-        <p class="text-gray-400 text-center leading-relaxed">Вы сами выбираете расписание занятий, чтобы совмещать обучение с работой и личной жизнью.</p>
-          </div>
-        </div>
-        <div class="carousel-card carousel-card-large flex-none h-full p-4">
-          <div class="bg-white rounded-xl p-6 mx-2 h-full flex items-center justify-center">
-        <p class="text-gray-400 text-center leading-relaxed">По окончании обучения выдаём сертификаты и дипломы, подтверждающие квалификацию.</p>
-          </div>
-        </div>
-        <div class="carousel-card carousel-card-small flex-none h-full p-4">
-          <div class="bg-white rounded-xl p-6 mx-2 h-full flex items-center justify-center">
-        <p class="text-gray-400 text-center leading-relaxed">Мы сопровождаем студентов от первого занятия до получения результата, помогая преодолеть трудности.</p>
-          </div>
-        </div>
-          </div>
-        </div>
-      </section>
-      
-    </main>
-    
-    <!-- Footer CTA section -->
-    <footer class="flex-none h-[15vh] flex items-center justify-center pb-32 sm:pb-0">
-      <div class="flex flex-col sm:flex-row items-center gap-4">
-        <a href="/products" class="px-4 sm:px-6 py-2 sm:py-3 bg-blue-500 text-white rounded-xl font-medium hover:bg-blue-600 transition-colors text-sm sm:text-base">
-          Готовые решения
-        </a>
-      </div>
-    </footer>
-    
-  </div>
-
-
   <div class="flex flex-col items-center justify-center min-h-screen w-full max-w-xs sm:max-w-7xl mx-auto relative">
     <div id="mainHeaderSection" class="flex flex-col items-center justify-center w-full mb-4 sm:mb-8 px-4">
       <h1 id="mainTitle" class="text-3xl sm:text-7xl font-semibold text-center text-gray-600 mb-1 sm:mb-2 w-full leading-tight">
@@ -145,329 +14,154 @@ layout: default
       </h1>
       <div id="workWordsRow" class="flex flex-row w-full gap-1 sm:gap-4 justify-center">
       <h2 id="leftWork" class="text-3xl sm:text-7xl font-semibold text-center text-gray-600 leading-tight">
-        <span class="sm:hidden">Говорят</span>
+        <span class="sm:hidden">Наши</span>
         <span class="hidden sm:inline">Наши работы</span>
       </h2>
       <h2 id="rightWord" class="text-3xl sm:text-7xl font-semibold text-center text-gray-600 leading-tight">
-        <span class="sm:hidden">дела</span>
+        <span class="sm:hidden">работы</span>
         <span class="hidden sm:inline">вместо слов</span>
       </h2>
       </div>
     </div>
-
     <div id="cardsContainer" class="absolute inset-0 w-full h-full">
-
-
       {% for post in site.categories.case %}
-        <a href="{{ post.url }}" class="card-link absolute tilt-card" style="text-decoration: none; color: inherit;">
-          <div class="card flex flex-col items-center justify-center w-[120px] h-[120px] p-2 bg-white rounded-lg text-center relative">
-        <div class="tilt-gloss"></div>
-        <img src="/resources/case_icons/{{ post.tags }}.png" class="featured-image-post w-10 h-10 mb-2 sm:mb-2 mb-0 object-contain relative z-10"/>
-        <span class="text-[0.95rem] font-medium relative z-10 hidden sm:block">{{ post.title }}</span>
+        <a href="{{ post.url }}" class="card-link absolute transition-[transform,filter] duration-300 ease-out min-w-[44px] min-h-[44px]" style="text-decoration: none; color: inherit; transform-style: preserve-3d;">
+          <div class="card flex flex-col items-center justify-center w-[80px] h-[80px] sm:w-[120px] sm:h-[120px] p-1.5 sm:p-2 bg-white rounded-xl sm:rounded-2xl text-center relative border-2 sm:border-3 transition-transform duration-200 ease-out" style="border-color: var(--color-card-border); transform-style: preserve-3d;">
+            <img src="/resources/case_icons/{{ post.tags }}.png" class="featured-image-post w-6 h-6 sm:w-10 sm:h-10 mb-1 sm:mb-2 object-contain relative z-10 transition-transform duration-300 ease-out"/>
+            <span class="text-[0.7rem] sm:text-[0.95rem] font-medium relative z-10 block leading-tight sm:leading-none overflow-hidden text-ellipsis whitespace-nowrap max-w-full">{{ post.title }}</span>
           </div>
         </a>
       {% endfor %}
-
-
     </div>
   </div>
 
-
+  <div id="expandingContainer" class="fixed left-0 top-0 w-screen h-screen bg-[#e0e0d1] rounded-[2rem] z-[1] opacity-0 scale-[0.2] transition-[border-radius] duration-200 flex flex-col">
+    
+    <!-- Main content area -->
+    <main class="flex-1 flex items-center justify-center h-full w-full">
+      
+      <!-- Carousel section -->
+      <section class="w-full h-full flex items-start pt-16 sm:items-center sm:pt-0 justify-center">
+        <div id="carouselContainer" class="w-full h-[70vh] min-h-[55vh] max-h-[70vh] sm:h-[60vh] sm:min-h-[50vh] sm:max-h-[75vh] overflow-hidden">
+          <div id="carouselTrack" class="flex items-center h-full">
+        <div class="carousel-card carousel-card-large flex-none h-full p-4">
+          <div class="bg-white rounded-3xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Мы учитываем индивидуальные особенности и цели каждого студента, чтобы обучение было максимально эффективным.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-small flex-none h-full p-4">
+          <div class="bg-white rounded-3xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Используем лучшие онлайн-инструменты для интерактивного обучения и контроля прогресса.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-large flex-none h-full p-4">
+          <div class="bg-white rounded-3xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Наши преподаватели всегда готовы помочь и ответить на любые вопросы по учебному процессу.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-small flex-none h-full p-4">
+          <div class="bg-white rounded-3xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Вы сами выбираете расписание занятий, чтобы совмещать обучение с работой и личной жизнью.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-large flex-none h-full p-4">
+          <div class="bg-white rounded-3xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">По окончании обучения выдаём сертификаты и дипломы, подтверждающие квалификацию.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-small flex-none h-full p-4">
+          <div class="bg-white rounded-3xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Мы сопровождаем студентов от первого занятия до получения результата, помогая преодолеть трудности.</p>
+          </div>
+        </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <!-- Footer CTA section -->
+    <footer class="absolute bottom-0 left-0 w-full h-[15vh] flex items-center justify-center pb-26 sm:pb-0">
+      <div class="flex flex-row items-center" style="gap: 1px;">
+        <a href="/products" class="btn-ready-solutions flex-1 text-center px-8 sm:px-12 py-2 sm:py-3 rounded-l-full font-medium transition-colors text-sm sm:text-base bg-white min-w-[120px] sm:min-w-[240px]">
+          <span class="sm:hidden">Решения</span>
+          <span class="hidden sm:inline">Готовые решения</span>
+        </a>
+        <button id="contactsBtn" type="button" class="btn-ready-solutions flex-1 text-center px-4 sm:px-6 py-2 sm:py-3 rounded-r-full font-medium transition-colors text-sm sm:text-base bg-white min-w-[120px] cursor-pointer">
+          Контакты
+        </button>
+      </div>
+    </footer>
+  </div>
 
   
+    <div class="flex justify-start items-center pt-0 sm:pt-8">
+    <div id="videoPinWrapper" class="w-full flex justify-center">
+      <div id="videoContainer" class="relative w-[85vw] h-[85vw] max-w-full box-border sm:w-[85vw] sm:h-[90vh]">
+        <video id="teamVideo" class="object-cover w-full h-full rounded-3xl" preload="metadata" playsinline poster="/resources/team/team.jpg">
+          <source src="/resources/team/team.mp4" type="video/mp4">
+          Ваш браузер не поддерживает видео.
+        </video>
+        <button id="playBtn" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center transition rounded-2xl"
+          style="border:none;outline:none;">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="40" fill="#FD589E" fill-opacity="0.95"/>
+            <polygon points="32,25 60,40 32,55" fill="#38001B"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="videoPlaceholder" style="width:0;height:0;"></div>
+  </div>
+
+  </div>
+
 </div>
 
-<!-- Новый контент страницы -->
-<section class="max-w-3xl mx-auto mt-16 p-8 bg-white rounded-2xl">
-  <h2 class="text-2xl font-semibold text-gray-800 mb-4">О бюро</h2>
-  <p class="text-lg text-gray-700 mb-8">
-    Метод-А — это команда профессионалов, объединённых идеей качественного образования. Мы предлагаем современные методики обучения, индивидуальный подход и поддержку на каждом этапе.
-  </p>
-  <h3 class="text-xl font-medium text-gray-600 mb-3">Наши преимущества:</h3>
-  <ul class="text-base text-gray-700 leading-7 mb-8 list-disc list-inside">
-    <li>Индивидуальные образовательные траектектории</li>
-    <li>Опытные преподаватели и наставники</li>
-    <li>Современные онлайн и офлайн форматы</li>
-    <li>Поддержка и обратная связь</li>
-  </ul>
-  <h3 class="text-xl font-medium text-gray-600 mb-3">Контакты</h3>
-  <p class="text-base text-gray-700">
-    Email: <a href="mailto:info@method-a.ru" class="text-blue-500 hover:underline">info@method-a.ru</a><br>
-    Телефон: <a href="tel:+79991234567" class="text-blue-500 hover:underline">+7 (999) 123-45-67</a>
-  </p>
-</section>
+<div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-middle)">
+  <div class="relative px-8 sm:px-14 md:px-28 flex flex-col flex-1">
+    <h1 class="font-medium mt-[8vh] sm:mt-[12vh] max-w-3xl text-4xl sm:text-5xl md:text-7xl">Подход нацеленный на результат</h1>
 
-<script>
-  gsap.registerPlugin(ScrollTrigger);
+    <div class="flex gap-8 mt-4 sm:mt-6 md:mt-8">
+            <!-- Результат -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
+                <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Результат</h3>
+                <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                    У любого обучения особенно корпоративного должен быть результат. На этапе брифа мы фиксируем, какой результат вы хотите получить и как мы будем его замерять.
+                </p>
+            </div>
+            
+            <!-- Открытость -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
+                <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Открытость</h3>
+                <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                    Мы берем проекты любой сложности и выстраиваем процессы так, чтобы вам было понятно, на каком этапе проект и какие есть результаты.
+                </p>
+            </div>
+            
+            <!-- Поддержка -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
+                <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Поддержка</h3>
+                <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                    Мы не просто разрабатываем обучение, мы развиваем ваших экспертов, чтобы они тоже выросли в процессе подготовки обучения, а также мы сопровождаем студентов, чтобы поддерживать их мотивацию на пути к цели.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
-  let carouselAnimation = null;
-  let isResizing = false;
+<div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-bottom)">
+    <div style="height:150vh"></div>
+</div>
 
-  // Функция для расчета размеров карточек карусели
-  function calculateCarouselCardSizes() {
-    const container = document.getElementById('carouselContainer');
-    const cards = document.querySelectorAll('.carousel-card');
-    
-    if (!container || !cards.length) return;
-    
-    // Останавливаем текущую анимацию перед изменением размеров
-    if (carouselAnimation) {
-      carouselAnimation.kill();
-      carouselAnimation = null;
-    }
-    
-    const containerWidth = container.offsetWidth;
-    const screenWidth = window.innerWidth;
-    
-    // Всегда показываем ровно 3 карточки
-    const visibleCards = 3;
-    
-    // Рассчитываем базовую ширину так, чтобы 3 карточки помещались точно
-    let smallCardWidth, largeCardWidth;
-    
-    if (screenWidth >= 640) { // Desktop - changed from 1024 to match Tailwind sm
-      // 2 больших + 1 маленькая = 3 карточки
-      // 2 * large + 1 * small = containerWidth
-      // large = small * 1.2
-      // 2 * (small * 1.2) + small = containerWidth
-      // 3.4 * small = containerWidth
-      smallCardWidth = containerWidth / 3.4;
-      largeCardWidth = smallCardWidth * 1.2;
-    }  else { // Mobile
-      // На мобильных все карточки одинакового размера, показываем 1.5 карточки
-      smallCardWidth = containerWidth * 0.85;
-      largeCardWidth = smallCardWidth;
-    }
-    
-    const track = document.getElementById('carouselTrack');
-    if (track) {
-      gsap.set(track, { x: 0 });
-    }
-    
-    // Применяем ширину к карточкам
-    cards.forEach(card => {
-      if (screenWidth < 640) { // Mobile - changed from 1024 to match Tailwind sm
-        // На мобильных все карточки одинакового размера
-        card.style.width = smallCardWidth + 'px';
-        // Убираем все классы высоты для мобильных
-        card.classList.remove('h-[85%]');
-        card.classList.add('h-full');
-      } else {
-        // На десктопе используем разные размеры
-        if (card.classList.contains('carousel-card-large')) {
-          card.style.width = largeCardWidth + 'px';
-          card.classList.add('h-full');
-          card.classList.remove('h-[85%]');
-        } else {
-          card.style.width = smallCardWidth + 'px';
-          card.classList.add('h-[85%]');
-          card.classList.remove('h-full');
-        }
-      }
-    });
-    
-    // Перезапускаем карусель после небольшой задержки
-    setTimeout(() => {
-      if (!isResizing) {
-        loopCarousel();
-      }
-    }, 50);
-  }
+<div style="height:200vh"></div>
 
-  // Функция для случайного позиционирования карточек
-  function positionCardsRandomly() {
-    const container = document.getElementById('cardsContainer');
-    const header = document.getElementById('mainHeaderSection');
-    const cards = document.querySelectorAll('.card-link');
-    
-    if (!container || !header || !cards.length) return;
-    
-    const { width, height } = container.getBoundingClientRect();
-    const headerRect = header.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
-    
-    // Mobile-responsive values
-    const isMobile = window.innerWidth < 640;
-    const [margin, cardSize, minDist] = isMobile ? [20, 140, 160] : [40, 120, 140];
-    
-    // Область исключения для header
-    const avoid = {
-      left: headerRect.left - containerRect.left - (isMobile ? 10 : 20),
-      right: headerRect.right - containerRect.left + (isMobile ? 10 : 20),
-      top: headerRect.top - containerRect.top - (isMobile ? 10 : 20),
-      bottom: headerRect.bottom - containerRect.top + (isMobile ? 10 : 20)
-    };
+<div class="background-bottom bg-white fixed inset-0 w-screen h-screen z-0 transition-opacity duration-300 opacity-0">
+  <div class="absolute left-0 right-0 bottom-0 h-[80vh] flex flex-col md:flex-row gap-4 md:gap-6 px-2">
 
-    const positions = [];
-    
-    // Проверка коллизий
-    const checkCollision = (x, y) => {
-      // Проверка пересечения с header
-      if (!(x + cardSize < avoid.left || x > avoid.right || 
-            y + cardSize < avoid.top || y > avoid.bottom)) {
-        return true;
-      }
-      
-      // Проверка пересечения с другими карточками
-      return positions.some(pos => 
-        Math.hypot(x + cardSize/2 - pos.x - cardSize/2, y + cardSize/2 - pos.y - cardSize/2) < minDist
-      );
-    };
-    
-    // Размещение карточек
-    cards.forEach((card, i) => {
-      let point = null;
-      
-      // Попытка размещения по спирали
-      for (let spiral = 1; spiral <= 5; spiral++) {
-        const angle = i * 2.4 + spiral * 0.5;
-        const radius = spiral * minDist * 0.6;
-        const x = Math.max(margin, Math.min(width - cardSize - margin, 
-          width/2 + radius * Math.cos(angle)));
-        const y = Math.max(margin, Math.min(height - cardSize - margin,
-          height/2 + radius * Math.sin(angle)));
-        
-        if (!checkCollision(x, y)) {
-          point = { x, y };
-          break;
-        }
-      }
-      
-      // Fallback: случайное размещение
-      if (!point) {
-        for (let attempt = 0; attempt < 50; attempt++) {
-          const x = margin + Math.random() * (width - cardSize - margin * 2);
-          const y = margin + Math.random() * (height - cardSize - margin * 2);
-          if (!checkCollision(x, y)) {
-            point = { x, y };
-            break;
-          }
-        }
-      }
-      
-      // Последний fallback
-      if (!point) {
-        const angle = i * 2.4;
-        const radius = (i + 1) * minDist * 0.8;
-        point = {
-          x: Math.max(margin, Math.min(width - cardSize - margin, width/2 + radius * Math.cos(angle))),
-          y: Math.max(margin, Math.min(height - cardSize - margin, height/2 + radius * Math.sin(angle)))
-        };
-      }
-      
-      // Устанавливаем позицию карточки
-      card.style.left = point.x + 'px';
-      card.style.top = point.y + 'px';
-      
-      // Временно отключаем tilt эффект на время анимации
-      card.classList.add('animating');
-      
-      // Устанавливаем начальное состояние
-      gsap.set(card, {
-        opacity: 0,
-        scale: 0.3,
-        rotation: 0
-      });
-      
-      // Анимируем появление с случайной задержкой
-      const randomDelay = Math.random() * 2;
-      gsap.to(card, {
-        opacity: 1,
-        scale: 1,
-        duration: 0.6,
-        delay: randomDelay,
-        ease: "back.out(1.7)",
-        onComplete: () => {
-          // Включаем tilt эффект обратно после завершения анимации
-          card.classList.remove('animating');
-        }
-      });
-      
-      positions.push(point);
-    });
-  }
-  
-  // Позиционируем карточки после загрузки DOM
-  document.addEventListener('DOMContentLoaded', () => {
-    calculateCarouselCardSizes();
-    positionCardsRandomly();
-    
-    // Set initial mobile position after sizes are calculated
-    setTimeout(() => {
-      if (window.innerWidth < 640) { // Mobile - changed from 1024 to match Tailwind sm
-        const container = document.getElementById('carouselContainer');
-        const track = document.getElementById('carouselTrack');
-        if (container && track) {
-          const containerWidth = container.offsetWidth;
-          const firstCard = track.querySelector('.carousel-card');
-          if (firstCard) {
-            const cardWidth = firstCard.offsetWidth;
-            const centerOffset = (containerWidth - cardWidth) / 2;
-            gsap.set(track, { x: centerOffset });
-          }
-        }
-      }
-    }, 100);
-  });
-  
-  // Улучшенная обработка resize события с debouncing
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    isResizing = true;
-    
-    // Очищаем предыдущий таймаут
-    clearTimeout(resizeTimeout);
-    
-    // Пересчитываем размеры немедленно для лучшей отзывчивости
-    calculateCarouselCardSizes();
-    
-    // Устанавливаем новый таймаут для завершения resize
-    resizeTimeout = setTimeout(() => {
-      isResizing = false;
-      calculateCarouselCardSizes(); // Финальный пересчет
-    }, 200);
-  });
-  
-  // GSAP бесконечная круговая карусель карточек
-  function loopCarousel() {
-    const track = document.getElementById('carouselTrack');
-    const cards = track.querySelectorAll('.carousel-card');
-    if (!cards.length || isResizing) return;
-    
-    const firstCard = cards[0];
-    const screenWidth = window.innerWidth;
-    const containerWidth = document.getElementById('carouselContainer').offsetWidth;
-    const cardWidth = firstCard.offsetWidth;
-    
-    // Calculate target position and animation parameters
-    let targetX, initialX;
-    
-    if (screenWidth >= 640) { // Desktop - changed from 1024 to match Tailwind sm
-      // Desktop: move by card width from current position
-      targetX = -cardWidth;
-      initialX = 0;
-    } else {
-      // Mobile: move from center to center minus one card width
-      const centerOffset = (containerWidth - cardWidth) / 2;
-      targetX = centerOffset - cardWidth;
-      initialX = centerOffset;
-    }
-    
-    carouselAnimation = gsap.to(track, {
-      x: targetX,
-      duration: 3,
-      ease: screenWidth >= 640 ? "power1.inOut" : "sine.inOut", // Desktop - changed from 1024 to match Tailwind sm
-      onComplete: () => {
-        if (!isResizing && cards.length > 0) {
-          track.appendChild(firstCard);
-          gsap.set(track, { x: initialX });
-          loopCarousel();
-        }
-      }
-    });
-  }
-  loopCarousel();
-</script>
+</div>
 
-<script src="/resources/js/index/main-preview.js"></script>
-<script src="/resources/js/tilt.js"></script>
+
+<script src="/resources/js/index/main-background.js"></script>
+<script src="/resources/js/index/card-magnet-effect.js"></script>
+<script src="/resources/js/smooth-scroll.js"></script>
+<script src="/resources/js/index/main.js"></script>

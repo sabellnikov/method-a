@@ -18,34 +18,40 @@
   document.querySelectorAll('.slide-section').forEach((section, i) => {
     ScrollTrigger.create({
       trigger: section,
-      start: "top bottom",
-      end: "bottom bottom",
-      markers: false,
-      onUpdate: self => {
-        if (self.progress >= 0) {
-          gsap.to(bgBlend, { backgroundColor: bgColors[i], duration: 0.2, ease: "sine.inOut" });
-        } else if (i >= 1) {
-          gsap.to(bgBlend, { backgroundColor: bgColors[i - 1], duration: 0.2, ease: "sine.inOut" });
+      start: "top center",
+      end: "top center",
+      //markers: true,
+      onEnter: () => {
+        // Для первой секции берем текущий цвет, для остальных - из массива
+        const targetColor = i === 0 ? getCssVar('--color-background-top') : bgColors[i];
+        gsap.to(bgBlend, { backgroundColor: targetColor, duration: 0.2, ease: "sine.inOut" });
+      },
+      onLeaveBack: () => {
+        if (i > 0) {
+          // Для возврата к первой секции берем текущий цвет, для остальных - из массива
+          const targetColor = i === 1 ? getCssVar('--color-background-top') : bgColors[i - 1];
+          gsap.to(bgBlend, { backgroundColor: targetColor, duration: 0.2, ease: "sine.inOut" });
         }
       }
     });
   });
 
-  // scrub-animation background-blend
+  // scrub-animation background-blend - появляется при скролле третьей секции
   const scaleVal = 0.95;
   const yBlendVal = "-70vh";
   const ySlideVal = ((1 - scaleVal) * 50) + "vh";
   const slideSections = document.querySelectorAll('.slide-section');
+  const thirdSlide = slideSections[2]; // Третья секция (индекс 2)
 
   const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: document.body,
-      start: "bottom bottom",
-      end: "+=200",
+      trigger: thirdSlide,
+      start: "top center",
+      end: "bottom top",
       scrub: true,
-      markers: true,
+      //markers: true,
       onUpdate: self => {
-        if (self.progress > 0.5) {
+        if (self.progress > 0.3) {
           bgBottom.style.pointerEvents = 'auto';
           slideSections.forEach(sec => sec.style.pointerEvents = 'none');
         } else {
@@ -66,7 +72,7 @@
   .to(bgBottom, {
     opacity: 1
   }, 0)
-  .to(lastSlide, {
+  .to(thirdSlide, {
     scale: scaleVal,
     y: "-" + ySlideVal,
   }, 0);

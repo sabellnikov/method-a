@@ -1,0 +1,323 @@
+---
+layout: default
+---
+
+<div class="background-blend fixed inset-0 w-screen z-10"></div>
+
+<div class="slide-section  relative z-10 bg-transparent" data-bg="var(--color-background-top)">
+  
+  <div class="flex flex-col items-center justify-center min-h-screen w-full max-w-xs sm:max-w-7xl mx-auto relative">
+    <div id="mainHeaderSection" class="flex flex-col items-center justify-center w-full mb-4 sm:mb-8 px-4">
+      <h1 id="mainTitle" class="text-3xl sm:text-7xl font-semibold text-center text-gray-600 mb-1 sm:mb-2 w-full leading-tight">
+        <span class="sm:hidden">Бюро Метод - А</span>
+        <span class="hidden sm:inline">Образовательное бюро Метод - А</span>
+      </h1>
+      <div id="workWordsRow" class="flex flex-row w-full gap-1 sm:gap-4 justify-center">
+      <h2 id="leftWork" class="text-3xl sm:text-7xl font-semibold text-center text-gray-600 leading-tight">
+        <span class="sm:hidden">Наши</span>
+        <span class="hidden sm:inline">Наши работы</span>
+      </h2>
+      <h2 id="rightWord" class="text-3xl sm:text-7xl font-semibold text-center text-gray-600 leading-tight">
+        <span class="sm:hidden">работы</span>
+        <span class="hidden sm:inline">вместо слов</span>
+      </h2>
+      </div>
+    </div>
+    <div id="cardsContainer" class="absolute inset-0 w-full h-full">
+      {% for post in site.categories.case %}
+        <a href="{{ post.url }}" class="card-link absolute transition-[transform,filter] duration-300 ease-out min-w-[44px] min-h-[44px]" style="text-decoration: none; color: inherit; transform-style: preserve-3d;">
+          <div class="card flex flex-col items-center justify-center w-[80px] h-[80px] sm:w-[120px] sm:h-[120px] p-1.5 sm:p-2 bg-white rounded-xl sm:rounded-2xl text-center relative border-2 sm:border-3 transition-transform duration-200 ease-out" style="border-color: var(--color-card-border); transform-style: preserve-3d;">
+            <img src="/resources/case_icons/{{ post.tags }}.png" class="featured-image-post w-6 h-6 sm:w-10 sm:h-10 mb-1 sm:mb-2 object-contain relative z-10 transition-transform duration-300 ease-out"/>
+            <span class="text-[0.7rem] sm:text-[0.95rem] font-medium relative z-10 block leading-tight sm:leading-none overflow-hidden text-ellipsis whitespace-nowrap max-w-full">{{ post.title }}</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="expandingContainer" class="fixed left-0 top-0 w-screen h-screen bg-[#e0e0d1] rounded-[2rem] z-[1] opacity-0 scale-[0.2] transition-[border-radius] duration-200 flex flex-col">
+    
+    <!-- Main content area -->
+    <main class="flex-1 flex items-center justify-center h-full w-full">
+      
+      <!-- Carousel section -->
+      <section class="w-full h-full flex items-center justify-center">
+        <div id="carouselContainer" class="w-full h-[50vh] min-h-[45vh] max-h-[60vh] overflow-hidden flex items-center justify-center">
+          <div id="carouselTrack" class="flex items-center justify-center h-full w-full">
+        <div class="carousel-card carousel-card-large flex-none h-full p-4">
+          <div class="bg-white rounded-xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Мы учитываем индивидуальные особенности и цели каждого студента, чтобы обучение было максимально эффективным.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-small flex-none h-full p-4">
+          <div class="bg-white rounded-xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Используем лучшие онлайн-инструменты для интерактивного обучения и контроля прогресса.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-large flex-none h-full p-4">
+          <div class="bg-white rounded-xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Наши преподаватели всегда готовы помочь и ответить на любые вопросы по учебному процессу.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-small flex-none h-full p-4">
+          <div class="bg-white rounded-xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Вы сами выбираете расписание занятий, чтобы совмещать обучение с работой и личной жизнью.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-large flex-none h-full p-4">
+          <div class="bg-white rounded-xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">По окончании обучения выдаём сертификаты и дипломы, подтверждающие квалификацию.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-small flex-none h-full p-4">
+          <div class="bg-white rounded-xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Мы сопровождаем студентов от первого занятия до получения результата, помогая преодолеть трудности.</p>
+          </div>
+        </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <!-- Footer CTA section -->
+    <footer class="absolute bottom-0 left-0 w-full h-[15vh] flex items-center justify-center pb-32 sm:pb-0">
+      <div class="flex flex-row items-center" style="gap: 1px;">
+        <a href="/products" class="btn-ready-solutions flex-1 text-center px-4 sm:px-6 py-2 sm:py-3 rounded-l-full font-medium transition-colors text-sm sm:text-base bg-white min-w-[120px]">
+          Решения
+        </a>
+        <button id="contactsBtn" type="button" class="btn-ready-solutions flex-1 text-center px-4 sm:px-6 py-2 sm:py-3 rounded-r-full font-medium transition-colors text-sm sm:text-base bg-white min-w-[120px]">
+        Контакты
+        </button>
+      </div>
+    </footer>
+  </div>
+
+    <div class="flex flex-col items-center justify-center min-h-screen w-full max-w-xs sm:max-w-7xl mx-auto relative">
+      <div class="bg-white rounded-xl p-6 sm:p-8 mx-4 shadow-lg">
+        <h2 class="text-2xl sm:text-3xl font-semibold text-gray-700 mb-4 text-center">О нашей работе</h2>
+        <p class="text-gray-600 text-center leading-relaxed">
+          Мы создаем образовательные решения, которые помогают достигать поставленных целей. 
+          Наш подход основан на индивидуальной работе с каждым студентом и использовании 
+          современных методик обучения.
+        </p>
+      </div>
+    </div>
+
+</div>
+
+
+<div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-middle)">
+    <div class="flex flex-col items-center justify-center min-h-screen w-full max-w-xs sm:max-w-7xl mx-auto relative">
+      <div class="bg-white rounded-xl p-6 sm:p-8 mx-4 shadow-lg">
+        <h2 class="text-2xl sm:text-3xl font-semibold text-gray-700 mb-4 text-center">О нашей работе</h2>
+        <p class="text-gray-600 text-center leading-relaxed">
+          Мы создаем образовательные решения, которые помогают достигать поставленных целей. 
+          Наш подход основан на индивидуальной работе с каждым студентом и использовании 
+          современных методик обучения.
+        </p>
+      </div>
+    </div>
+</div>
+
+<div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-bottom)">
+    <div style="height:150vh"></div>
+</div>
+
+<div style="height:200vh"></div>
+
+<div class="background-bottom bg-white fixed inset-0 w-screen h-screen z-0 transition-opacity duration-300 opacity-0">
+  <div class="absolute left-0 right-0 bottom-0 h-[80vh] flex flex-col md:flex-row gap-4 md:gap-6 px-2">
+    
+    
+  </div>
+
+</div>
+
+
+<script src="/resources/js/index/main-background.js"></script>
+<script src="/resources/js/index/card-magnet-effect.js"></script>
+<script src="/resources/js/index/words.js"></script>
+<script src="/resources/js/smooth-scroll.js"></script>
+
+
+<script>
+function initExpandingAndTitles() {
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.create({
+    trigger: ".slide-section[data-bg]",
+    start: "top top",
+    end: "bottom+=500vh top",
+    pin: true,
+    pinSpacing: false,
+    scrub: true,
+    markers: true,
+    onUpdate: self => {
+      const progress = self.progress;
+      const fixed = self.isActive;
+      document.getElementById('siteNameBar')?.classList.toggle('fixed', fixed);
+      document.getElementById('siteIconBar')?.classList.toggle('fixed', fixed);
+      
+      // Заголовок уезжает вверх и исчезает
+      gsap.to("#mainTitle", {
+        opacity: progress < 0.1 ? 1 : 0,
+        duration: 0.2,
+        ease: "power1.out"
+      });
+      // "Наши работы" и "вместо слов" разъезжаются по горизонтали и исчезают
+      gsap.to(["#leftWork", "#rightWord"], {
+        x: i => i === 0 ? -window.innerWidth / 2 * progress : window.innerWidth / 2 * progress,
+        y: 0,
+        opacity: 1 - Math.max(0, (progress - 0.7) / 0.3),
+        duration: 0.2,
+        ease: "power1.out"
+      });
+      // Expanding container появляется и увеличивается
+      gsap.to("#expandingContainer", {
+        scale: progress < 0.5 ? 0.2 + 1.6 * progress : 1,
+        opacity: progress < 0.5 ? progress * 2 : 1,
+        borderRadius: progress < 0.5 ? "2rem" : "0rem",
+        duration: 0.2,
+        ease: "power1.out"
+      });
+
+      // Эффект вылета карточек на зрителя (как в index.html)
+      const cardsContainer = document.getElementById('cardsContainer');
+      if (cardsContainer) cardsContainer.style.cssText = 'perspective: 1000px; perspective-origin: center center';
+      
+      const isReady = Date.now() - (window.cardsAppearanceStartTime || 0) > 2000;
+      
+      document.querySelectorAll('.card-link').forEach((card, i) => {
+        if (!isReady) return; // Не трогаем карточки до завершения анимации появления
+        
+        const cardProgress = Math.max(0, (progress - 0.1 - i * 0.03) / 0.5);
+        const isFlying = progress > 0.1 && cardProgress > 0;
+        
+        card.classList.toggle('flying-card', isFlying);
+        
+        // Простое скрытие карточек на высоком progress
+        if (progress > 0.8) {
+          gsap.set(card, { 
+            opacity: 0, 
+            scale: 1, 
+            rotationX: 0, 
+            rotationY: 0, 
+            rotationZ: 0, 
+            z: 0,
+            transformStyle: 'preserve-3d', 
+            force3D: true 
+          });
+          card.style.pointerEvents = 'none';
+        } else {
+          gsap.set(card, isFlying ? {
+            scale: 1 + cardProgress * 0.15,
+            rotationX: Math.sin(cardProgress * Math.PI) * 5,
+            rotationY: Math.cos(cardProgress * Math.PI) * 3,
+            rotationZ: Math.sin(cardProgress * Math.PI * 2) * 10,
+            z: cardProgress * 500,
+            opacity: Math.max(0.1, 1 - cardProgress * 0.8),
+            transformStyle: 'preserve-3d',
+            force3D: true
+          } : {
+            scale: 1, rotationX: 0, rotationY: 0, rotationZ: 0, z: 0, opacity: 1,
+            transformStyle: 'preserve-3d', force3D: true
+          });
+          card.style.pointerEvents = 'auto';
+        }
+      });
+      document.getElementById('expandedHeader')?.classList.toggle('hidden', progress <= 0.5);
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', () => {
+  // Компенсируем pin-пространство для expandingContainer
+  const firstSection = document.querySelector('.slide-section[data-bg]');
+  if (firstSection) {
+    const extraSpace = window.innerHeight * 5; // соответствует 500vh из end параметра
+    firstSection.style.marginBottom = extraSpace + 'px';
+  }
+  
+  initExpandingAndTitles();
+});
+function positionCardsRandomly() {
+  const container = document.getElementById('cardsContainer');
+  const header = document.getElementById('mainHeaderSection');
+  const cards = document.querySelectorAll('.card-link');
+  if (!container || !header || !cards.length) return;
+  const { width, height } = container.getBoundingClientRect();
+  const headerRect = header.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+  const isMobile = window.innerWidth < 640;
+  const [margin, cardSize, minDist] = isMobile ? [20, 75, 105] : [40, 120, 140];
+  const [topMargin, bottomMargin] = isMobile ? [60, 60] : [margin, margin];
+  const avoid = {
+    left: headerRect.left - containerRect.left - (isMobile ? 10 : 20),
+    right: headerRect.right - containerRect.left + (isMobile ? 10 : 20),
+    top: headerRect.top - containerRect.top - (isMobile ? 50 : 20),
+    bottom: headerRect.bottom - containerRect.top + (isMobile ? 80 : 20)
+  };
+  const positions = [];
+  const centerX = width / 2;
+  const centerY = height / 2;
+  const hasCollision = (x, y) => {
+    if (x < avoid.right && x + cardSize > avoid.left && y < avoid.bottom && y + cardSize > avoid.top) {
+      return true;
+    }
+    if (x < margin || y < topMargin || x + cardSize > width - margin || y + cardSize > height - bottomMargin) {
+      return true;
+    }
+    const currentCenterX = x + cardSize / 2;
+    const currentCenterY = y + cardSize / 2;
+    return positions.some(pos => {
+      const existingCenterX = pos.x + cardSize / 2;
+      const existingCenterY = pos.y + cardSize / 2;
+      const distance = Math.hypot(currentCenterX - existingCenterX, currentCenterY - existingCenterY);
+      return distance < minDist;
+    });
+  };
+  cards.forEach((card, i) => {
+    let point;
+    for (let attempt = 0; attempt < 80; attempt++) {
+      let x, y;
+      if (attempt < 15) {
+        const totalCards = cards.length;
+        const cardsPerRing = isMobile ? 6 : 8;
+        const ringNumber = Math.floor(i / cardsPerRing);
+        const positionInRing = i % cardsPerRing;
+        const baseRadius = isMobile ? 80 : 120;
+        const radius = baseRadius + ringNumber * (isMobile ? 70 : 100) + attempt * 10;
+        const angleStep = (2 * Math.PI) / cardsPerRing;
+        const angle = positionInRing * angleStep + ringNumber * 0.3;
+        x = centerX + radius * Math.cos(angle);
+        y = centerY + radius * Math.sin(angle);
+      } else {
+        x = margin + Math.random() * (width - cardSize - margin * 2);
+        y = topMargin + Math.random() * (height - cardSize - topMargin - bottomMargin);
+      }
+      if (!hasCollision(x, y)) {
+        point = { x, y };
+        break;
+      }
+    }
+    point ??= { x: margin, y: height - cardSize - bottomMargin };
+    Object.assign(card.style, { left: `${point.x}px`, top: `${point.y}px` });
+    const dx = point.x + cardSize/2 - centerX;
+    const dy = point.y + cardSize/2 - centerY;
+    const distance = Math.hypot(dx, dy);
+    const scale = distance ? 80 / distance : 0;
+    gsap.set(card, { opacity: 0, scale: 0.3, x: -dx * scale, y: -dy * scale });
+    gsap.to(card, {
+      opacity: 1, scale: 1, x: 0, y: 0,
+      duration: 1.2, delay: 0.1 + Math.random() * 0.6 + distance * 0.0005,
+      ease: "power3.out"
+    });
+    positions.push(point);
+  });
+}
+document.addEventListener('DOMContentLoaded', () => {
+  window.cardsAppearanceStartTime = Date.now();
+  positionCardsRandomly();
+  if (typeof addCardMagnetEffect === 'function') {
+    addCardMagnetEffect();
+  }
+});
+</script>

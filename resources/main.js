@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const closeModalIcon = document.getElementById('closeModalIcon');
   const content = document.getElementById('modalContent');
 
-  function openModal() {
+  function openModal(centerX, centerY) {
     modalOverlay.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
     modalOverlay.style.background = 'var(--color-modal-background)';
@@ -13,9 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
     content.style.opacity = '1';
     content.style.transform = 'scale(1)';
 
-    const iconRect = methodIcon.getBoundingClientRect();
-    const centerX = iconRect.left + iconRect.width / 2;
-    const centerY = iconRect.top + iconRect.height / 2;
+    if (typeof centerX !== 'number' || typeof centerY !== 'number') {
+      const iconRect = methodIcon.getBoundingClientRect();
+      centerX = iconRect.left + iconRect.width / 2;
+      centerY = iconRect.top + iconRect.height / 2;
+    }
     const maxRadius = Math.sqrt(window.innerWidth ** 2 + window.innerHeight ** 2);
 
     gsap.fromTo(
@@ -51,8 +53,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  methodIcon.addEventListener('click', openModal);
+  methodIcon.addEventListener('click', function(e) {
+    const rect = methodIcon.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    openModal(centerX, centerY);
+  });
   closeModalIcon.addEventListener('click', closeModal);
+  document.getElementById('contactsBtn')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    const rect = e.target.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    openModal(centerX, centerY);
+  });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !modalOverlay.classList.contains('hidden')) {
       closeModal();

@@ -19,7 +19,10 @@
     <!-- Карточки в одной строке на десктопе -->
     <div class="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0 items-center justify-center">
       
-      
+    <!-- Надпись только для мобильных -->
+    <div class="block md:hidden mb-4 text-gray-500 text-base font-medium select-none">
+      Кликни на QR-код
+    </div>
       <!-- QR сделаны насайте https://genqrcode.com/ -->
       <!-- vCard карточка -->
       <a href="tel:+{{ site.phone }}" target="_blank" rel="noopener noreferrer">
@@ -45,6 +48,7 @@
         </div>
       </a>
     </div>
+
     <!-- Надпись только для ПК -->
     <div class="hidden md:block mt-4 text-gray-500 text-base font-medium select-none">
       Нажмите на карточку для перехода
