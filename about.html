@@ -1,0 +1,421 @@
+---
+layout: default
+---
+
+{% assign fast_link = '
+      rounded-full px-5 py-1 sm:py-2 bg-[#FD589E] text-[#38001B] font-semibold text-sm sm:text-base transition-colors duration-200 hover:bg-[#38001B] hover:text-[#FD589E] text-center
+' %}
+
+{% assign tasb_link = '
+  tab-btn rounded-full px-5 py-1 sm:py-2 bg-[#FD589E] text-[#38001B] font-semibold text-sm sm:text-base transition-colors duration-200 hover:bg-[#38001B] hover:text-[#FD589E] text-center
+' %}
+
+
+<div class="background-blend fixed inset-0 w-screen z-10"></div>
+
+<div class="slide-section relative z-10 bg-transparent" data-bg="var(--color-background-top)">
+
+
+  <div class="relative px-4 sm:px-8 md:px-10">
+    <div class="flex flex-wrap gap-2 sm:gap-4 mt-28 sm:mt-34 md:mt-40 items-stretch gap-y-2 sm:gap-y-2">
+      <a href="#about" class="{{ fast_link }}">О бюро</a>
+      <a href="#media" class="{{ fast_link }}">СМИ</a>
+      <a href="#team" class="{{ fast_link }}">Команда</a>
+      <a href="#down" class="{{ fast_link }}">Вакансии</a>
+    </div>
+    <h1 class="font-medium mt-[8vh] sm:mt-[12vh] max-w-xl sm:max-w-4xl md:max-w-7xl text-4xl sm:text-6xl md:text-7xl">В многообразии находим общее стремление расти</h1>
+  </div>
+
+  <div class="flex justify-center items-center mt-[8vh] sm:mt-[16vh]">
+    <div id="videoPinWrapper" class="w-full flex justify-center">
+      <div id="videoContainer" class="relative w-[85vw] h-[85vw] max-w-full box-border sm:w-[85vw] sm:h-[90vh]">
+        <video id="teamVideo" class="object-cover w-full h-full rounded-3xl" preload="metadata" playsinline poster="/resources/team/team.jpg">
+          <source src="/resources/team/team.mp4" type="video/mp4">
+          Ваш браузер не поддерживает видео.
+        </video>
+        <button id="playBtn" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center transition rounded-2xl"
+          style="border:none;outline:none;">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="40" fill="#FD589E" fill-opacity="0.95"/>
+            <polygon points="32,25 60,40 32,55" fill="#38001B"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="videoPlaceholder" style="width:0;height:0;"></div>
+  </div>
+
+  
+  <div id="about" class="relative px-8 sm:px-14 md:px-28 flex flex-col flex-1">
+    <h1 class="font-medium mt-[8vh] sm:mt-[12vh] max-w-full text-4xl sm:text-5xl md:text-7xl">История бюро</h1>
+    <div id="tabs" class="flex mt-4 sm:mt-6 md:mt-8 gap-2 sm:gap-4">
+      <button class="{{ tasb_link }}" data-tab="2025">2025</button>
+      <button class="{{ tasb_link }}" data-tab="2024">2024</button>
+      <button class="{{ tasb_link }}" data-tab="2023">2023</button>
+    </div>
+
+    <div class="tab-content mt-4 sm:mt-6 md:mt-8 flex-1 flex flex-col">
+
+    {% assign head_2025 = "
+      Выходим в web
+    " %}
+    {% assign text_2025 = "
+      2025 год – это время формирования бренда в цифровой среде. Мы создали сайт с описанием кейсов, чтобы больше компаний узнали о нас и могли с нами повзаимодействовать. Записали подкасты с крутыми экспертами из сферы образования. Делились своей экспертизой в Telegram-канале бюро, чтобы больше студентов и преподавателей смогли качественно обучать и обучаться. Приняли участие в методическом онлайн-хакатоне, чтобы продемонстрировать свою экспертизу.
+    " %}
+      <div class="tab-panel" data-tab="2025">
+        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-8 w-full">
+          <div class="w-full sm:w-1/2 flex justify-center items-center relative">
+            <div class="w-full aspect-[16/9] flex items-center justify-center rounded-xl overflow-hidden">
+              <img src="/resources/team/history/2025.jpg" alt="2025" class="w-full h-full object-cover" />
+            </div>
+          </div>
+          <!-- На мобильных текст под картинкой, на десктопе справа -->
+          <div class="w-full sm:w-1/2 mt-1 sm:mt-0">
+            <div class="px-2 sm:px-0">
+              <h3 class="text-lg sm:text-sm md:text-lg font-semibold mb-2 sm:mb-0">{{ head_2025 }}</h3>
+              <p class="text-sm sm:text-xs md:text-base leading-relaxed">{{ text_2025 }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% assign head_2024 = "
+      Первый этап пройден
+    " %}
+    {% assign text_2024 = "
+      Согласно статистике Росcтата 92% новых компаний закрываются за первый год существования. Раз вы читаете этот текст, значит, мы избежали этой ужасной участи.
+      <br><br>
+      За 2024 год мы привлекли еще компании, которые доверяют нашей экспертизе, поучаствовали как заказчики в конкурсе студенческих работ от SkillFactory, расширили свою команду и дистанционно отпраздновали День Рождения бюро.
+      <br><br>
+      Главное, что мы сохранили заряд для движения дальше! 
+    " %}
+      <div class="tab-panel" data-tab="2024">
+        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-8 w-full">
+          <div class="w-full sm:w-1/2 flex justify-center items-center relative">
+            <div class="w-full aspect-[16/9] flex items-center justify-center rounded-xl overflow-hidden">
+              <img src="/resources/team/history/2024.jpg" alt="2024" class="w-full h-full object-cover" />
+            </div>
+          </div>
+          <!-- На мобильных текст под картинкой, на десктопе справа -->
+          <div class="w-full sm:w-1/2 mt-1 sm:mt-0">
+            <div class="px-2 sm:px-0">
+              <h3 class="text-lg sm:text-sm md:text-lg font-semibold mb-2 sm:mb-0">{{ head_2024 }}</h3>
+              <p class="text-sm sm:text-xs md:text-base leading-relaxed">{{ text_2024 }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    {% assign head_2023 = "
+      Объединяемся, чтобы делать результат
+    " %}
+    {% assign text_2023 = "
+      В июне 2023 г. мы начинаем работу над первым проектом. В нас поверил первый заказчик. Ура!
+      <br><br>
+      Разрабатываем совместно с экспертами 7 курсов и погружаемся в IT-тематику. В итоге, меньше чем за год успеваем принять участие в 20 проектах и помочь айтишникам стать преподавателями.
+      <br><br>
+      Делаем глубокую рефлексию, что удалось и где стоит еще докрутить нашу экспертизу. И продолжаем движение вперед!
+    " %}
+      <div class="tab-panel" data-tab="2023">
+        <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-8 w-full">
+          <div class="w-full sm:w-1/2 flex justify-center items-center relative">
+            <div class="w-full aspect-[16/9] flex items-center justify-center rounded-xl overflow-hidden">
+              <img src="/resources/team/history/2023.jpg" alt="2024" class="w-full h-full object-cover" />
+            </div>
+          </div>
+          <!-- На мобильных текст под картинкой, на десктопе справа -->
+          <div class="w-full sm:w-1/2 mt-1 sm:mt-0">
+            <div class="px-2 sm:px-0">
+              <h3 class="text-lg sm:text-sm md:text-lg font-semibold mb-2 sm:mb-0">{{ head_2023 }}</h3>
+              <p class="text-sm sm:text-xs md:text-base leading-relaxed">{{ text_2023 }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+  </div>
+
+
+</div>
+
+<div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-bottom)">
+    <div id="media" class="relative px-8 sm:px-14 md:px-28">
+    <h1 class="font-medium mt-[8vh] sm:mt-[12vh] max-w-full text-4xl sm:text-5xl md:text-7xl">О нас не только говорят</h1>
+    <div class="flex gap-8 mt-4 sm:mt-6 md:mt-8">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 w-full">
+        <!-- Карточки автоматически займут 2x3 на sm, 3x2 на md, 5 в ряд на lg+ -->
+        <a href="https://rutube.ru/video/47bcb39f59e3db3b2542a7191e3c0fb4/" target="_blank" rel="noopener" class="media-card tilt-card rounded-2xl flex items-center justify-center aspect-square transition-shadow duration-200 hover:z-10 relative overflow-hidden min-h-[100px] sm:min-h-[140px] md:min-h-[120px] lg:min-h-[100px]" style="background: rgba(255,255,255,0.3);">
+          <span class="tilt-gloss"></span>
+          <span class="text-lg sm:text-xl">СПбГУ</span>
+        </a>
+        <a href="https://www.the-village.ru/business/rabota/ya-proshel-mnogo-kursov/" target="_blank" rel="noopener" class="media-card tilt-card rounded-2xl flex items-center justify-center aspect-square transition-shadow duration-200 hover:z-10 relative overflow-hidden min-h-[100px] sm:min-h-[140px] md:min-h-[120px] lg:min-h-[100px]" style="background: rgba(255,255,255,0.3);">
+          <span class="tilt-gloss"></span>
+          <span class="text-lg sm:text-xl">The Village</span>
+        </a>
+        <a href="https://journal.tinkoff.ru/" target="_blank" rel="noopener" class="media-card tilt-card rounded-2xl flex items-center justify-center aspect-square transition-shadow duration-200 hover:z-10 relative overflow-hidden min-h-[100px] sm:min-h-[140px] md:min-h-[120px] lg:min-h-[100px]" style="background: rgba(255,255,255,0.3);">
+          <span class="tilt-gloss"></span>
+          <span class="text-lg sm:text-xl">ВШМ</span>
+        </a>
+        <a href="https://www.rbc.ru/" target="_blank" rel="noopener" class="media-card tilt-card rounded-2xl flex items-center justify-center aspect-square transition-shadow duration-200 hover:z-10 relative overflow-hidden min-h-[100px] sm:min-h-[140px] md:min-h-[120px] lg:min-h-[100px]" style="background: rgba(255,255,255,0.3);">
+          <span class="tilt-gloss"></span>
+          РБК
+        </a>
+        <a href="https://iz.ru/" target="_blank" rel="noopener" class="media-card tilt-card rounded-2xl flex items-center justify-center aspect-square transition-shadow duration-200 hover:z-10 relative overflow-hidden min-h-[100px] sm:min-h-[140px] md:min-h-[120px] lg:min-h-[100px]" style="background: rgba(255,255,255,0.3);">
+          <span class="tilt-gloss"></span>
+          ИЗВЕСТИЯ
+        </a>
+      </div>
+      </div>
+    </div>
+
+
+<div id="team" class="relative px-8 sm:px-14 md:px-28">
+  <div class="flex grid gap-8 mt-[8vh] sm:mt-[12vh]">
+
+      {% assign team_quote = "Результат работы методиста – это счастливые глаза студентов и преподавателей. Поэтому мы проектируем обучение, исходя из потребностей каждой из сторон" %}
+      {% assign team_name = "Мила Васильева" %}
+      {% assign team_role = "Дизайнер образовательного опыта" %}
+      <div class="flex-1 min-w-0">
+        <div class="card bg-[#D8F1FF] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full relative" style="padding:16px;">
+          <div class="flex flex-col-reverse sm:flex-row items-center justify-center w-full h-full">
+            <!-- Картинка на мобильных занимает весь контейнер, текст поверх -->
+            <div class="h-full sm:h-full w-full sm:w-[40%] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 relative">
+              <img src="/resources/team/people/Mila.png" alt="Team member" class="hidden sm:block h-[70vh] sm:h-full sm:max-h-[70vh] object-contain w-full opacity-80 sm:opacity-100" />
+              <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 opacity-100 sm:opacity-100 sm:hidden">
+                <h2 class="text-2xl sm:text-4xl font-bold text-[#003A4D] mb-4 sm:max-w-2xl sm:text-left">
+                  “{{ team_quote }}”
+                </h2>
+                <div class="mt-4 flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <span class="text-lg sm:text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                  <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- Для десктопа текст справа -->
+            <div class="hidden sm:flex w-full sm:w-[60%] flex-col justify-center items-start text-left opacity-100">
+              <h2 class="text-4xl font-bold text-[#003A4D] mb-4 max-w-2xl text-left">
+                “{{ team_quote }}”
+              </h2>
+              <div class="mt-4 flex flex-col items-start text-left">
+                <span class="text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {% assign team_quote = "Поддержка в обучении должна быть гибкой. Важно доверять экспертам и направлять их, а не подменять их решения" %}
+      {% assign team_name = "Антонина Гарновская" %}
+      {% assign team_role = "Менеджер по сопровождению обучения" %}
+      <div class="flex-1 min-w-0">
+        <div class="card bg-[#82C0E1] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full relative" style="padding:16px;">
+          <div class="flex flex-col-reverse sm:flex-row items-center justify-center w-full h-full">
+            <!-- Картинка на мобильных занимает весь контейнер, текст поверх -->
+            <div class="h-full sm:h-full w-full sm:w-[40%] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 relative">
+              <img src="/resources/team/people/Tonya.png" alt="Team member" class="hidden sm:block h-[70vh] sm:h-full sm:max-h-[70vh] object-contain w-full opacity-80 sm:opacity-100" />
+              <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 opacity-100 sm:opacity-100 sm:hidden">
+                <h2 class="text-2xl sm:text-4xl font-bold text-[#003A4D] mb-4 sm:max-w-2xl sm:text-left">
+                  “{{ team_quote }}”
+                </h2>
+                <div class="mt-4 flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <span class="text-lg sm:text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                  <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- Для десктопа текст справа -->
+            <div class="hidden sm:flex w-full sm:w-[60%] flex-col justify-center items-start text-left opacity-100">
+              <h2 class="text-4xl font-bold text-[#003A4D] mb-4 max-w-2xl text-left">
+                “{{ team_quote }}”
+              </h2>
+              <div class="mt-4 flex flex-col items-start text-left">
+                <span class="text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% assign team_quote = "Образование – это большое поле для творчества и развития себя как специалиста. Чувствуешь, что делаешь очень важную работу" %}
+      {% assign team_name = "Александр Сабельников" %}
+      {% assign team_role = "Веб-разработчик" %}
+      <div class="flex-1 min-w-0">
+        <div class="card bg-[#DE6E4B] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full relative" style="padding:16px;">
+          <div class="flex flex-col-reverse sm:flex-row items-center justify-center w-full h-full">
+            <!-- Картинка на мобильных занимает весь контейнер, текст поверх -->
+            <div class="h-full sm:h-full w-full sm:w-[40%] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 relative">
+              <img src="/resources/team/people/Alex.png" alt="Team member" class="hidden sm:block h-[70vh] sm:h-full sm:max-h-[70vh] object-contain w-full opacity-80 sm:opacity-100" />
+              <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 opacity-100 sm:opacity-100 sm:hidden">
+                <h2 class="text-2xl sm:text-4xl font-bold text-[#003A4D] mb-4 sm:max-w-2xl sm:text-left">
+                  “{{ team_quote }}”
+                </h2>
+                <div class="mt-4 flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <span class="text-lg sm:text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                  <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- Для десктопа текст справа -->
+            <div class="hidden sm:flex w-full sm:w-[60%] flex-col justify-center items-start text-left opacity-100">
+              <h2 class="text-4xl font-bold text-[#003A4D] mb-4 max-w-2xl text-left">
+                “{{ team_quote }}”
+              </h2>
+              <div class="mt-4 flex flex-col items-start text-left">
+                <span class="text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {% assign team_quote = "Структура и порядок – это залог успешного обучения. Именно этим я и занимаюсь в бюро: слежу за процессом, чтобы всё было готово в срок и все остались довольны" %}
+      {% assign team_name = "Юлия Гладких" %}
+      {% assign team_role = "Проджект-менеджер" %}
+      <div class="flex-1 min-w-0">
+        <div class="card bg-[#E56399] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full relative" style="padding:16px;">
+          <div class="flex flex-col-reverse sm:flex-row items-center justify-center w-full h-full">
+            <!-- Картинка на мобильных занимает весь контейнер, текст поверх -->
+            <div class="h-full sm:h-full w-full sm:w-[40%] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 relative">
+              <img src="/resources/team/people/Julia.png" alt="Team member" class="hidden sm:block h-[70vh] sm:h-full sm:max-h-[70vh] object-contain w-full opacity-80 sm:opacity-100" />
+              <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 opacity-100 sm:opacity-100 sm:hidden">
+                <h2 class="text-2xl sm:text-4xl font-bold text-[#003A4D] mb-4 sm:max-w-2xl sm:text-left">
+                  “{{ team_quote }}”
+                </h2>
+                <div class="mt-4 flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <span class="text-lg sm:text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                  <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- Для десктопа текст справа -->
+            <div class="hidden sm:flex w-full sm:w-[60%] flex-col justify-center items-start text-left opacity-100">
+              <h2 class="text-4xl font-bold text-[#003A4D] mb-4 max-w-2xl text-left">
+                “{{ team_quote }}”
+              </h2>
+              <div class="mt-4 flex flex-col items-start text-left">
+                <span class="text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% assign team_quote = "В детстве я представляла, как преподаю математику и английский язык. Здорово, что и во взрослой жизни можно продолжать делать то, что любишь" %}
+      {% assign team_name = "Анастасия Меркоева" %}
+      {% assign team_role = "основатель Method-A" %}
+      <div class="flex-1 min-w-0">
+        <div class="card bg-[#EAFB7F] rounded-4xl overflow-hidden h-[80vh] flex items-center justify-center w-full relative" style="padding:16px;">
+          <div class="flex flex-col-reverse sm:flex-row items-center justify-center w-full h-full">
+            <!-- Картинка на мобильных занимает весь контейнер, текст поверх -->
+            <div class="h-full sm:h-full w-full sm:w-[40%] flex-shrink-0 flex items-center justify-center mb-4 sm:mb-0 relative">
+              <img src="/resources/team/people/owner.png" alt="Team member" class="hidden sm:block h-[70vh] sm:h-full sm:max-h-[70vh] object-contain w-full opacity-80 sm:opacity-100" />
+              <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 opacity-100 sm:opacity-100 sm:hidden">
+                <h2 class="text-2xl sm:text-4xl font-bold text-[#003A4D] mb-4 sm:max-w-2xl sm:text-left">
+                  “{{ team_quote }}”
+                </h2>
+                <div class="mt-4 flex flex-col items-center sm:items-start text-center sm:text-left">
+                  <span class="text-lg sm:text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                  <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- Для десктопа текст справа -->
+            <div class="hidden sm:flex w-full sm:w-[60%] flex-col justify-center items-start text-left opacity-100">
+              <h2 class="text-4xl font-bold text-[#003A4D] mb-4 max-w-2xl text-left">
+                “{{ team_quote }}”
+              </h2>
+              <div class="mt-4 flex flex-col items-start text-left">
+                <span class="text-xl font-semibold text-[#003A4D]">{{ team_name }}</span>
+                <span class="text-base text-[#003A4D] mt-1">{{ team_role }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+
+<div style="height:130vh"></div>
+
+</div>
+
+
+<div class="background-bottom bg-white fixed inset-0 w-screen h-screen z-0 transition-opacity duration-300 opacity-0">
+  <div class="absolute left-0 right-0 bottom-0 h-[80vh] flex flex-col md:flex-row gap-4 md:gap-6 px-2">
+    
+    
+    <div class="absolute inset-0 flex flex-col justify-center pointer-events-none text-[#003A4D] sm:pl-24">
+      <div class="flex flex-row items-center justify-between w-full max-w-xs sm:max-w-full mx-auto sm:mx-0 pointer-events-auto relative">
+
+        <a href="https://t.me/{{ site.telegram_dm }}" class="group flex flex-row items-center justify-between w-full pointer-events-auto transition-colors duration-200 no-underline hover:text-[#FD589E]" style="text-decoration:none;">
+          <div class="flex flex-row items-center justify-between max-w-3xl">
+            <div>
+              <span class="text-3xl sm:text-5xl md:text-7xl font-medium text-left">Сделаем вместе</span>
+              <div class="mt-2 flex flex-row items-center gap-2 sm:gap-6">
+                <span class="text-3xl sm:text-5xl md:text-7xl font-medium text-left">что-то</span>
+                <span id="word-animate" class="text-3xl sm:text-5xl md:text-7xl font-medium text-left">новое</span>
+              </div>
+            </div>
+            <div class="bg-transparent p-0 outline-none cursor-pointer w-8 h-8 sm:w-16 sm:h-16 flex items-center justify-center ml-4">
+              <svg id="arrow-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 12 12">
+                <path fill="currentColor" d="M1.5 6a.75.75 0 0 1 .75-.75h5.94L6.22 3.28a.75.75 0 0 1 1.06-1.06l3.25 3.25a.75.75 0 0 1 0 1.06L7.28 9.78a.75.75 0 0 1-1.06-1.06l1.97-1.97H2.25A.75.75 0 0 1 1.5 6Z"/>
+              </svg>
+            </div>
+          </div>
+          
+          <!-- Картинка только для десктопа -->
+          <div class="hidden sm:block flex-shrink-0 ml-14">
+            <img src="/resources/team/poster.png" alt="Team" class="w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] h-auto object-contain" />
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Desktop footer -->
+    <div class="absolute left-[2vw] bottom-[2vh] text-xs text-[#003A4D] hidden sm:block">
+      ИП Меркоева А.И.<br>
+      ИНН 463312689824<br>
+      ОГРН 323460000022305
+    </div>
+    <div class="absolute left-1/2 bottom-4 text-[#003A4D] hidden sm:block">
+      <a href="#up" class="mt-4 inline-block font-medium group relative">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Наверх" class="inline">
+          <path d="M12 5l-7 7h4v7h6v-7h4l-7-7z"
+            fill="#003A4D"
+            class="transition-opacity duration-200 opacity-30 group-hover:opacity-100" />
+        </svg>
+      </a>
+    </div>
+    <div class="absolute right-[2vw] bottom-[2vh] text-xs text-[#003A4D] hidden sm:block">
+      <a href="/" class="hover:underline text-[#003A4D]">Публичная оферта</a><br>
+      <a href="/" class="hover:underline text-[#003A4D]">Пользовательское соглашение</a><br>
+      Все права защищены © <span id="copyright-year"></span>
+    </div>
+    <!-- Mobile footer -->
+    <div class="absolute inset-x-0 bottom-10 flex flex-col items-center justify-center text-xs text-[#003A4D] py-4 sm:hidden">
+      <div class="mb-2 text-center">
+        ИП Меркоева А.И.<br>
+        ИНН 463312689824<br>
+        ОГРН 323460000022305<br>
+        <a href="/" class="hover:underline text-[#003A4D]">Пользовательское соглашение</a><br>
+      </div>
+    </div>
+    
+  </div>
+
+</div>
+
+<script src="/resources/js/tilt.js"></script>
+<script src="/resources/js/smooth-scroll.js"></script>
+<script src="/resources/js/about/main.js"></script>
+<script src="/resources/js/about/tabs.js"></script>
+<script src="/resources/js/about/play.js"></script>
+<script src="/resources/js/about/words.js"></script>

@@ -1,0 +1,224 @@
+---
+layout: default
+---
+
+<div class="background-blend fixed inset-0 w-screen z-10"></div>
+
+<div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-top)">
+    
+  <div class="flex flex-col items-center justify-center min-h-screen w-full max-w-xs sm:max-w-7xl mx-auto relative">
+    <div id="mainHeaderSection" class="flex flex-col items-center justify-center w-full mb-4 sm:mb-8 px-4">
+      <h1 id="mainTitle" class="text-3xl sm:text-7xl font-semibold text-center text-gray-600 mb-1 sm:mb-2 w-full leading-tight">
+        <span class="sm:hidden">Бюро Метод - А</span>
+        <span class="hidden sm:inline">Образовательное бюро Метод - А</span>
+      </h1>
+      <div id="workWordsRow" class="flex flex-row w-full gap-1 sm:gap-4 justify-center">
+      <h2 id="leftWork" class="text-3xl sm:text-7xl font-semibold text-center text-gray-600 leading-tight">
+        <span class="sm:hidden">Наши</span>
+        <span class="hidden sm:inline">Наши работы</span>
+      </h2>
+      <h2 id="rightWord" class="text-3xl sm:text-7xl font-semibold text-center text-gray-600 leading-tight">
+        <span class="sm:hidden">работы</span>
+        <span class="hidden sm:inline">вместо слов</span>
+      </h2>
+      </div>
+    </div>
+    <div id="cardsContainer" class="absolute inset-0 w-full h-full">
+      {% for post in site.categories.case %}
+        <a href="{{ post.url }}" class="card-link absolute transition-[transform,filter] duration-300 ease-out min-w-[44px] min-h-[44px]" style="text-decoration: none; color: inherit; transform-style: preserve-3d;">
+          <div class="card flex flex-col items-center justify-center w-[80px] h-[80px] sm:w-[120px] sm:h-[120px] p-1.5 sm:p-2 bg-white rounded-xl sm:rounded-2xl text-center relative border-2 sm:border-3 transition-transform duration-200 ease-out" style="border-color: var(--color-card-border); transform-style: preserve-3d;">
+            <img src="/resources/case_icons/{{ post.tags }}.png" class="featured-image-post w-6 h-6 sm:w-10 sm:h-10 mb-1 sm:mb-2 object-contain relative z-10 transition-transform duration-300 ease-out"/>
+            <span class="text-[0.7rem] sm:text-[0.95rem] font-medium relative z-10 block leading-tight sm:leading-none overflow-hidden text-ellipsis whitespace-nowrap max-w-full">{{ post.title }}</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="expandingContainer" class="fixed left-0 top-0 w-screen h-screen bg-[#e0e0d1] rounded-[2rem] z-[1] opacity-0 scale-[0.2] transition-[border-radius] duration-200 flex flex-col">
+    
+    <!-- Main content area -->
+    <main class="flex-1 flex items-center justify-center h-full w-full">
+      
+      <!-- Carousel section -->
+      <section class="w-full h-full flex items-start pt-16 sm:items-center sm:pt-0 justify-center">
+        <div id="carouselContainer" class="w-full h-[70vh] min-h-[55vh] max-h-[70vh] sm:h-[60vh] sm:min-h-[50vh] sm:max-h-[75vh] overflow-hidden">
+          <div id="carouselTrack" class="flex items-center h-full">
+        <div class="carousel-card carousel-card-large flex-none h-full p-4">
+          <div class="bg-white rounded-3xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Мы учитываем индивидуальные особенности и цели каждого студента, чтобы обучение было максимально эффективным.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-small flex-none h-full p-4">
+          <div class="bg-white rounded-3xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Используем лучшие онлайн-инструменты для интерактивного обучения и контроля прогресса.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-large flex-none h-full p-4">
+          <div class="bg-white rounded-3xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Наши преподаватели всегда готовы помочь и ответить на любые вопросы по учебному процессу.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-small flex-none h-full p-4">
+          <div class="bg-white rounded-3xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Вы сами выбираете расписание занятий, чтобы совмещать обучение с работой и личной жизнью.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-large flex-none h-full p-4">
+          <div class="bg-white rounded-3xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">По окончании обучения выдаём сертификаты и дипломы, подтверждающие квалификацию.</p>
+          </div>
+        </div>
+        <div class="carousel-card carousel-card-small flex-none h-full p-4">
+          <div class="bg-white rounded-3xl p-6 mx-2 h-full flex items-center justify-center">
+        <p class="text-gray-400 text-center leading-relaxed">Мы сопровождаем студентов от первого занятия до получения результата, помогая преодолеть трудности.</p>
+          </div>
+        </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <!-- Footer CTA section -->
+    <footer class="absolute bottom-0 left-0 w-full h-[15vh] flex items-center justify-center pb-26 sm:pb-0">
+      <div class="flex flex-row items-center" style="gap: 1px;">
+        <a href="/products" class="btn-ready-solutions flex-1 text-center px-8 sm:px-12 py-2 sm:py-3 rounded-l-full font-medium transition-colors text-sm sm:text-base bg-white min-w-[120px] sm:min-w-[240px]">
+          <span class="sm:hidden">Решения</span>
+          <span class="hidden sm:inline">Готовые решения</span>
+        </a>
+        <button id="contactsBtn" type="button" class="btn-ready-solutions flex-1 text-center px-4 sm:px-6 py-2 sm:py-3 rounded-r-full font-medium transition-colors text-sm sm:text-base bg-white min-w-[120px] cursor-pointer">
+          Контакты
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  
+    <div class="flex justify-start items-center pt-0 sm:pt-8">
+    <div id="videoPinWrapper" class="w-full flex justify-center">
+      <div id="videoContainer" class="relative w-[85vw] h-[85vw] max-w-full box-border sm:w-[85vw] sm:h-[90vh]">
+        <video id="teamVideo" class="object-cover w-full h-full rounded-3xl" preload="metadata" playsinline poster="/resources/team/team.jpg">
+          <source src="/resources/team/team.mp4" type="video/mp4">
+          Ваш браузер не поддерживает видео.
+        </video>
+        <button id="playBtn" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center transition rounded-2xl"
+          style="border:none;outline:none;">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="40" fill="#FD589E" fill-opacity="0.95"/>
+            <polygon points="32,25 60,40 32,55" fill="#38001B"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="videoPlaceholder" style="width:0;height:0;"></div>
+  </div>
+
+  </div>
+
+</div>
+
+<div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-middle)">
+  <div class="relative px-8 sm:px-14 md:px-28 flex flex-col flex-1">
+    <h1 class="font-medium mt-[8vh] sm:mt-[12vh] max-w-3xl text-4xl sm:text-5xl md:text-7xl">Наш подход </h1>
+
+    <div class="flex gap-8 mt-4 sm:mt-6 md:mt-8">
+            <!-- Результат -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
+                <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Результат</h3>
+                <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                    У любого обучения особенно корпоративного должен быть результат. На этапе брифа мы фиксируем, какой результат вы хотите получить и как мы будем его замерять.
+                </p>
+            </div>
+            
+            <!-- Открытость -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
+                <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Открытость</h3>
+                <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                    Мы берем проекты любой сложности и выстраиваем процессы так, чтобы вам было понятно, на каком этапе проект и какие есть результаты.
+                </p>
+            </div>
+            
+            <!-- Поддержка -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
+                <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Поддержка</h3>
+                <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                    Мы не просто разрабатываем обучение, мы развиваем ваших экспертов, чтобы они тоже выросли в процессе подготовки обучения, а также мы сопровождаем студентов, чтобы поддерживать их мотивацию на пути к цели.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-bottom)">
+    <div style="height:150vh"></div>
+</div>
+
+<div style="height:200vh"></div>
+
+<div class="background-bottom bg-white fixed inset-0 w-screen h-screen z-0 transition-opacity duration-300 opacity-0">
+  <div class="absolute left-0 right-0 bottom-0 h-[80vh] flex flex-col md:flex-row gap-4 md:gap-6 px-2">
+
+        <div class="absolute inset-0 flex flex-col justify-center pointer-events-none text-[#003A4D] sm:pl-24">
+      <div class="flex flex-row items-center justify-between w-full max-w-xs sm:max-w-full mx-auto sm:mx-0 pointer-events-auto relative">
+
+        <a href="https://t.me/{{ site.telegram_dm }}" class="group flex flex-row items-center justify-between w-full pointer-events-auto transition-colors duration-200 no-underline hover:text-[#FD589E]" style="text-decoration:none;">
+          <div class="flex flex-row items-center justify-between max-w-6xl">
+            <div>
+              <span class="text-3xl sm:text-5xl md:text-7xl font-medium text-left">Расскажите нам</span>
+              <div class="mt-2 flex flex-row items-center gap-2 sm:gap-6">
+                <span class="text-3xl sm:text-5xl md:text-7xl font-medium text-left">свою</span>
+                <span id="word-animate" class="text-3xl sm:text-5xl md:text-7xl font-medium text-left">задачу</span>
+              </div>
+            </div>
+            <div class="bg-transparent p-0 outline-none cursor-pointer w-8 h-8 sm:w-16 sm:h-16 flex items-center justify-center ml-4">
+              <svg id="arrow-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 12 12">
+                <path fill="currentColor" d="M1.5 6a.75.75 0 0 1 .75-.75h5.94L6.22 3.28a.75.75 0 0 1 1.06-1.06l3.25 3.25a.75.75 0 0 1 0 1.06L7.28 9.78a.75.75 0 0 1-1.06-1.06l1.97-1.97H2.25A.75.75 0 0 1 1.5 6Z"/>
+              </svg>
+            </div>
+          </div>
+          
+          <!-- Картинка только для десктопа -->
+          <div class="hidden sm:block flex-shrink-0 ml-14">
+            <img src="/resources/team/poster.png" alt="Team" class="w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] h-auto object-contain" />
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Desktop footer -->
+    <div class="absolute left-[2vw] bottom-[2vh] text-xs text-[#003A4D] hidden sm:block">
+      ИП Меркоева А.И.<br>
+      ИНН 463312689824<br>
+      ОГРН 323460000022305
+    </div>
+    <div class="absolute left-1/2 bottom-4 text-[#003A4D] hidden sm:block">
+      <a href="#up" class="mt-4 inline-block font-medium group relative">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Наверх" class="inline">
+          <path d="M12 5l-7 7h4v7h6v-7h4l-7-7z"
+            fill="#003A4D"
+            class="transition-opacity duration-200 opacity-30 group-hover:opacity-100" />
+        </svg>
+      </a>
+    </div>
+    <div class="absolute right-[2vw] bottom-[2vh] text-xs text-[#003A4D] hidden sm:block">
+      <a href="/" class="hover:underline text-[#003A4D]">Публичная оферта</a><br>
+      <a href="/" class="hover:underline text-[#003A4D]">Пользовательское соглашение</a><br>
+      Все права защищены © <span id="copyright-year"></span>
+    </div>
+    <!-- Mobile footer -->
+    <div class="absolute inset-x-0 bottom-10 flex flex-col items-center justify-center text-xs text-[#003A4D] py-4 sm:hidden">
+      <div class="mb-2 text-center">
+        ИП Меркоева А.И.<br>
+        ИНН 463312689824<br>
+        ОГРН 323460000022305<br>
+        <a href="/" class="hover:underline text-[#003A4D]">Пользовательское соглашение</a><br>
+      </div>
+    </div>
+</div>
+
+
+<script src="/resources/js/index/main-background.js"></script>
+<script src="/resources/js/index/card-magnet-effect.js"></script>
+<script src="/resources/js/smooth-scroll.js"></script>
+<script src="/resources/js/index/main.js"></script>
+<script src="/resources/js/index/words.js"></script>

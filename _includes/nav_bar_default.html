@@ -1,0 +1,43 @@
+{% assign hover_link = '
+      class="font-semibold rounded-full py-1 text-center whitespace-nowrap text-sm px-2 sm:text-base sm:px-2"
+      style="background:var(--color-hover-current-page); color:var(--color-text-current-page)"
+' %}
+
+{% assign usual_link = '
+      class="font-semibold rounded-full hover:bg-[var(--color-custom-hover)] py-1 text-center whitespace-nowrap text-sm px-2 sm:text-base sm:px-2"
+' %}
+
+<div class="fixed left-0 right-0 bottom-4 z-50 flex justify-center sm:top-4 sm:bottom-auto sm:left-1/2 sm:right-auto sm:-translate-x-1/2">
+  <div class="inline-flex h-10 sm:h-12 rounded-full items-center justify-between px-5 bg-white/40 backdrop-blur-md w-full max-w-xs sm:w-auto sm:max-w-none"
+    style="backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);"
+  >
+    <a href="/"
+      {% if page.url == "/" or page.url == "/index.html" %}
+        {{ hover_link }}
+      {% else %}
+        {{ usual_link }}
+      {% endif %}
+    >Главная</a>
+    <a href="/ai"
+      {% if page.url == "/ai" or page.url == "/ai.html" %}
+        {{ hover_link }}
+      {% else %}
+        {{ usual_link }}
+      {% endif %}
+    >Метод AI</a>
+    <a href="/media"
+      {% if page.url == "/media" or page.url == "/media.html" %}
+        {{ hover_link }}
+      {% else %}
+        {{ usual_link }}
+      {% endif %}
+    >Медиа</a>
+    <a href="/about"
+      {% if page.url == "/about" or page.url == "/about.html" %}
+        {{ hover_link }}
+      {% else %}
+        {{ usual_link }}
+      {% endif %}
+    >О нас</a>
+  </div>
+</div>

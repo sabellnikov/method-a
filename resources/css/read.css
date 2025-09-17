@@ -1,0 +1,12 @@
+:root {
+  /* Навигационная панель */
+  --color-nav-bg: #F6F6F6;
+  --color-nav-text: #23232C;
+  --color-nav-fill: #e5e5e5;
+}
+
+/* Базовые стили */
+body {
+  color: #23232C; /* Цвет текста лого и  */
+  background: #FFFFFF; /* Изменить цвет фона всей страницы */
+}

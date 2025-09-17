@@ -1,0 +1,116 @@
+{% assign class-link = 'class="
+  font-semibold rounded-full hover:bg-[var(--color-custom-hover)] py-1 text-center whitespace-nowrap px-2 text-sm sm:text-base transition-colors bg-fade
+  "' %}
+
+
+<div class="fixed left-1/2 -translate-x-1/2 bottom-4 z-50 sm:top-4 sm:bottom-auto w-full max-w-4xl w-sm sm:w-full px-10 sm:px-40">
+  <div id="nav-bar" class="flex h-10 sm:h-12 rounded-full items-center justify-between px-5 w-full z-50 shadow-xs bg-[var(--color-nav-bg)]">
+    
+    <!-- Кнопка "назад" -->
+    <button onclick="goToPreviousPage()" {{ class-link }}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+        <path d="M19 12H5M5 12l7 7M5 12l7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- Кнопка "Содержание" -->
+    {% if content contains '<h' %}
+      <div class="flex-1 flex justify-center">
+        <button id="dropdownButton" type="button" {{ class-link }} >
+          СОДЕРЖАНИЕ
+        </button>
+      </div>
+    {% else %}
+      <span class="flex-1 flex justify-center text-sm opacity-60">СОДЕРЖАНИЯ НЕТ</span>
+    {% endif %}
+
+    <!-- Блок действий справа -->
+    {% if page.category == "case" %}
+      <div class="flex items-center space-x-1">
+        <button
+          id="heart-btn"
+          {{ class-link }}
+          onclick="toggleHeart(this)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </button>
+      </div>
+    {% else %}
+      <a href="https://t.me/{{ site.telegram }}" class="flex items-center gap-1 font-semibold rounded-full hover:bg-[var(--color-custom-hover)] py-1 px-2 text-sm sm:text-base transition-colors bg-fade no-underline group">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" class="transition-colors duration-250" style="color:inherit;">
+          <path d="M7 17.013V21l4-4h6a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+{% if page.category == "case" %}
+  <div id="heartModal" class="modal-overlay" onclick="closeModal()">
+    <div
+      class="modal-content w-full max-w-md sm:max-w-xl p-8 sm:p-12 rounded-2xl bg-white shadow-2xl flex flex-col items-center"
+      onclick="event.stopPropagation()"
+    >
+      <!-- QR-код -->
+      <div class="w-32 h-32 mb-6 flex items-center justify-center bg-gray-100 rounded-xl hidden sm:flex">
+        <!-- Вставьте сюда ваш QR-код -->
+        <img src="/resources/qr/telegram_channel.png"
+          alt="QR Telegram"
+          class="w-30 h-30 object-contain"
+        />
+      </div>
+
+      <!-- Привлекательная надпись -->
+      <h3 class="mb-2 text-gray-900 text-3xl font-extrabold text-center leading-tight tracking-tight">
+        Присоединяйтесь к нашему Telegram!
+      </h3>
+      <p class="mb-6 text-gray-700 text-center text-lg sm:text-xl font-base leading-relaxed">
+        Получайте быстрые ответы, делитесь идеями и находите решения вместе с экспертами.<br>
+        <span class="font-semibold text-gray-800">Ваш успех — наша миссия!</span>
+      </p>
+
+      <!-- Кнопка Telegram -->
+      <a href="https://t.me/{{ site.telegram }}" target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-2 bg-[#2AABEE] hover:bg-[#229fdc] text-white font-semibold px-6 py-3 rounded-full text-lg shadow transition mb-4"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M9.04 12.34l-0.31 4.37c0.45 0 0.65-0.19 0.89-0.42l2.14-2.04 4.44 3.24c0.81 0.45 1.39 0.21 1.6-0.75l2.9-13.36c0.26-1.18-0.43-1.64-1.21-1.36l-17.02 6.56c-1.16 0.45-1.15 1.1-0.2 1.39l4.36 1.36 10.13-6.38c0.48-0.3 0.92-0.13 0.56 0.17l-8.2 7.41z" fill="currentColor"/>
+        </svg>
+        Перейти в Telegram
+      </a>
+
+      <!-- Кнопка закрытия -->
+      <button
+        onclick="closeModal()"
+        class="mt-2 bg-gray-200 hover:bg-gray-300 text-gray-700 border-none py-2 px-6 rounded-lg cursor-pointer text-base font-semibold transition"
+      >
+        Закрыть
+      </button>
+    </div>
+  </div>
+{% endif %}
+
+<!-- Выпадающая панель вне навбара -->
+<div id="dropdownPanel" class="hidden" style="position:fixed; left:0; top:0; width:100vw; z-index:9999;">
+  <div class="fixed left-1/2 -translate-x-1/2 bottom-18 z-50 sm:top-18 sm:bottom-auto w-full max-w-4xl w-sm sm:w-full px-10 sm:px-40 pointer-events-none">
+    <div class="flex rounded-3xl items-center justify-center px-5 w-full z-50 shadow-xs bg-[var(--color-nav-bg)] pointer-events-auto">
+      <div class="p-1 flex flex-col w-full">
+        {% assign headings = content | split: '<h' %}
+        {% for heading in headings %}
+          {% if forloop.first == false %}
+            {% assign heading_parts = heading | split: '>' %}
+            {% if heading_parts.size > 1 %}
+              {% assign heading_rest = heading_parts[1] %}
+              {% assign heading_content = heading_rest | split: '</h' | first | strip_html | strip %}
+              {% if heading_content != '' %}
+                {% assign heading_id = heading_content | slugify %}
+                <a href="#{{ heading_id }}" class="block w-full px-4 py-2 text-sm text-center hover:bg-[var(--color-custom-hover)] rounded-full m-1 transition-colors duration-200 no-underline focus:bg-[var(--color-custom-hover)] focus:outline-none bg-fade">{{ heading_content }}</a>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

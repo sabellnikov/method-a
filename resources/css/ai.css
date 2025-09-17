@@ -1,0 +1,47 @@
+:root {
+  /* Градиент фона */
+  --color-background-top: #DCF5F2;
+
+  /* Навигационная панель */
+  --color-hover-current-page: #1C3232;
+  --color-text-current-page: #83EADF;
+
+  /* Значок Telegram */
+  --color-logo: #1C3232;
+}
+
+body {
+  color: #1C3232; /* Цвет текста */
+}
+
+.will-change-transform {
+  will-change: transform, opacity;
+}
+
+/* Анимация машущей руки */
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(20deg); }
+  75% { transform: rotate(-10deg); }
+}
+
+.animate-wave {
+  animation: wave 0.6s ease-in-out 3;
+  transform-origin: 70% 70%;
+}
+
+[contenteditable]:empty:before {
+  content: attr(data-placeholder);
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+[contenteditable] strong {
+  font-weight: 600;
+  color: #0d9488;
+}
+
+#promptText {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

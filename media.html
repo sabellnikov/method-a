@@ -1,0 +1,78 @@
+---
+layout: default
+---
+
+<div class="background-blend fixed inset-0 w-screen z-10"></div>
+
+<div class="slide-section  relative z-10 bg-transparent" data-bg="var(--color-background-top)">
+      <div style="height:100vh"></div>
+
+        <div class="flex flex-col items-center justify-center min-h-[60vh]">
+      {% for post in site.categories.post %}
+        <a href="{{ post.url }}" style="text-decoration: none; color: inherit;">
+          <div class="card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 120px; height: 120px; margin-bottom: 1rem; padding: 0.5rem; background: #fff; border-radius: 8px; border: 1px solid #eee; text-align: center;">
+            <span style="font-size: 0.95rem; font-weight: 500;">{{ post.title }}</span>
+          </div>
+        </a>
+      {% endfor %}
+        </div>
+</div>
+
+
+<div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-middle)">
+    <div style="height:150vh"></div>
+</div>
+
+<div class="slide-section h-screen relative z-10 bg-transparent" data-bg="var(--color-background-bottom)">
+    <div style="height:150vh"></div>
+</div>
+
+<div style="height:200vh"></div>
+
+<div class="background-bottom bg-white fixed inset-0 w-screen h-screen z-0 transition-opacity duration-300 opacity-0">
+  <div class="absolute left-0 right-0 bottom-0 h-[80vh] flex flex-col md:flex-row gap-4 md:gap-6 px-2">
+    
+    
+    <div class="absolute inset-0 flex flex-col justify-center pointer-events-none text-[#003A4D] sm:pl-24">
+      <div class="flex flex-row items-center justify-between w-full max-w-xs sm:max-w-3xl mx-auto sm:mx-0 pointer-events-auto relative">
+
+
+      </div>
+    </div>
+
+    <!-- Desktop footer -->
+    <div class="absolute left-[2vw] bottom-[2vh] text-xs text-[#003A4D] hidden sm:block">
+      ИП Меркоева А.И.<br>
+      ИНН 463312689824<br>
+      ОГРН 323460000022305
+    </div>
+    <div class="absolute left-1/2 bottom-4 text-[#003A4D] hidden sm:block">
+      <a href="#up" class="mt-4 inline-block font-medium group relative">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-label="Наверх" class="inline">
+          <path d="M12 5l-7 7h4v7h6v-7h4l-7-7z"
+            fill="#003A4D"
+            class="transition-opacity duration-200 opacity-30 group-hover:opacity-100" />
+        </svg>
+      </a>
+    </div>
+    <div class="absolute right-[2vw] bottom-[2vh] text-xs text-[#003A4D] hidden sm:block">
+      <a href="/" class="hover:underline text-[#003A4D]">Публичная оферта</a><br>
+      <a href="/" class="hover:underline text-[#003A4D]">Пользовательское соглашение</a><br>
+      Все права защищены © <span id="copyright-year"></span>
+    </div>
+    <!-- Mobile footer -->
+    <div class="absolute inset-x-0 bottom-10 flex flex-col items-center justify-center text-xs text-[#003A4D] py-4 sm:hidden">
+      <div class="mb-2 text-center">
+        ИП Меркоева А.И.<br>
+        ИНН 463312689824<br>
+        ОГРН 323460000022305<br>
+        <a href="/" class="hover:underline text-[#003A4D]">Пользовательское соглашение</a><br>
+      </div>
+    </div>
+    
+  </div>
+
+</div>
+
+
+<script src="/resources/js/index/main-background.js"></script>

@@ -1,0 +1,9 @@
+    {% if page.url == "/" or page.url == "/index.html" %}
+      <link rel="stylesheet" href="/resources/css/index.css">
+    {% elsif page.url == "/ai" or page.url == "/ai.html" %}
+      <link rel="stylesheet" href="/resources/css/ai.css">
+    {% elsif page.url == "/media" or page.url == "/media.html" %}
+      <link rel="stylesheet" href="/resources/css/media.css">
+    {% elsif page.url == "/about" or page.url == "/about.html" %}
+      <link rel="stylesheet" href="/resources/css/about.css">
+    {% endif %}
