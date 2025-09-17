@@ -32,6 +32,7 @@
         {{ usual_link }}
       {% endif %}
     >Медиа</a>
+    <a href="edu.{{ site.url | remove: 'https://' | remove: 'http://' }}" {{ usual_link }} >LMS</a>
     <a href="/about"
       {% if page.url == "/about" or page.url == "/about.html" %}
         {{ hover_link }}
