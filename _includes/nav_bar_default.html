@@ -18,7 +18,13 @@
         {{ usual_link }}
       {% endif %}
     >Главная</a>
-    <a href="https://journal.{{ site.url | remove: 'https://' | remove: 'http://' }}" {{ usual_link }}>LMS</a>
+    <a href="/media"
+      {% if page.url == "/media" or page.url == "/media.html" %}
+        {{ hover_link }}
+      {% else %}
+        {{ usual_link }}
+      {% endif %}
+    >Медиа</a>
     <a href="/ai"
       {% if page.url == "/ai" or page.url == "/ai.html" %}
         {{ hover_link }}
