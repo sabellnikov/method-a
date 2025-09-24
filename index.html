@@ -24,11 +24,11 @@ layout: default
       </div>
     </div>
     <div id="cardsContainer" class="absolute inset-0 w-full h-full">
-      {% for post in site.categories.case %}
+      {% for post in site.posts %}
         <a href="{{ post.url }}" class="card-link absolute transition-[transform,filter] duration-300 ease-out min-w-[44px] min-h-[44px]" style="text-decoration: none; color: inherit; transform-style: preserve-3d;">
           <div class="card flex flex-col items-center justify-center w-[80px] h-[80px] sm:w-[120px] sm:h-[120px] p-1.5 sm:p-2 bg-white rounded-xl sm:rounded-2xl text-center relative border-2 sm:border-3 transition-transform duration-200 ease-out" style="border-color: var(--color-card-border); transform-style: preserve-3d;">
-            <img src="/resources/case_icons/{{ post.tags }}.png" class="featured-image-post w-6 h-6 sm:w-10 sm:h-10 mb-1 sm:mb-2 object-contain relative z-10 transition-transform duration-300 ease-out"/>
-            <span class="text-[0.7rem] sm:text-[0.95rem] font-medium relative z-10 block leading-tight sm:leading-none overflow-hidden text-ellipsis whitespace-nowrap max-w-full">{{ post.title }}</span>
+        <img src="/resources/case_icons/{{ post.tags }}.png" class="featured-image-post w-6 h-6 sm:w-10 sm:h-10 mb-1 sm:mb-2 object-contain relative z-10 transition-transform duration-300 ease-out"/>
+        <span class="text-[0.7rem] sm:text-[0.95rem] font-medium relative z-10 block leading-tight sm:leading-none overflow-hidden text-ellipsis whitespace-nowrap max-w-full">{{ post.title }}</span>
           </div>
         </a>
       {% endfor %}

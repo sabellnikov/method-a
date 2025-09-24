@@ -15,8 +15,15 @@
   --color-card-border: #F3F3E9;
 }
 
+.featured-image-post {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+}
+
 body {
   color: #322606; /* Цвет текста */
+  overflow-x: hidden;
 }
 
 .card-link {

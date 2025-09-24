@@ -19,11 +19,25 @@ const video = document.getElementById('teamVideo');
 const playBtn = document.getElementById('playBtn');
 const videoContainer = document.getElementById('videoContainer');
 const videoPlaceholder = document.getElementById('videoPlaceholder');
+let videoLoaded = false;
 
 playBtn.addEventListener('click', function() {
-  setTimeout(() => {
-    video.play();
-  }, 100);
+  if (!videoLoaded) {
+    // Начинаем загрузку видео
+    video.load();
+    videoLoaded = true;
+    
+    // Ждем, когда видео будет готово к воспроизведению
+    video.addEventListener('canplay', function() {
+      setTimeout(() => {
+        video.play();
+      }, 100);
+    }, { once: true });
+  } else {
+    setTimeout(() => {
+      video.play();
+    }, 100);
+  }
   playBtn.style.display = 'none';
 });
 
